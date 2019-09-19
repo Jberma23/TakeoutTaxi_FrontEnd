@@ -9,7 +9,7 @@ class Truck extends Component {
     render() {
         return (
 
-            <div className="ui card column" style={{ marginLeft: "4%" }}  >
+            <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%"  }}  >
                 <div className="scrolling content">
                     <div className="right floated meta">{this.props.truck.price}</div>
                     {this.props.truck.name}

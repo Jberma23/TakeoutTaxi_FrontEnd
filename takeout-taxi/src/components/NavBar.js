@@ -18,7 +18,7 @@ class NavBar extends Component {
                 <div className="right menu">
                     <div className="item">
                         <div className="ui icon input">
-                            <input type="text" placeholder="Search..." />
+                            <input type="text" placeholder="Search..." value={this.props.searchTerm} onChange={(event) => this.props.onChange(event)} />
                             <i className="search link icon"></i>
                         </div>
                     </div>

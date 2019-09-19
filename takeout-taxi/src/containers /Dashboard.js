@@ -10,7 +10,8 @@ class DashBoard extends Component {
     constructor() {
         super();
         this.state = {
-            trucks: []
+            trucks: [],
+            searchTerm: ""
         }
     }
 
@@ -25,12 +26,16 @@ class DashBoard extends Component {
         console.log(truck)
         debugger
     }
+    handleSearch = (event) => {
+        this.setState({searchTerm: event.target.value})
+    }
 
     render() {
         return (
             <div>
-                <div className="ui two column grid">
-                    <TruckContainer trucks={this.state.trucks} />
+                 <Header onChange={this.handleSearch} searchTerm={this.state.searchTerm} />
+                <div id="border" className="ui two column grid">
+                    <TruckContainer trucks={this.state.trucks.filter(truck => truck.name.includes(this.state.searchTerm))} />
                     <MapContainer handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
                 </div>
             </div>

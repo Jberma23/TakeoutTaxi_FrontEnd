@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import Navbar from "./NavBar"
+import {Header} from 'semantic-ui-react'
 
 
 
-
-class Header extends Component {
+class Headr extends Component {
     state = {}
     render() {
         return (
-            <div className="jumbotron" style={{ paddingBottom: "1%" }}>
-                <h1 className="display-4" color='teal'>Takeout Taxi</h1>
+            <div id="header" className="jumbotron" style={{ paddingBottom: "1%" }}>
+                <Header as='h2' color='teal' textAlign='center'>Takeout Taxi</Header>
                 <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
                 <hr className="my-4" />
-                <Navbar onChange={this.props.onChange} searchTerm={this.props.searchTerm} />
                 {/* <hr className="my-4" /> */}
                 {/* <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
                 <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> */}
@@ -21,6 +20,6 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default Headr;
 
 

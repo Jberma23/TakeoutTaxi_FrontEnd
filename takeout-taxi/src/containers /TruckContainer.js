@@ -18,7 +18,7 @@ class TruckContainer extends Component {
 
     render() {
         return (
-            <div className="ui one column grid " style={{ paddingTop: "0.3rem", height: "100vh", width: "30%", overflow: "scroll" }} >
+            <div className="ui one column grid " style={{ paddingTop: "0.0rem", height: "80vh", width: "30%", overflow: "scroll" }} >
 
                 {this.renderTrucks()}
             </div>
