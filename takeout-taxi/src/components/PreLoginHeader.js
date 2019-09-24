@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Navbar from "./NavBar"
-import {Header} from 'semantic-ui-react'
+
+import { Header } from 'semantic-ui-react'
 
 
 

@@ -23,60 +23,74 @@ class OwnersContainer extends Component {
                 price: "",
                 address: "",
             }
-          }
+        }
     }
     // componentDidMount(){
     //     this.setState({trucks: this.props.filteredTrucks})
     // }
 
     handleCreateTruckPriceChange = (event) => {
-        this.setState({newTruck: {...this.state.newTruck, 
-            price: event.target.innerText}})
+        this.setState({
+            newTruck: {
+                ...this.state.newTruck,
+                price: event.target.innerText
+            }
+        })
     }
 
     handleCreateTruckChange = (event) => {
-        this.setState({newTruck: {...this.state.newTruck, 
-            [event.target.id]: event.target.value}})
+        this.setState({
+            newTruck: {
+                ...this.state.newTruck,
+                [event.target.id]: event.target.value
+            }
+        })
     }
-   
+
     handleCreateTruckSubmit = (event) => {
         event.preventDefault()
         Geocode.fromAddress(this.state.newTruck.address).then(
             response => {
-              const { lat, lng } = response.results[0].geometry.location;
-              this.setState({newTruck: {...this.state.newTruck, 
-                latitude: lat,
-                longitude: lng
-            }})
-              debugger
+                const { lat, lng } = response.results[0].geometry.location;
+                this.setState({
+                    newTruck: {
+                        ...this.state.newTruck,
+                        latitude: lat,
+                        longitude: lng
+                    }
+                })
+                debugger
             },
             error => {
-              console.error(error);
+                console.error(error);
             }
-          );
-        
-      
-        fetch("http://localhost:3000/trucks",{
+        );
+
+
+        fetch("http://localhost:3000/trucks", {
             method: "POST",
-            headers: {"Content-Type": "application/json", 
-            Accept: 'application/json'},
-            body: JSON.stringify({truck: this.state.newTruck})})
+            headers: {
+                "Content-Type": "application/json",
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({ truck: this.state.newTruck })
+        })
             .then(res => res.json())
-            .then(res => this.setState({trucks: [...this.state.trucks, res]}))
+            .then(res => this.setState({ trucks: [...this.state.trucks, res] }))
             .catch(e => console.error(e))
     }
-    render() { 
+    render() {
         return (
-        <div>
-            <OwnerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
-            <div id="border" className="ui two column grid">
-            <OwnerTruckContainer  currentUser={this.props.currentUser} trucks={this.props.trucks} />
-            <OwnerMapContainer currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.trucks} /> 
-        </div> 
-            <OwnerTruckForm  handleCreateTruckPriceChange={this.handleCreateTruckPriceChange} handleCreateTruckChange={this.handleCreateTruckChange}  handleCreateTruckSubmit={this.handleCreateTruckSubmit} currentUser={this.props.currentUser}/>
-        </div>  
-    );
+            <div>
+                <OwnerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
+                <div id="border" className="ui two column grid">
+                    <OwnerTruckContainer currentUser={this.props.currentUser} trucks={this.props.trucks} getLocation={this.props.getLocation} />
+                    <OwnerMapContainer currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.trucks} />
+                </div>
+                <OwnerTruckForm handleCreateTruckPriceChange={this.handleCreateTruckPriceChange} handleCreateTruckChange={this.handleCreateTruckChange} handleCreateTruckSubmit={this.handleCreateTruckSubmit} currentUser={this.props.currentUser} />
+            </div>
+        );
     }
 }
- 
+
 export default OwnersContainer;

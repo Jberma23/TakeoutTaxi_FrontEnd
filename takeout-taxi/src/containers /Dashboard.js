@@ -21,8 +21,14 @@ class DashBoard extends Component {
         }
     }
     showPosition = (position) => {
-        this.setState({ longitude: position.coords.longitude, latitude: position.coords.latitude })
+        this.setState({
+            currentUser: {
+                ...this.state.currentUser,
+                location: ({ longitude: position.coords.longitude, latitude: position.coords.latitude })
+            }
+        })
     }
+
 
     componentDidMount() {
         fetch("http://localhost:3000/trucks")
@@ -46,12 +52,11 @@ class DashBoard extends Component {
                     {this.getLocation()}
                     <CustomerContainer onChange={this.handleSearch} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
                         handleUserLogOut={this.props.handleUserLogOut}
-                        longitude={this.state.longitude} latitude={this.state.latitude}
                         filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
                 </div>
                 :
                 <div>
-                    <OwnersContainer onChange={this.handleSearch} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
+                    <OwnersContainer getLocation={this.getLocation} state={this.state} onChange={this.handleSearch} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
                         filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
 
                 </div>

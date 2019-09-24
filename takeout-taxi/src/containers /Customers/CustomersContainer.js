@@ -15,7 +15,7 @@ class CustomerContainer extends Component {
                 <CustomerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                 <div id="border" className="ui two column grid">
                     <CustomerTruckContainer currentUser={this.props.currentUser} trucks={this.props.filteredTrucks} />
-                    <CustomerMapContainer currentUser={this.props.currentUser} latitude={this.props.latitude} longitude={this.props.longitude} handlePinClick={this.handlePinClick} trucks={this.props.filteredTrucks} />
+                    <CustomerMapContainer currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.filteredTrucks} />
                 </div>
             </div>
 

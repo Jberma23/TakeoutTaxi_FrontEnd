@@ -9,7 +9,7 @@ class OwnerTruck extends Component {
     render() {
         return (
 
-            <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%"  }}  >
+            <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }}  >
                 <div className="scrolling content">
                     <div className="left floated meta">{this.props.truck.price}</div>
                     <div className="right floated meta">Favorite<i className="heart outline icon"></i></div>
@@ -24,22 +24,22 @@ class OwnerTruck extends Component {
                         Average Rating: {this.props.truck.rating}
                     </span>
                     <span className="left floated"> <i className="comment icon"></i>
-                    Reviews: {this.props.truck.review_count}</span>
-                   
+                        Reviews: {this.props.truck.review_count}</span>
+
                 </div>
                 <div className="extra content">
                     <div className="ui large transparent left icon input">
                         {/* <i className="heart outline icon"></i> */}
-                        <button type="">Check In</button>
+                        <button onClick={this.props.getLocation}>Check In</button>
                     </div>
 
                     <div>
-                    Orders:
+                        Orders:
                     <ul>
-                        <li>
+                            <li>
 
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
