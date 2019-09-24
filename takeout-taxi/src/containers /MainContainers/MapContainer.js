@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SimpleMap from "../components/Map"
-import Map from "../Map.png"
+import GoogleMap from "../../components/Map"
+import mapPic from "../Map.png"
 class MapContainer extends Component {
     state = {}
 
@@ -10,8 +10,8 @@ class MapContainer extends Component {
 
     render() {
         return (
-          <img src={Map} style={{ height: '80vh', width: '72%', paddingTop: "0.0rem", }}  alt="map"/>
-            // <SimpleMap trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} />
+        //   <img src={mapPic} style={{ height: '80vh', width: '72%', paddingTop: "0.0rem", }}  alt="map"/>
+            <GoogleMap trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} />
         );
     }
 }

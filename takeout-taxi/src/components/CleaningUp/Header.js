@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from "./NavBar"
+import Navbar from "../NavBar"
 
 
 
@@ -10,7 +10,7 @@ class Header extends Component {
         return (
             <div className="jumbotron" style={{ paddingBottom: "1%" }}>
                 <h1 className="display-4" color='teal'>Takeout Taxi</h1>
-                <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                <p className="lead">Welcome Owner </p>
                 <hr className="my-4" />
                 <Navbar onChange={this.props.onChange} searchTerm={this.props.searchTerm} />
                 {/* <hr className="my-4" /> */}

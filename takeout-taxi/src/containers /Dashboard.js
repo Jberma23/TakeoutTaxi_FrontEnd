@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import TruckContainer from "./TruckContainer"
-import Header from "../components/Header"
-import Navbar from "../components/NavBar"
-import MapContainer from "./MapContainer"
 
+import CustomerContainer from "./Customers/CustomersContainer"
+import OwnersContainer from "./Owners/OwnersContainer"
 
 
 class DashBoard extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
+            currentUser: props.user,
             trucks: [],
             searchTerm: ""
         }
+    }
+    getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.showPosition);
+        } else {
+            console.log("Geolocation is not supported by this browser.")
+        }
+    }
+    showPosition = (position) => {
+        this.setState({ longitude: position.coords.longitude, latitude: position.coords.latitude })
     }
 
     componentDidMount() {
@@ -27,18 +36,26 @@ class DashBoard extends Component {
         debugger
     }
     handleSearch = (event) => {
-        this.setState({searchTerm: event.target.value})
+        this.setState({ searchTerm: event.target.value })
     }
 
     render() {
         return (
-            <div>
-                 <Header onChange={this.handleSearch} searchTerm={this.state.searchTerm} />
-                <div id="border" className="ui two column grid">
-                    <TruckContainer trucks={this.state.trucks.filter(truck => truck.name.includes(this.state.searchTerm))} />
-                    <MapContainer handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
+            this.state.currentUser.role === "customer" ?
+                <div>
+                    {this.getLocation()}
+                    <CustomerContainer onChange={this.handleSearch} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
+                        handleUserLogOut={this.props.handleUserLogOut}
+                        longitude={this.state.longitude} latitude={this.state.latitude}
+                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
                 </div>
-            </div>
+                :
+                <div>
+                    <OwnersContainer onChange={this.handleSearch} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
+                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
+
+                </div>
+
         );
     }
 }

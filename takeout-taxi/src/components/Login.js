@@ -1,28 +1,30 @@
 import React from 'react'
-import Headr from "./PreLoginHeader"
+
 import {Link} from "react-router-dom"
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import DashBoard from '../containers /Dashboard'
-const LoginForm = () => (
+const LoginForm = (props) => (
 <React.Fragment>
-<Headr />
-  <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+
+  <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='teal' textAlign='center'>
         <i className="truck icon" ></i> Log-in to your account
       </Header>
-      <Form size='large' onSubmit={(event) => this.props.handleLogin}>
+      <Form size='large' >
         <Segment stacked>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+          <Form.Input fluid icon='user' id="email" iconPosition='left' placeholder='E-mail address' onChange={(event) => props.handleLoginChange(event)}/>
           <Form.Input
             fluid
             icon='lock'
+            id="password"
             iconPosition='left'
             placeholder='Password'
             type='password'
+            onChange={(event) => props.handleLoginChange(event)}
           />
 
-          <Button type="Submit" color='teal' fluid size='large'>
+          <Button type="Submit" color='teal' fluid size='large' onClick={(event) => props.handleLoginSubmit(event)}>
             Login
           </Button>
         </Segment>
@@ -33,7 +35,7 @@ const LoginForm = () => (
     </Grid.Column>
   </Grid>
   
-  <DashBoard/>
+ 
   </React.Fragment>
 )
 
