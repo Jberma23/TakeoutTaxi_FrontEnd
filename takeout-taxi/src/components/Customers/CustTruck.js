@@ -92,7 +92,7 @@ class CustTruck extends Component {
                                             <List.Item>
                                                 <List.Icon name='comment' />
                                                 <List.Content>
-                                                    <List.Header as='a'>{r.reviewer}{r.reviewer}</List.Header>
+                                                    <List.Header as='a'>{r.username}</List.Header>
                                                     <List.Description>{r.content}
                                                     </List.Description>
                                                 </List.Content>

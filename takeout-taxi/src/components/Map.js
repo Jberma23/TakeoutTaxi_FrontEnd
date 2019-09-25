@@ -57,6 +57,7 @@ export class GoogleMap extends Component {
             // Important! Always set the container height explicitly
             <div style={{ height: '80vh', width: '72%', paddingTop: "0.3rem", }} className="10 wide column">
                 <Map
+                    style={{ height: '80vh', width: '72%', paddingTop: "0.0rem" }}
                     google={this.props.google}
                     zoom={11}
                     onClick={this.onMapClicked}

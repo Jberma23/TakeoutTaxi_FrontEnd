@@ -46,6 +46,41 @@ class OwnersContainer extends Component {
             }
         })
     }
+    getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.showPosition);
+        } else {
+            console.log("Geolocation is not supported by this browser.")
+        }
+    }
+    showPosition = (position) => {
+        let location = {
+            longitude: position.coords.longitude,
+            latitude: position.coords.latitude
+
+        }
+        return location
+    }
+    handleCheckIn = (event, truck) => {
+        let data = this.getLocation()
+        debugger
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.showPosition)
+            fetch(`http://localhost:3000/trucks/${truck.id}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    data
+                })
+            })
+                .then(response => console.log(response))
+        } else {
+            console.log("Geolocation is not supported by this browser.")
+        }
+    }
 
     handleCreateTruckSubmit = (event) => {
         event.preventDefault()
@@ -84,7 +119,7 @@ class OwnersContainer extends Component {
             <div>
                 <OwnerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                 <div id="border" className="ui two column grid">
-                    <OwnerTruckContainer currentUser={this.props.currentUser} trucks={this.props.trucks} getLocation={this.props.getLocation} />
+                    <OwnerTruckContainer currentUser={this.props.currentUser} trucks={this.props.trucks} getLocation={this.props.getLocation} handleCheckIn={this.handleCheckIn} />
                     <OwnerMapContainer currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.trucks} />
                 </div>
                 <OwnerTruckForm handleCreateTruckPriceChange={this.handleCreateTruckPriceChange} handleCreateTruckChange={this.handleCreateTruckChange} handleCreateTruckSubmit={this.handleCreateTruckSubmit} currentUser={this.props.currentUser} />

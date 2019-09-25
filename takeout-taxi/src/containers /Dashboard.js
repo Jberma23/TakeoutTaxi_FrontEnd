@@ -103,7 +103,8 @@ class DashBoard extends Component {
                 body: JSON.stringify({
                     reviewer_id: this.state.currentUser.id,
                     reviewed_id: truck.id,
-                    content: this.state.comment
+                    content: this.state.comment,
+                    username: this.state.currentUser.username
                 })
             }).then(response => console.log(response))
             :
@@ -161,8 +162,8 @@ class DashBoard extends Component {
                 </div>
                 :
                 <div>
-                    <OwnersContainer getLocation={this.getLocation} state={this.state} onChange={this.handleSearch} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
-                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
+                    <OwnersContainer getLocation={this.getLocation} state={this.state} handleSearch={this.handleSearch} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
+                        trucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} />
 
                 </div>
 

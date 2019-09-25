@@ -10,8 +10,8 @@ class OwnerMapContainer extends Component {
 
     render() {
         return (
-          <img src={Map} style={{ height: '80vh', width: '72%', paddingTop: "0.0rem", }}  alt="map"/>
-            // <SimpleMap trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} />
+            //   <img src={Map} style={{ height: '80vh', width: '72%', paddingTop: "0.0rem", }}  alt="map"/>
+            <SimpleMap trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} />
         );
     }
 }
