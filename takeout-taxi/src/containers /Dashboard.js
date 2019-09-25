@@ -10,7 +10,8 @@ class DashBoard extends Component {
         this.state = {
             currentUser: props.user,
             trucks: [],
-            searchTerm: ""
+            searchTerm: "",
+            favorited: []
         }
     }
     getLocation = () => {
@@ -39,19 +40,123 @@ class DashBoard extends Component {
 
     handlePinClick = (event, truck) => {
         console.log(truck)
-        debugger
+
     }
     handleSearch = (event) => {
         this.setState({ searchTerm: event.target.value })
     }
+    handleFavorite = (event, truck) => {
+        fetch('http://localhost:3000/favorites', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: this.state.currentUser.id,
+                truck_id: truck.id,
+            })
+        })
+            .then(response => console.log(response))
+    }
+    handleRate = (e, { rating, maxRating }, truck) => {
+        this.state.currentUser.ratings.includes(truck.id) ?
+            fetch(`http://localhost:3000/rating/${truck.rating.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    rater_id: this.state.currentUser.id,
+                    rated_id: truck.id,
+                    score: rating
+                })
+            }).then(response => console.log(response))
+            :
+            fetch('http://localhost:3000/ratings', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    rater_id: this.state.currentUser.id,
+                    rated_id: truck.id,
+                    score: rating
+                })
+            })
+                .then(response => console.log(response))
+    }
+    handleCommentChange = (event, truck) => {
+        this.setState({ comment: event.target.value })
+        debugger
+    }
+    handleCommentSubmit = (event, truck) => {
+        this.state.currentUser.reviews.includes(truck.id) ?
+            fetch(`http://localhost:3000/reviews/${truck.review.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    reviewer_id: this.state.currentUser.id,
+                    reviewed_id: truck.id,
+                    content: this.state.comment
+                })
+            }).then(response => console.log(response))
+            :
+            fetch('http://localhost:3000/reviews', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    reviewer_id: this.state.currentUser.id,
+                    reviewed_id: truck.id,
+                    content: this.state.comment
+                })
+            })
+                .then(response => console.log(response)
+                    //     {
+                    //     let col = [...this.state.trucks]
+                    //     let i = col.indexOf(truck)
+                    //     this.setState({
+                    //         trucks:
+                    //             [...col.slice(0, i), {
+                    //                 truck: [...this.state.trucks.slice(0, i), {
+                    //                     reviews: [...this.state.trucks.slice(0, i).reviews.shift(response)]
+                    //                 }, {
+                    //                     reviews_count: this.state.trucks.slice(0, i).reviews_count + this.state.trucks.slice(0, i).reviews.length
+                    //                 }]
+                    //             }
+                    //             ]
+                    //     })
+                    // }
+                )
+    }
+
+
+
+
+
+
+
+
 
     render() {
         return (
             this.state.currentUser.role === "customer" ?
                 <div>
                     {this.getLocation()}
-                    <CustomerContainer onChange={this.handleSearch} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
+                    <CustomerContainer handleSearch={this.handleSearch} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
+                        handleCommentSubmit={this.handleCommentSubmit}
+                        handleCommentChange={this.handleCommentChange}
+                        handleRate={this.handleRate}
                         handleUserLogOut={this.props.handleUserLogOut}
+                        handleFavorite={this.handleFavorite}
                         filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
                 </div>
                 :

@@ -14,7 +14,7 @@ class CustomerTruckContainer extends Component {
 
     renderAllTrucks = () => {
 
-    return this.props.trucks.map(truck => <Truck key={truck.id} truck={truck} />)
+        return this.props.trucks.map(truck => <Truck handleCommentChange={this.props.handleCommentChange} handleCommentSubmit={this.props.handleCommentSubmit} handleFavorite={this.props.handleFavorite} currentUser={this.props.currentUser} handleRate={this.props.handleRate} key={truck.id} truck={truck} />)
     }
 
 
@@ -23,10 +23,10 @@ class CustomerTruckContainer extends Component {
     render() {
         return (
             <div className="ui one column grid " style={{ paddingTop: "0.0rem", height: "80vh", width: "30%", overflow: "scroll" }} >
-           
-                
+
+
                 {this.renderAllTrucks()}
-                
+
             </div>
 
         );

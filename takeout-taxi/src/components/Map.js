@@ -8,13 +8,17 @@ export class GoogleMap extends Component {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
+            initialCenter: {
+                lat: 38.90,
+                lng: -76.98
+            }
         }
     }
     componentDidMount() {
-        (this.props.longitude && this.props.latitude) ?
-            this.setState({ initialCenter: { lat: this.props.latitude, lng: this.props.latitude } })
-            :
-            this.setState({ initialCenter: { lat: 38.90, lng: -76.98 } })
+        // (this.props.currentUser.location) ?
+        this.setState({ initialCenter: { lat: this.props.latitude, lng: this.props.latitude } })
+        // :
+        // this.setState({ initialCenter: { lat: 38.90, lng: -76.98 } })
     }
 
     onMapClicked = (props) => {
@@ -75,5 +79,5 @@ export class GoogleMap extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: ''
+    apiKey: 'AIzaSyDq4WZaU1aV8uf4y2Orru4jOl1d3iKaoPY'
 })(GoogleMap);; 

@@ -9,7 +9,7 @@ class Truck extends Component {
     render() {
         return (
 
-            <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%"  }}  >
+            <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }}  >
                 <div className="scrolling content">
                     <div className="right floated meta">{this.props.truck.price}</div>
                     {this.props.truck.name}
@@ -18,8 +18,10 @@ class Truck extends Component {
                     <img src={this.props.truck.image_url} alt={this.props.truck.name} />
                 </div>
                 <div className="content">
+                    <span className="right floated" onClick={() => console.log("click")} >
+                        <button id="hidden" onClick={() => console.log("click")}><i className="heart outline like icon" ></i></button>
+                    </span>
                     <span className="right floated">
-                        <i className="heart outline like icon"></i>
                         Average Rating: {this.props.truck.rating}
                     </span>
                     <i className="comment icon"></i>

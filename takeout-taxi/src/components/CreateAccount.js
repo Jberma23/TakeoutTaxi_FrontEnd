@@ -24,9 +24,9 @@ class AccountCreate extends Component {
             <Form size='large' onSubmit={(event) => this.props.handleCreateAccountSubmit(event)}>
               <Segment stacked>
                 <Form.Input fluid icon='user' id="firstName" iconPosition='left' placeholder='First Name' onChange={(event) => this.props.handleCreateAccountChange(event)}/>
-                <Form.Input fluid icon='user' id="lastName" iconPosition='left' placeholder='Last Name' onChange={(event) => this.props.handleCreateAccountChange(event)}/>
-                <Form.Input fluid icon='user' id="email" iconPosition='left' placeholder='E-mail address' onChange={(event) => this.props.handleCreateAccountChange(event)}/>
-                <Form.Input fluid icon='user' id="username"iconPosition='left' placeholder='Username' onChange={(event) => this.props.handleCreateAccountChange(event)}/>
+                <Form.Input fluid icon='user outline' id="lastName" iconPosition='left' placeholder='Last Name' onChange={(event) => this.props.handleCreateAccountChange(event)}/>
+                <Form.Input fluid icon='envelope outline' id="email" iconPosition='left' placeholder='E-mail address' onChange={(event) => this.props.handleCreateAccountChange(event)}/>
+                <Form.Input fluid icon='address card outline' id="username"iconPosition='left' placeholder='Username' onChange={(event) => this.props.handleCreateAccountChange(event)}/>
                 <Form.Input
                   fluid
                   icon='lock'

@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import GoogleMap from "../../components/Map"
 import mapPic from "../../Map.png"
 class CustomerMapContainer extends Component {
-    state = {}
+    constructor(props) {
+        super(props)
+        this.state = {
+
+        }
+    }
 
 
 
@@ -10,8 +15,8 @@ class CustomerMapContainer extends Component {
 
     render() {
         return (
-            <img src={mapPic} style={{ height: '80vh', width: '72%', paddingTop: "0.0rem", }} alt="map" />
-            // <GoogleMap trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} longitude={this.props.currentUser.location.longitude) latitude={this.props.currentUser.location.latitude}/>
+            // <img src={mapPic} style={{ height: '80vh', width: '72%', paddingTop: "0.0rem", }} alt="map" />
+            <GoogleMap trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} currentUser={this.props.currentUser} />
         );
     }
 }

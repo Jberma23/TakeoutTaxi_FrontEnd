@@ -89,6 +89,14 @@ input[type="radio"].toggle-left + label {
 #star:hover{
   transform: scale(1.2);
 }
+#fullheart{
+  color: #FF0000;
+}
+#fullheart:hover{
+  color: #FF0000;
+  transform: scale(1.2);
+}
+
 
 #price:hover{
   color: #000000;

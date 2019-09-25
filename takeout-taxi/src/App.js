@@ -135,9 +135,10 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         if (data.authenticated) {
-          this.setState({ currentUser: data.user })
           localStorage.setItem("token", data.token)
-
+          fetch('http://localhost:3000/users')
+            .then(response => response.json())
+            .then(dat => this.setState({ currentUser: dat.user }))
         } else {
           alert("Incorrect Email or Password")
         }
