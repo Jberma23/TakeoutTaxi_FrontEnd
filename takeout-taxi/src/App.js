@@ -48,7 +48,7 @@ class App extends Component {
           this.updateUser(user)
         })
     } else {
-      this.setState({ loading: false })
+      this.setState({ loading: true })
     }
   }
 
@@ -128,21 +128,29 @@ class App extends Component {
         Accept: 'application/json'
       },
       body: JSON.stringify({
-        email: this.state.existingUser.email,
-        password: this.state.existingUser.password,
+        user: {
+          email: this.state.existingUser.email,
+          password: this.state.existingUser.password,
+        }
       })
     })
-      .then(response => response.json())
+      .then(response => {
+
+        if (response.ok) {
+          return response.json()
+
+        } else {
+          console.error("incorrect login info")
+        }
+      })
       .then(data => {
         if (data.authenticated) {
           localStorage.setItem("token", data.token)
-          fetch('http://localhost:3000/users')
-            .then(response => response.json())
-            .then(dat => this.setState({ currentUser: dat.user }))
+          this.setState({ currentUser: data.user })
         } else {
           alert("Incorrect Email or Password")
         }
-      })
+      }).catch((e) => console.error(e))
     // .then((jsonResponse) => {
     //   localStorage.setItem('jwt', jsonResponse.jwt)
     //   dispatch(setCurrentUser(jsonResponse.user))

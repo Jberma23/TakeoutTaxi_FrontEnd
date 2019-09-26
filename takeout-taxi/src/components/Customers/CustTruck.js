@@ -8,7 +8,7 @@ class CustTruck extends Component {
             favorites: props.currentUser.favorites,
             clicked: false
         }
-        debugger
+
     }
 
     // componentDidMount(){
@@ -19,7 +19,7 @@ class CustTruck extends Component {
 
 
     render() {
-        debugger
+
         return (
 
             <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }}  >

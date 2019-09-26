@@ -67,7 +67,7 @@ class OwnersContainer extends Component {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.showPosition)
             fetch(`http://localhost:3000/trucks/${truck.id}`, {
-                method: "POST",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: 'application/json'

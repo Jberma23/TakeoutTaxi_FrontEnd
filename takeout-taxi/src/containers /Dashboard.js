@@ -36,6 +36,7 @@ class DashBoard extends Component {
             .then(res => res.json())
             .then(data => { this.setState({ trucks: data }) })
             .catch(e => console.error(e))
+
     }
 
     handlePinClick = (event, truck) => {
@@ -53,8 +54,8 @@ class DashBoard extends Component {
                 Accept: 'application/json'
             },
             body: JSON.stringify({
-                user_id: this.state.currentUser.id,
-                truck_id: truck.id,
+                favoriter_id: this.state.currentUser.id,
+                favorited_id: truck.id,
             })
         })
             .then(response => console.log(response))

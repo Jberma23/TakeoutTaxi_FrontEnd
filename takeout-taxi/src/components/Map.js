@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
+
+
+
 export class GoogleMap extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +18,7 @@ export class GoogleMap extends Component {
         }
     }
     componentDidMount() {
-        // (this.props.currentUser.location) ?
+
         this.setState({ initialCenter: { lat: this.props.latitude, lng: this.props.latitude } })
         // :
         // this.setState({ initialCenter: { lat: 38.90, lng: -76.98 } })
@@ -44,12 +47,26 @@ export class GoogleMap extends Component {
             activeMarker: marker,
             showingInfoWindow: true
         });
+    randomLat = () => {
+        var min = 38.771353;
+        var max = 39.00;
+        var rand = min + (Math.random() * (max - min))
+        return rand
+    }
+    randomLong = () => {
+        var min = 76.815637;
+        var max = 77.216386;
+        var rand = min + (Math.random() * (max - min))
+        return rand
+    }
 
 
     renderMarkers = () => {
+
         return this.props.trucks.map(truck => {
-            return <Marker key={truck.id} position={{ lat: truck.latitude, lng: truck.longitude }} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
+            return <Marker key={truck.id} position={{ lat: this.randomLat(), lng: -this.randomLong() }} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
         })
+
     }
 
     render() {
@@ -64,6 +81,7 @@ export class GoogleMap extends Component {
                     // style={mapStyles}
                     onDragend={this.centerMoved}
                     initialCenter={this.state.initialCenter}
+                    currentUser={this.props.currentUser}
                 >
                     {this.renderMarkers()}
                     <InfoWindow
@@ -73,6 +91,14 @@ export class GoogleMap extends Component {
                             <h1>{this.state.selectedPlace.name}</h1>
                         </div>
                     </InfoWindow>
+                    {this.props.currentUser.location ?
+                        <>
+                            <Marker key={this.props.currentUser.id} position={{ lat: this.props.currentUser.location.latitude, lng: this.props.currentUser.location.longitude }} onClick={this.onMarkerClick} name="current Location" onMouseover={this.onMouseoverMarker} />
+                        </>
+
+
+                        :
+                        null}
                 </Map>
             </div>
         );
@@ -80,5 +106,5 @@ export class GoogleMap extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyDq4WZaU1aV8uf4y2Orru4jOl1d3iKaoPY'
+    apiKey: 'AIzaSyD-FWab7jGNA4Tu3oQ86S7WLWP8sB5Tb8c'
 })(GoogleMap);; 
