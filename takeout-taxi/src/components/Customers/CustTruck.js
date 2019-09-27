@@ -6,7 +6,8 @@ class CustTruck extends Component {
         super(props);
         this.state = {
             favorites: props.currentUser.favorites,
-            clicked: false
+            commentClicked: false,
+            favoriteClicked: false
         }
 
     }
@@ -15,8 +16,14 @@ class CustTruck extends Component {
     //     this.props.currentUser.favorites
     //     this.setState({favorites: [...this.state.ratings]})
     // }
+    handleComment = () => {
 
+    }
 
+    handleFavoriteClick = (event, truck) => {
+        this.props.handleFavorite(event, this.props.truck);
+        this.setState({ favoriteClicked: !this.state.clicked })
+    }
 
     render() {
 
@@ -26,14 +33,14 @@ class CustTruck extends Component {
                 <div className="scrolling content">
                     <div className="left floated meta" id="price">{this.props.truck.price}</div>
 
-                    {this.props.truck.favorites.length > 0 ?
+                    {this.props.truck.favorites.length > 0 || this.state.favoriteClicked ?
 
                         <>
-                            <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event, truck) => this.props.handleFavorite(event, this.props.truck)}></i></div>
+                            <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event, truck) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
                         </>
                         :
                         <>
-                            <div className="right floated meta">Favorite  <i id="heart" className="heart outline icon" onClick={(event, truck) => this.props.handleFavorite(event, this.props.truck)}></i></div>
+                            <div className="right floated meta">Favorite  <i id="heart" className="heart outline icon" onClick={(event, truck) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
                         </>
                     }
                     <>
@@ -68,9 +75,9 @@ class CustTruck extends Component {
 
                         // </span> */}
 
-                    {this.state.clicked ?
+                    {this.state.commentClicked ?
                         <>
-                            <span className="left floated"> <i id="review" className="comment icon" onClick={(event) => this.setState({ clicked: !this.state.clicked })} ></i>
+                            <span className="left floated"> <i id="review" className="comment icon" onClick={(event) => this.setState({ commentClicked: !this.state.commentClicked })} ></i>
                                 Reviews: {this.props.truck.reviews.length}</span>
                             <br></br>
                             <br></br>
@@ -92,7 +99,9 @@ class CustTruck extends Component {
                                             <List.Item>
                                                 <List.Icon name='comment' />
                                                 <List.Content>
-                                                    <List.Header as='a'>{r.username}</List.Header>
+                                                    <List.Header as='a'>
+                                                        <i className="user outline icon"></i>
+                                                        {r.username}</List.Header>
                                                     <List.Description>{r.content}
                                                     </List.Description>
                                                 </List.Content>
@@ -106,7 +115,7 @@ class CustTruck extends Component {
 
                         :
                         <span className="left floated"> <i id="review" className="comment icon" onClick={(event) =>
-                            this.setState({ clicked: !this.state.clicked })}
+                            this.setState({ commentClicked: !this.state.commentClicked })}
                         ></i>
                             Reviews: {this.props.truck.reviews.length}</span>
 

@@ -58,7 +58,13 @@ class DashBoard extends Component {
                 favorited_id: truck.id,
             })
         })
-            .then(response => console.log(response))
+            .then(response => response.json())
+            .then(res => this.setState({
+                currentUser: {
+                    ...this.state.currentUser,
+                    favorites: { ...this.state.currentUser.favorites, res }
+                }
+            }))
     }
     handleRate = (e, { rating, maxRating }, truck) => {
         this.state.currentUser.ratings.includes(truck.id) ?
@@ -91,7 +97,7 @@ class DashBoard extends Component {
     }
     handleCommentChange = (event, truck) => {
         this.setState({ comment: event.target.value })
-        debugger
+
     }
     handleCommentSubmit = (event, truck) => {
         this.state.currentUser.reviews.includes(truck.id) ?
