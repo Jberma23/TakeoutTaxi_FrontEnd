@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import { Icon } from "semantic-ui-react"
 
 
 
-
-export class GoogleMap extends Component {
+export class GoogleMap extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,25 +17,20 @@ export class GoogleMap extends Component {
             showingMyLocationWindow: true,
             myLocationMarker: {},
             myPlace: {},
+            favoritedTrucks: props.favoritedTrucks
         }
-    }
-    componentDidMount() {
 
-        this.setState({ initialCenter: { lat: this.props.latitude, lng: this.props.latitude } })
-        // :
-        // this.setState({ initialCenter: { lat: 38.90, lng: -76.98 } })
     }
 
     onMapClicked = (props) => {
+
         if (this.state.showingInfoWindow) {
             this.setState({
                 showingInfoWindow: false,
                 activeMarker: null
             })
         }
-    }
-    centerMoved(mapProps, map) {
-        // ...
+
     }
     centerMoved(mapProps, map) {
         // ...
@@ -45,46 +38,62 @@ export class GoogleMap extends Component {
     onMouseoverMarker(props, marker, e) {
         // ..
     }
-    onMarkerClick = (props, marker, e) =>
+    onMarkerClick = (props, marker, e) => {
+
+        //     console.log()
+        //     debugger
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true
-        });
+        })
+    };
 
-    onMyMarkerClick = (props, marker, e) =>
-        this.setState({
-            showingMyLocationWindow: true,
-            myLocationMarker: { marker },
-            myPlace: { props }
-        });
-    randomLat = () => {
-        var min = 38.771353;
-        var max = 39.00;
-        var rand = min + (Math.random() * (max - min))
-        return rand
-    }
-    randomLong = () => {
-        var min = 76.815637;
-        var max = 77.216386;
-        var rand = min + (Math.random() * (max - min))
-        return rand
-    }
+
 
 
     renderMarkers = () => {
 
-        return this.props.trucks.map(truck =>
-
-            <Marker key={truck.id} position={{ lat: this.randomLat(), lng: -this.randomLong() }} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
-
-        )
-
-
-
     }
 
+    renderInfoWindow = () => {
+        return <>
+            <InfoWindow
+                marker={this.state.activeMarker}
+                visible={this.state.showingInfoWindow}>
+                <div>
+                    <h1>{this.state.selectedPlace.name}</h1>
+                </div>
+            </InfoWindow>
+        </>
+    }
+
+
+    getFavorites = () => {
+        if (this.props.currentUser) {
+            const favorites = this.props.currentUser.favorites.map(element => element.favorited_id)
+            return favorites
+        }
+    }
+
+    checkFavorite = () => {
+        const favorites = this.getFavorites()
+
+        this.props.trucks.map(truck => {
+            if (favorites.includes(truck.id)) {
+                return "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            } else {
+                return "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+            }
+
+        })
+    }
+
+
+
+
     render() {
+
         return (
             // Important! Always set the container height explicitly
             <div style={{ height: '80vh', width: '72%', paddingTop: "0.3rem", }} className="10 wide column">
@@ -94,38 +103,67 @@ export class GoogleMap extends Component {
                     zoom={11}
                     onClick={this.onMapClicked}
                     // style={mapStyles}
-                    onDragend={this.centerMoved}
                     initialCenter={this.state.initialCenter}
-                    currentUser={this.props.currentUser}
                 >
-                    {this.renderMarkers()}
 
-                    {this.props.currentUser.location ?
-                        <Marker key={this.props.currentUser.id} position={{ lat: this.props.currentUser.location.latitude, lng: this.props.currentUser.location.longitude }} onReady={(event) => { this.setState({ myLocationMarker: event.target }) }} onClick={this.onMyMarkerClick} name="current Location" onMouseover={this.onMouseoverMarker} Icon="http://maps.google.com/mapfiles/ms/icons/blue.png" />
+
+                    {/* {this.props.currentUser.role == "customer" ?
+
+                        this.checkFavorite() :
+ */}
+
+                    {this.props.currentUser.favorites ?
+
+                        this.props.trucks.map(truck => {
+                            return < Marker key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
+                            } Icon={this.props.currentUser.favorites.map(element => element.favorited_id).includes(truck.id) ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
+                        }
+                        )
+                        :
+                        this.props.trucks.map(truck =>
+                            <Marker key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
+                            } Icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
+                        )
+                    }
+
+
+
+
+
+                    {this.props.currentUser ?
+                        <Marker key={this.props.currentUser.id} position={{ lat: this.props.currentUser.latitude, lng: this.props.currentUser.longitude }} name="current Location" onMouseover={this.onMouseoverMarker} Icon="http://maps.google.com/mapfiles/ms/icons/blue.png" />
                         : null}
-
-                    <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}>
-                        <div>
-                            <h1>{this.state.selectedPlace.name}</h1>
-                        </div>
-                    </InfoWindow>
-                    <InfoWindow
-                        marker={this.state.myLocationMarker}
-                        visible={this.state.showingInfoWindow}>
-                        <div>
-                            <h1>{this.state.selectedPlace.name}</h1>
-                        </div>
-                    </InfoWindow>
+                    {this.state.activeMarker ?
+                        <InfoWindow
+                            marker={this.state.activeMarker}
+                            visible={true}>
+                            <div>
+                                <h1>{this.state.selectedPlace.name}</h1>
+                            </div>
+                        </InfoWindow>
+                        :
+                        <InfoWindow
+                            marker={this.state.activeMarker}
+                            visible={false}>
+                            <div>
+                                <h1>{this.state.selectedPlace.name}</h1>
+                            </div>
+                        </InfoWindow>
+                    }
 
 
                 </Map>
             </div>
         );
+
     }
 }
 
-export default GoogleApiWrapper({
-    apiKey: 'AIzaSyD-FWab7jGNA4Tu3oQ86S7WLWP8sB5Tb8c'
-})(GoogleMap);; 
+export default GoogleApiWrapper((props) => {
+    return ({
+        apiKey: props.apiKey,
+    }
+    )
+})(GoogleMap);;
+
+

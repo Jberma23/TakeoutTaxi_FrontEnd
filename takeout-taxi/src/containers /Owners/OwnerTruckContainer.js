@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import OwnerTruck from "../../components/Owners/OwnerTruck"
-import OwnerTruckForm from "../../components/Owners/OwnerTruckForm"
+
 class OwnerTruckContainer extends Component {
     constructor(props) {
         super(props);

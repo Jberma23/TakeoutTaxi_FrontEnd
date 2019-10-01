@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from "./CustNavBar"
-import {Header} from "semantic-ui-react"
+import { Header } from "semantic-ui-react"
 
 
 
@@ -10,7 +10,7 @@ class CustHeader extends Component {
         return (
             <div className="jumbotron" style={{ paddingBottom: "1%" }}>
                 <Header as='h2' color='teal' textAlign='center'>Takeout Taxi</Header>
-                <Header as='h5' color='black' textAlign='center'>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</Header>
+                <Header as='h5' color='black' textAlign='center'>The Future of Takeout.</Header>
                 <hr className="my-4" />
                 <Navbar onChange={this.props.onChange} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                 {/* <hr className="my-4" /> */}

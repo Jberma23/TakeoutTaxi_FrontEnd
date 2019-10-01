@@ -16,7 +16,7 @@ class CustomerContainer extends Component {
                 <div id="border" className="ui two column grid">
                     <CustomerTruckContainer handleFavorite={this.props.handleFavorite} handleCommentSubmit
                         ={this.props.handleCommentSubmit} handleCommentChange={this.props.handleCommentChange} currentUser={this.props.currentUser} trucks={this.props.filteredTrucks} handleRate={this.props.handleRate} />
-                    <CustomerMapContainer currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.filteredTrucks} />
+                    <CustomerMapContainer currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.filteredTrucks} apiKey={this.props.apiKey} favoriteTrucks={this.props.favoriteTrucks} />
                 </div>
             </div>
 

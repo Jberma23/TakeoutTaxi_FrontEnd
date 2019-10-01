@@ -7,10 +7,9 @@ class OwnerTruck extends Component {
         this.state = {}
     }
     render() {
-        debugger
         return (
             <>
-                <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }} handleCheckIn={(event) => this.props.handleCheckIn(event, this.props.truck)} >
+                <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }}  >
                     <div className="scrolling content">
                         <div className="left floated meta">{this.props.truck.price}</div>
                         <div className="right floated meta">Favorite<i className="heart outline icon"></i></div>
@@ -31,7 +30,7 @@ class OwnerTruck extends Component {
                     <div className="extra content">
                         <div className="ui large transparent left icon input">
                             {/* <i className="heart outline icon"></i> */}
-                            <button onClick={this.props.getLocation}>Check In</button>
+                            <button onClick={this.props.getLocation} onClick={(event) => this.props.handleCheckIn(this.props)}>Check In</button>
                         </div>
 
                         <div>

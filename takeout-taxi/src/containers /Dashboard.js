@@ -11,7 +11,8 @@ class DashBoard extends Component {
             currentUser: props.user,
             trucks: [],
             searchTerm: "",
-            favorited: []
+            favorited: [],
+            favoriteTrucks: []
         }
     }
     getLocation = () => {
@@ -25,8 +26,9 @@ class DashBoard extends Component {
         this.setState({
             currentUser: {
                 ...this.state.currentUser,
-                location: ({ longitude: position.coords.longitude, latitude: position.coords.latitude })
+                longitude: position.coords.longitude, latitude: position.coords.latitude
             }
+
         })
     }
 
@@ -63,7 +65,8 @@ class DashBoard extends Component {
                 currentUser: {
                     ...this.state.currentUser,
                     favorites: { ...this.state.currentUser.favorites, res }
-                }
+                },
+                favoriteTrucks: [...this.state.favoriteTrucks, res.favorited_id]
             }))
     }
     handleRate = (e, { rating, maxRating }, truck) => {
@@ -113,7 +116,12 @@ class DashBoard extends Component {
                     content: this.state.comment,
                     username: this.state.currentUser.username
                 })
-            }).then(response => console.log(response))
+            }).then(response => this.setState({
+                currentUser: {
+                    ...this.state.currentUser,
+                    reviews: { ...this.state.currentUser.reviews, response }
+                }
+            }))
             :
             fetch('http://localhost:3000/reviews', {
                 method: "POST",
@@ -124,26 +132,18 @@ class DashBoard extends Component {
                 body: JSON.stringify({
                     reviewer_id: this.state.currentUser.id,
                     reviewed_id: truck.id,
-                    content: this.state.comment
+                    content: this.state.comment,
+                    username: this.state.currentUser.username
                 })
             })
-                .then(response => console.log(response)
-                    //     {
-                    //     let col = [...this.state.trucks]
-                    //     let i = col.indexOf(truck)
-                    //     this.setState({
-                    //         trucks:
-                    //             [...col.slice(0, i), {
-                    //                 truck: [...this.state.trucks.slice(0, i), {
-                    //                     reviews: [...this.state.trucks.slice(0, i).reviews.shift(response)]
-                    //                 }, {
-                    //                     reviews_count: this.state.trucks.slice(0, i).reviews_count + this.state.trucks.slice(0, i).reviews.length
-                    //                 }]
-                    //             }
-                    //             ]
-                    //     })
-                    // }
-                )
+                .then(response => this.setState({
+                    currentUser: {
+                        ...this.state.currentUser,
+                        reviews: { ...this.state.currentUser.reviews, response }
+                    }
+                }))
+
+
     }
 
 
@@ -163,13 +163,16 @@ class DashBoard extends Component {
                         handleCommentSubmit={this.handleCommentSubmit}
                         handleCommentChange={this.handleCommentChange}
                         handleRate={this.handleRate}
+                        apiKey={this.props.apiKey}
                         handleUserLogOut={this.props.handleUserLogOut}
                         handleFavorite={this.handleFavorite}
-                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} />
+                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} favoriteTrucks={this.state.favoriteTrucks} />
                 </div>
                 :
                 <div>
-                    <OwnersContainer getLocation={this.getLocation} state={this.state} handleSearch={this.handleSearch} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
+                    {this.getLocation()}
+                    <OwnersContainer state={this.state} handleSearch={this.handleSearch}
+                        apiKey={this.props.apiKey} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
                         trucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} />
 
                 </div>

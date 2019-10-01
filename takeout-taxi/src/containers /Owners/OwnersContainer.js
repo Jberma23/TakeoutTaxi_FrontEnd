@@ -4,7 +4,7 @@ import OwnerHeader from "../../components/Owners/OwnerHeader"
 import OwnerMapContainer from "./OwnerMapContainer"
 import OwnerTruckForm from "../../components/Owners/OwnerTruckForm"
 import Geocode from "react-geocode";
-Geocode.setApiKey("AIzaSyDq4WZaU1aV8uf4y2Orru4jOl1d3iKaoPY")
+
 
 class OwnersContainer extends Component {
     constructor(props) {
@@ -14,8 +14,9 @@ class OwnersContainer extends Component {
             newTruck: {
                 name: "",
                 user_id: props.currentUser.id,
-                image_url: "",
-                url: "",
+                image: [
+
+                ],
                 review_count: 0,
                 rating: 0,
                 latitude: "",
@@ -25,9 +26,10 @@ class OwnersContainer extends Component {
             }
         }
     }
-    // componentDidMount(){
-    //     this.setState({trucks: this.props.filteredTrucks})
-    // }
+
+    componentDidMount() {
+        Geocode.setApiKey(this.props.apiKey)
+    }
 
     handleCreateTruckPriceChange = (event) => {
         this.setState({
@@ -46,41 +48,48 @@ class OwnersContainer extends Component {
             }
         })
     }
-    getLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.showPosition);
-        } else {
-            console.log("Geolocation is not supported by this browser.")
-        }
-    }
-    showPosition = (position) => {
-        let location = {
-            longitude: position.coords.longitude,
-            latitude: position.coords.latitude
+    handleCreateTruckFeaturedImageChange = (event) => {
+        this.setState({
+            newTruck: {
+                ...this.state.newTruck,
+                image: [...this.state.newTruck.images, event.target.value]
 
-        }
-        return location
+            }
+        })
     }
-    handleCheckIn = (event, truck) => {
-        let data = this.getLocation()
-        debugger
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.showPosition)
-            fetch(`http://localhost:3000/trucks/${truck.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: 'application/json'
-                },
-                body: JSON.stringify({
-                    data
-                })
+    handleCreateTruckMenuChange = (event) => {
+        this.setState({
+            newTruck: {
+                ...this.state.newTruck,
+                image: [...this.state.newTruck.images, event.target.value]
+
+
+            }
+        })
+    }
+
+
+    handleCheckIn = (props) => {
+        let t = this
+        let data = {
+            latitude: `${props.currentUser.latitude}`,
+            longitude: `${props.currentUser.longitude}`
+        }
+        fetch(`http://localhost:3000/trucks/${props.truck.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                truck: data
+
             })
-                .then(response => console.log(response))
-        } else {
-            console.log("Geolocation is not supported by this browser.")
-        }
+        })
+            .then(response => console.log(response))
+
     }
+
 
     handleCreateTruckSubmit = (event) => {
         event.preventDefault()
@@ -94,12 +103,18 @@ class OwnersContainer extends Component {
                         longitude: lng
                     }
                 })
-                debugger
             },
             error => {
                 console.error(error);
             }
         );
+
+        fetch('http://localhost:3000/rails/active_storage/direct_uploads', {
+            method: 'POST',
+            body: {
+                blob: this.state.newTruck.image
+            }
+        })
 
 
         fetch("http://localhost:3000/trucks", {
@@ -120,9 +135,11 @@ class OwnersContainer extends Component {
                 <OwnerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                 <div id="border" className="ui two column grid">
                     <OwnerTruckContainer currentUser={this.props.currentUser} trucks={this.props.trucks} getLocation={this.props.getLocation} handleCheckIn={this.handleCheckIn} />
-                    <OwnerMapContainer currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.trucks} />
+                    <OwnerMapContainer
+                        apiKey={this.props.apiKey}
+                        currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.trucks} />
                 </div>
-                <OwnerTruckForm handleCreateTruckPriceChange={this.handleCreateTruckPriceChange} handleCreateTruckChange={this.handleCreateTruckChange} handleCreateTruckSubmit={this.handleCreateTruckSubmit} currentUser={this.props.currentUser} />
+                <OwnerTruckForm handleCreateTruckPriceChange={this.handleCreateTruckPriceChange} handleCreateTruckChange={this.handleCreateTruckChange} handleCreateTruckSubmit={this.handleCreateTruckSubmit} handleCreateTruckFeaturedImageChange={this.handleCreateTruckFeaturedImageChange} handleCreateTruckMenuChange={this.handleCreateTruckMenuChange} currentUser={this.props.currentUser} />
             </div>
         );
     }

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Login from "./components/Login"
 import './App.css';
-import Signup from "./components/CreateAccount"
-import newHeader from "./components/newHeader"
 
 import DashBoard from './containers /Dashboard';
-import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import CreateAccount from "./components/CreateAccount"
 
 class App extends Component {
@@ -50,6 +47,9 @@ class App extends Component {
     } else {
       this.setState({ loading: true })
     }
+    fetch("http://localhost:3000/locations")
+      .then(res => res.json())
+      .then(resp => this.setState({ apiKey: resp }))
   }
 
 
@@ -168,7 +168,7 @@ class App extends Component {
             <Route exact path="/login" render={() => this.state.currentUser ? <Redirect to="/home" /> :
               <Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit} />} />
             <Route path="/register" render={() => <CreateAccount owner={this.state.owner} handleCreateAccountSubmit={this.handleCreateAccountSubmit} handleCreateAccountOwnerChange={this.handleCreateAccountOwnerChange} handleCreateAccountChange={this.handleCreateAccountChange} />} />
-            <Route path="/home" render={() => this.state.currentUser ? <DashBoard user={this.state.currentUser} handleUserLogOut={this.handleUserLogOut} /> : <Redirect to="/login" />} />
+            <Route path="/home" render={() => this.state.currentUser ? <DashBoard apiKey={this.state.apiKey} user={this.state.currentUser} handleUserLogOut={this.handleUserLogOut} /> : <Redirect to="/login" />} />
           </Switch>
         </Router>
       </div>
