@@ -12,7 +12,7 @@ class OwnerTruckContainer extends Component {
 
     renderOwnerTrucks = () => {
         return this.props.trucks.filter(truck => truck.user_id == this.state.currentUser.id).map((truck) =>
-            <OwnerTruck handleCheckIn={this.props.handleCheckIn} getLocation={this.props.getLocation} key={truck.id} truck={truck} />
+            <OwnerTruck handleCheckIn={this.props.handleCheckIn} getLocation={this.props.getLocation} key={truck.id} truck={truck} handleCheckInForm={this.props.handleCheckInForm} />
         )
     }
 

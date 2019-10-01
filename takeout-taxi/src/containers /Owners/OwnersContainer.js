@@ -14,7 +14,7 @@ class OwnersContainer extends Component {
             newTruck: {
                 name: "",
                 user_id: props.currentUser.id,
-                image: [
+                Blob: [
 
                 ],
                 review_count: 0,
@@ -28,7 +28,7 @@ class OwnersContainer extends Component {
     }
 
     componentDidMount() {
-        Geocode.setApiKey(this.props.apiKey)
+
     }
 
     handleCreateTruckPriceChange = (event) => {
@@ -71,9 +71,10 @@ class OwnersContainer extends Component {
 
     handleCheckIn = (props) => {
         let t = this
+        debugger
         let data = {
-            latitude: `${props.currentUser.latitude}`,
-            longitude: `${props.currentUser.longitude}`
+            latitude: `${t.props.currentUser.latitude}`,
+            longitude: `${t.props.currentUser.longitude}`
         }
         fetch(`http://localhost:3000/trucks/${props.truck.id}`, {
             method: "PATCH",
@@ -89,10 +90,20 @@ class OwnersContainer extends Component {
             .then(response => console.log(response))
 
     }
+    handleCheckInForm = (event, truck) => {
+        Geocode.setApiKey(this.props.apiKey)
+        Geocode.fromAddress(event.target.firstChild.lastChild.firstChild.value).then(
+            response => {
+                const { lat, lng } = response.results[0].geometry.location;
+            }
+        )
+    }
+
 
 
     handleCreateTruckSubmit = (event) => {
         event.preventDefault()
+        Geocode.setApiKey(this.props.apiKey)
         Geocode.fromAddress(this.state.newTruck.address).then(
             response => {
                 const { lat, lng } = response.results[0].geometry.location;
@@ -112,10 +123,9 @@ class OwnersContainer extends Component {
         fetch('http://localhost:3000/rails/active_storage/direct_uploads', {
             method: 'POST',
             body: {
-                blob: this.state.newTruck.image
+                Blob: this.state.newTruck.Blob
             }
         })
-
 
         fetch("http://localhost:3000/trucks", {
             method: "POST",
@@ -134,13 +144,13 @@ class OwnersContainer extends Component {
             <div>
                 <OwnerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                 <div id="border" className="ui two column grid">
-                    <OwnerTruckContainer currentUser={this.props.currentUser} trucks={this.props.trucks} getLocation={this.props.getLocation} handleCheckIn={this.handleCheckIn} />
+                    <OwnerTruckContainer currentUser={this.props.currentUser} trucks={this.props.trucks} getLocation={this.props.getLocation} handleCheckIn={this.handleCheckIn} handleCheckInForm={this.handleCheckInForm} />
                     <OwnerMapContainer
                         apiKey={this.props.apiKey}
                         currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.trucks} />
                 </div>
                 <OwnerTruckForm handleCreateTruckPriceChange={this.handleCreateTruckPriceChange} handleCreateTruckChange={this.handleCreateTruckChange} handleCreateTruckSubmit={this.handleCreateTruckSubmit} handleCreateTruckFeaturedImageChange={this.handleCreateTruckFeaturedImageChange} handleCreateTruckMenuChange={this.handleCreateTruckMenuChange} currentUser={this.props.currentUser} />
-            </div>
+            </div >
         );
     }
 }

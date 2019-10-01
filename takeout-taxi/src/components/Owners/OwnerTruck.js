@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-
+import { Form } from "semantic-ui-react"
 
 class OwnerTruck extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            toggle: false
+        }
     }
     render() {
         return (
@@ -25,22 +27,45 @@ class OwnerTruck extends Component {
                         </span>
                         <span className="left floated"> <i className="comment icon"></i>
                             Reviews: {this.props.truck.review_count}</span>
-
+                        <br></br>
+                        <br></br>
+                        <button className="center floated" onClick={this.props.getLocation} onClick={(event) => this.setState({ toggle: !this.state.toggle })}>Check In</button>
                     </div>
                     <div className="extra content">
                         <div className="ui large transparent left icon input">
                             {/* <i className="heart outline icon"></i> */}
-                            <button onClick={this.props.getLocation} onClick={(event) => this.props.handleCheckIn(this.props)}>Check In</button>
-                        </div>
 
-                        <div>
-                            Orders:
-                    <ul>
-                                <li>
+                            {this.state.toggle ?
+                                <>
 
-                                </li>
-                            </ul>
+
+                                    <Form onSubmit={(event) => this.props.handleCheckInForm(event, this.props.truck)}>
+                                        <Form.Input placeholder="Enter New Address..." />
+                                        <button type="submit">submit</button>
+                                    </Form >
+
+                                    <br></br>
+
+                                    Or
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+
+                                    <Form.Button onClick={(event) => this.props.handleCheckIn(this.props)}>Use My Location</Form.Button>
+                                </>
+
+                                :
+                                <div>
+                                    Orders:
+                                        <ul>
+                                        <li>
+
+                                        </li>
+                                    </ul>
+                                </div>}
                         </div>
+                        {/*  */}
+
                     </div>
                 </div>
 

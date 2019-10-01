@@ -32,7 +32,7 @@ class OwnerTruckForm extends Component {
 
                                 <Form.Input type="file" label="Menu PDF" icon='paperclip' id="menu_image" iconPosition='left' placeholder='Featured Menu image' onChange={(event) => imageUpload(event.target.files[0], this.props)} />
 
-                                <Form.Input type="text" icon='window maximize outline icon' id="url" iconPosition='left' placeholder='Website Url' onChange={(event) => this.props.handleCreateTruckChange(event)} />
+                                <Form.Input type="text" icon='window maximize outline' id="url" iconPosition='left' placeholder='Website Url' onChange={(event) => this.props.handleCreateTruckChange(event)} />
                                 {/* <Form.Input type="Text" fluid icon='compass' id="latitude" iconPosition='left' placeholder='Location (latitude)' onChange={(event) =>  this.props.handleCreateTruckChange(event)}/>
             <Form.Input type="Text" fluid icon='compass outline' id="longitude" iconPosition='left' placeholder='Location (longitude)' onChange={(event) =>  this.props.handleCreateTruckChange(event)}/> */}
                                 <Form.Input type="Text" fluid icon='location arrow' id="address" iconPosition='left' placeholder='Location (Full Address)' onChange={(event) => this.props.handleCreateTruckChange(event)} />
