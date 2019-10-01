@@ -11,9 +11,12 @@ export function imageUpload(
         // if (props) {
         //     props.change(previewField, '/spinner.gif');
         // }
+
+        let serviceUrlLink1
+        let serviceUrlLink2
         const upload = new DirectUpload(
             file, `http://localhost:3000/rails/active_storage/direct_uploads`);
-        upload.create((error, blob) => {
+        upload.create((error, blob1) => {
             if (error) {
                 alert('something went wrong with upload!');
             } else {
@@ -21,8 +24,17 @@ export function imageUpload(
                 //     props.change(field, blob.signed_id);
                 //     props.change(previewField, blob.service_url);
                 // }
-                resolve({ data: { ...blob, link: blob.service_url } })
+
+                resolve({
+                    data: {
+                        ...blob1, link: blob1.service_url
+                    }
+                })
+                // debugger
+                // props.handleChange(blob.service_url)
+
             }
         });
+        // return serviceUrlLink
     })
 }

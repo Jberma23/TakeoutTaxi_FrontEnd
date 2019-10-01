@@ -14,7 +14,7 @@ class OwnersContainer extends Component {
             newTruck: {
                 name: "",
                 user_id: props.currentUser.id,
-                Blob: [
+                image: [
 
                 ],
                 review_count: 0,
@@ -52,7 +52,7 @@ class OwnersContainer extends Component {
         this.setState({
             newTruck: {
                 ...this.state.newTruck,
-                image: [...this.state.newTruck.images, event.target.value]
+                image_url: event.data.service_url
 
             }
         })
@@ -120,12 +120,12 @@ class OwnersContainer extends Component {
             }
         );
 
-        fetch('http://localhost:3000/rails/active_storage/direct_uploads', {
-            method: 'POST',
-            body: {
-                Blob: this.state.newTruck.Blob
-            }
-        })
+        // fetch('http://localhost:3000/rails/active_storage/direct_uploads', {
+        //     method: 'POST',
+        //     body: {
+        //         image: this.state.newTruck.blob
+        //     }
+        // })
 
         fetch("http://localhost:3000/trucks", {
             method: "POST",

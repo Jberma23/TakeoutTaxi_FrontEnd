@@ -13,7 +13,10 @@ class OwnerTruckForm extends Component {
         this.state = {}
     }
 
-
+    Change = (props) => {
+        console.log(props)
+        debugger
+    }
 
     render() {
         return (
@@ -27,10 +30,12 @@ class OwnerTruckForm extends Component {
                             <Segment stacked>
                                 <Form.Input fluid icon='address book' id="name" iconPosition='left' placeholder='Truck Name' onChange={(event) => this.props.handleCreateTruckChange(event)} data-direct-upload-url="/rails/active_storage/direct_uploads" />
 
-                                <Form.Input label='Truck Image' type="file" icon='paperclip' id="featured_image" iconPosition='left' placeholder='Featured Truck Image' data-direct-upload-url="/rails/active_storage/direct_uploads" onChange={(event) => imageUpload(event.target.files[0], this.props)} />
+                                <Form.Input label='Truck or Menu Images' multiple={true} type="file" icon='paperclip' id="featured_image" iconPosition='left' placeholder='Featured Truck Image' data-direct-upload-url="/rails/active_storage/direct_uploads" onChange={(event) => imageUpload(event.target.files[0],
+                                    event.target.files[1], this.props).then(res => { this.props.handleCreateTruckFeaturedImageChange(res) })
+                                } />
 
 
-                                <Form.Input type="file" label="Menu PDF" icon='paperclip' id="menu_image" iconPosition='left' placeholder='Featured Menu image' onChange={(event) => imageUpload(event.target.files[0], this.props)} />
+                                {/* <Form.Input type="file" label="Menu PDF" icon='paperclip' id="menu_image" iconPosition='left' placeholder='Featured Menu image' onChange={(event) => imageUpload(event.target.files[0], this.props)} /> */}
 
                                 <Form.Input type="text" icon='window maximize outline' id="url" iconPosition='left' placeholder='Website Url' onChange={(event) => this.props.handleCreateTruckChange(event)} />
                                 {/* <Form.Input type="Text" fluid icon='compass' id="latitude" iconPosition='left' placeholder='Location (latitude)' onChange={(event) =>  this.props.handleCreateTruckChange(event)}/>
