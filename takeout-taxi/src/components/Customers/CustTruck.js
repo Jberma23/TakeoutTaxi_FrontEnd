@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, TextArea, Rating, Button, List } from 'semantic-ui-react'
-
+import { Link } from "react-router-dom"
 class CustTruck extends Component {
     constructor(props) {
         super(props);
@@ -87,7 +87,7 @@ class CustTruck extends Component {
                             <br></br>
                             <span className="center">
                                 <Form onSubmit={(event) => { this.props.handleCommentSubmit(event, this.props.truck) }}>
-                                    <TextArea placeholder='Leave a Comment Here' onChange={(event) => this.props.handleCommentChange(event, this.props.truck)} style={{ width: "100%" }} />
+                                    <TextArea placeholder='Leave a Comment Here' style={{ width: "100%" }} />
                                     <Button type='submit' >Submit</Button>
                                 </Form>
                             </span>
@@ -126,7 +126,7 @@ class CustTruck extends Component {
                 <div className="extra content">
                     <div className="ui large transparent left icon input">
                         {/* <i className="heart outline icon"></i> */}
-                        <button type="">Order</button>
+                        <Link to={'/orders'} ><button type="">Order</button></Link>
                     </div>
 
                     <div>

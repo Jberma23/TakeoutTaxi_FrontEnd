@@ -12,7 +12,8 @@ class DashBoard extends Component {
             trucks: [],
             searchTerm: "",
             favorited: [],
-            favoriteTrucks: []
+            favoriteTrucks: [],
+
         }
     }
     getLocation = () => {
@@ -39,9 +40,11 @@ class DashBoard extends Component {
             .then(data => { this.setState({ trucks: data }) })
             .catch(e => console.error(e))
 
+
+
     }
 
-    handlePinClick = (event, truck) => {
+    handleOrder = (event, truck) => {
         console.log(truck)
 
     }
@@ -95,7 +98,7 @@ class DashBoard extends Component {
                     score: rating
                 })
             })
-                .then(response => console.log(response))
+
                 .then(
                     fetch(`http://localhost:3000/updates
                     `, {
@@ -122,7 +125,6 @@ class DashBoard extends Component {
                     score: rating
                 })
             })
-                .then(response => console.log(response))
                 .then(
                     fetch(`http://localhost:3000/updates
                     `, {
@@ -136,11 +138,11 @@ class DashBoard extends Component {
                         })
                     }))
     }
-    handleCommentChange = (event, truck) => {
-        this.setState({ comment: event.target.value })
 
-    }
+
+
     handleCommentSubmit = (event, truck) => {
+        let content = event.target.firstChild.value
         this.state.currentUser.reviews.includes(truck.id) ?
             fetch(`http://localhost:3000/reviews/${truck.review.id}`, {
                 method: "PATCH",
@@ -151,7 +153,7 @@ class DashBoard extends Component {
                 body: JSON.stringify({
                     reviewer_id: this.state.currentUser.id,
                     reviewed_id: truck.id,
-                    content: this.state.comment,
+                    content: content,
                     username: this.state.currentUser.username
                 })
             }).then(response => this.setState({
@@ -181,7 +183,7 @@ class DashBoard extends Component {
                 body: JSON.stringify({
                     reviewer_id: this.state.currentUser.id,
                     reviewed_id: truck.id,
-                    content: this.state.comment,
+                    content: content,
                     username: this.state.currentUser.username
                 })
 

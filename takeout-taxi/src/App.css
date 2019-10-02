@@ -96,8 +96,16 @@ input[type="radio"].toggle-left + label {
   color: #FF0000;
   transform: scale(1.2);
 }
-
-
+#checkout{
+  background-color: white;
+  width: 29%;
+  max-height: 20%;
+  margin-left: 31%;
+  padding-left: 6px;
+  padding-top: 6px;
+  margin-top: 10%;
+  justify-content: center;
+}
 #price:hover{
   color: #000000;
 }

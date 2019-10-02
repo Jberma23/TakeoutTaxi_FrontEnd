@@ -17,7 +17,8 @@ export class GoogleMap extends React.PureComponent {
             showingMyLocationWindow: true,
             myLocationMarker: {},
             myPlace: {},
-            favoritedTrucks: props.favoritedTrucks
+            favoritedTrucks: props.favoritedTrucks,
+            currentUser: props.currentUser
         }
 
     }
@@ -70,6 +71,7 @@ export class GoogleMap extends React.PureComponent {
 
 
     getFavorites = () => {
+        debugger
         if (this.props.currentUser) {
             const favorites = this.props.currentUser.favorites.map(element => element.favorited_id)
             return favorites
@@ -112,11 +114,10 @@ export class GoogleMap extends React.PureComponent {
                         this.checkFavorite() :
  */}
 
-                    {this.props.currentUser.favorites ?
-
+                    {this.props.currentUser.role == "owner" ?
                         this.props.trucks.map(truck => {
                             return < Marker key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
-                            } Icon={this.props.currentUser.favorites.map(element => element.favorited_id).includes(truck.id) ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
+                            } Icon={this.state.currentUser.favorites.map((element) => element.favorited_id).includes(truck.id) ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
                         }
                         )
                         :

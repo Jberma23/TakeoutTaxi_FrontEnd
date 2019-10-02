@@ -6,12 +6,13 @@ class OwnerNavBar extends Component {
     render() {
         return (
             <div className="ui secondary  menu">
-                <a className="active item">
-                    Home
-            </a>
-                <a className="item">
+                <Link to={'/'} className="item">
+                    Owners Dashboard
+                    </Link>
+
+                <Link to={'/orders'} className="item">
                     Orders
-            </a>
+            </Link>
                 <Link to={'/feed'} className="item" >
 
                     Feed

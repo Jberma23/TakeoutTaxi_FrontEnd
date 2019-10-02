@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 class CustNavBar extends Component {
     state = {}
     render() {
         return (
             <div className="ui secondary  menu">
-                <a className="active item">
-                    Home
-            </a>
-                <a className="item">
-                    OrdersRedirect={'/feed'}
-                </a>
-                <a className="item" >
-                    <Link to={'/feed'} />
+                <Link to={'/'} className="item">
+                    Customer's Dashboard
+                    </Link>
+
+                <Link to={'/orders'} className="item">
+                    Orders
+                </Link>
+                <Link to={'/feed'} className="item" >
+
                     Feed
-            </a>
+                 </Link>
                 <div className="right menu">
                     <div className="item">
                         <div className="ui icon input">

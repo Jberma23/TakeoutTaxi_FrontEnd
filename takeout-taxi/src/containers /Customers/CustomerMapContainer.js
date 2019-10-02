@@ -9,6 +9,9 @@ class CustomerMapContainer extends Component {
         }
     }
 
+    // componentWillUpdate() {
+    //     return <GoogleMap trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} currentUser={this.props.currentUser} apiKey={this.props.apiKey} favoriteTrucks={this.props.favoriteTrucks} />
+    // }
 
 
 
@@ -19,6 +22,7 @@ class CustomerMapContainer extends Component {
             <GoogleMap trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} currentUser={this.props.currentUser} apiKey={this.props.apiKey} favoriteTrucks={this.props.favoriteTrucks} />
         );
     }
+
 }
 
 export default CustomerMapContainer;

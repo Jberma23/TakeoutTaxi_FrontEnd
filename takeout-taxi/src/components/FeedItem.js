@@ -18,7 +18,7 @@ class FeedItem extends Component {
                         />
                         <Feed.Summary>
                             <Feed>
-                                {this.props.update.content}
+                                <a>{this.props.update.content.split("just")[0]}</a> just {this.props.update.content.split("just")[1]}
                             </Feed >
                         </Feed.Summary>
                     </Feed.Content>
