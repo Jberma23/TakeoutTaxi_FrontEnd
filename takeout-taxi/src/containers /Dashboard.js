@@ -67,7 +67,19 @@ class DashBoard extends Component {
                     favorites: { ...this.state.currentUser.favorites, res }
                 },
                 favoriteTrucks: [...this.state.favoriteTrucks, res.favorited_id]
-            }))
+            })).then(
+                fetch(`http://localhost:3000/updates
+                `, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: 'application/json'
+                    },
+                    body: JSON.stringify({
+                        content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName} just favorited ${truck.name}`
+                    })
+                }))
+
     }
     handleRate = (e, { rating, maxRating }, truck) => {
         this.state.currentUser.ratings.includes(truck.id) ?
@@ -82,7 +94,21 @@ class DashBoard extends Component {
                     rated_id: truck.id,
                     score: rating
                 })
-            }).then(response => console.log(response))
+            })
+                .then(response => console.log(response))
+                .then(
+                    fetch(`http://localhost:3000/updates
+                    `, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: 'application/json'
+                        },
+                        body: JSON.stringify({
+                            content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName} just rated ${truck.name}`
+                        })
+                    }))
+
             :
             fetch('http://localhost:3000/ratings', {
                 method: "POST",
@@ -97,6 +123,18 @@ class DashBoard extends Component {
                 })
             })
                 .then(response => console.log(response))
+                .then(
+                    fetch(`http://localhost:3000/updates
+                    `, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: 'application/json'
+                        },
+                        body: JSON.stringify({
+                            content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName}  just rated ${truck.name}`
+                        })
+                    }))
     }
     handleCommentChange = (event, truck) => {
         this.setState({ comment: event.target.value })
@@ -121,7 +159,18 @@ class DashBoard extends Component {
                     ...this.state.currentUser,
                     reviews: { ...this.state.currentUser.reviews, response }
                 }
-            }))
+            })).then(
+                fetch(`http://localhost:3000/updates
+                `, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: 'application/json'
+                    },
+                    body: JSON.stringify({
+                        content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName}  just updated its review for ${truck.name}`
+                    })
+                }))
             :
             fetch('http://localhost:3000/reviews', {
                 method: "POST",
@@ -135,6 +184,7 @@ class DashBoard extends Component {
                     content: this.state.comment,
                     username: this.state.currentUser.username
                 })
+
             })
                 .then(response => this.setState({
                     currentUser: {
@@ -142,6 +192,18 @@ class DashBoard extends Component {
                         reviews: { ...this.state.currentUser.reviews, response }
                     }
                 }))
+                .then(
+                    fetch(`http://localhost:3000/updates
+                    `, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: 'application/json'
+                        },
+                        body: JSON.stringify({
+                            content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName}  just reviewed ${truck.name}`
+                        })
+                    }))
 
 
     }

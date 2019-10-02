@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from "./components/Login"
 import './App.css';
-
+import FeedContainer from "./containers /FeedContainer"
 import DashBoard from './containers /Dashboard';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import CreateAccount from "./components/CreateAccount"
@@ -50,7 +50,13 @@ class App extends Component {
     fetch("http://localhost:3000/locations")
       .then(res => res.json())
       .then(resp => this.setState({ apiKey: resp }))
+    fetch("http://localhost:3000/updates")
+      .then(res => res.json())
+      .then(data => this.setState({ updates: data })
+      )
   }
+
+
 
 
   handleUserLogOut = (event) => {
@@ -169,6 +175,8 @@ class App extends Component {
               <Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit} />} />
             <Route path="/register" render={() => <CreateAccount owner={this.state.owner} handleCreateAccountSubmit={this.handleCreateAccountSubmit} handleCreateAccountOwnerChange={this.handleCreateAccountOwnerChange} handleCreateAccountChange={this.handleCreateAccountChange} />} />
             <Route path="/home" render={() => this.state.currentUser ? <DashBoard apiKey={this.state.apiKey} user={this.state.currentUser} handleUserLogOut={this.handleUserLogOut} /> : <Redirect to="/login" />} />
+            <Route path="/feed" render={() => this.state.currentUser ? <FeedContainer updates={this.state.updates} user={this.state.currentUser} /> : <Redirect to="/login" />} />
+
           </Switch>
         </Router>
       </div>

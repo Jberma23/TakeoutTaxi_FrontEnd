@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link, Redirect } from "react-router-dom"
 
 class OwnerNavBar extends Component {
     state = {}
@@ -12,9 +12,10 @@ class OwnerNavBar extends Component {
                 <a className="item">
                     Orders
             </a>
-                <a className="item">
+                <Link to={'/feed'} className="item" >
+
                     Feed
-            </a>
+            </Link>
                 <div className="right menu">
                     <div className="item">
                         <div className="ui icon input">
@@ -22,11 +23,11 @@ class OwnerNavBar extends Component {
                             <i className="search link icon"></i>
                         </div>
                     </div>
-                    <a className="ui item" onClick={(event) => this.props.handleUserLogOut(event) }>
+                    <a className="ui item" onClick={(event) => this.props.handleUserLogOut(event)}>
                         Logout
               </a>
                 </div>
-            </div>
+            </div >
 
         );
     }

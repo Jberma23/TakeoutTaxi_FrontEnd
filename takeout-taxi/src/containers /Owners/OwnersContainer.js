@@ -89,14 +89,56 @@ class OwnersContainer extends Component {
         })
             .then(response => console.log(response))
 
+
+        let content = `${props.truck.name} just updated it's location`
+        fetch(`http://localhost:3000/updates`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                content: content
+            })
+        })
+
     }
     handleCheckInForm = (event, truck) => {
+        let address = event.target.firstChild.lastChild.firstChild.value
         Geocode.setApiKey(this.props.apiKey)
         Geocode.fromAddress(event.target.firstChild.lastChild.firstChild.value).then(
             response => {
                 const { lat, lng } = response.results[0].geometry.location;
+                fetch(`http://localhost:3000/trucks/${truck.id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: 'application/json'
+                    },
+                    body: JSON.stringify({
+                        latitude: `${lat}`,
+                        longitude: `${lng}`,
+                        address: address
+
+
+                    })
+                })
+
             }
         )
+
+        let content = `${truck.name} just updated it's location`
+        fetch(`http://localhost:3000/updates`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                content: content
+
+            })
+        })
     }
 
 
@@ -120,13 +162,18 @@ class OwnersContainer extends Component {
             }
         );
 
-        // fetch('http://localhost:3000/rails/active_storage/direct_uploads', {
-        //     method: 'POST',
-        //     body: {
-        //         image: this.state.newTruck.blob
-        //     }
-        // })
+        let content = `${this.state.currentUser.firstName} just added a new truck`
+        fetch(`http://localhost:3000/updates`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                feed_item: content
 
+            })
+        })
         fetch("http://localhost:3000/trucks", {
             method: "POST",
             headers: {
