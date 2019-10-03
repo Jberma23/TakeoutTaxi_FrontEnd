@@ -14,8 +14,10 @@ class CustomerTruckContainer extends Component {
 
     renderAllTrucks = () => {
 
-        return this.props.trucks.map(truck => <Truck handleCommentSubmit={this.props.handleCommentSubmit} handleFavorite={this.props.handleFavorite} currentUser={this.props.currentUser} handleRate={this.props.handleRate} handleFavoriteDelete={this.props.handleFavoriteDelete} key={truck.id} truck={truck} />)
+        return this.props.trucks.map(truck => <Truck selectedTruck={this.props.selectedTruck} handleCommentSubmit={this.props.handleCommentSubmit} handleFavorite={this.props.handleFavorite} currentUser={this.props.currentUser} handleRate={this.props.handleRate} handleFavoriteDelete={this.props.handleFavoriteDelete} key={truck.id} truck={truck} />)
     }
+
+
 
 
 

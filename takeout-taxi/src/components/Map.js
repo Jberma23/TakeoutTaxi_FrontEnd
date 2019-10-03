@@ -33,15 +33,13 @@ export class GoogleMap extends React.PureComponent {
         }
 
     }
-    centerMoved(mapProps, map) {
-        // ...
-    }
-    onMouseoverMarker(props, marker, e) {
-        // ..
-    }
+
+
     onMarkerClick = (props, marker, e) => {
 
         //     console.log()
+
+        this.props.handleSelectedTruck(props, e)
         //     debugger
         this.setState({
             selectedPlace: props,
@@ -53,43 +51,10 @@ export class GoogleMap extends React.PureComponent {
 
 
 
-    renderMarkers = () => {
-
-    }
-
-    renderInfoWindow = () => {
-        return <>
-            <InfoWindow
-                marker={this.state.activeMarker}
-                visible={this.state.showingInfoWindow}>
-                <div>
-                    <h1>{this.state.selectedPlace.name}</h1>
-                </div>
-            </InfoWindow>
-        </>
-    }
 
 
-    getFavorites = () => {
-        debugger
-        if (this.props.currentUser) {
-            const favorites = this.props.currentUser.favorites.map(element => element.favorited_id)
-            return favorites
-        }
-    }
 
-    checkFavorite = () => {
-        const favorites = this.getFavorites()
 
-        this.props.trucks.map(truck => {
-            if (favorites.includes(truck.id)) {
-                return "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-            } else {
-                return "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-            }
-
-        })
-    }
 
 
 
@@ -109,21 +74,18 @@ export class GoogleMap extends React.PureComponent {
                 >
 
 
-                    {/* {this.props.currentUser.role == "customer" ?
-
-                        this.checkFavorite() :
- */}
-
                     {this.props.currentUser.role == "customer" ?
                         this.props.trucks.map(truck => {
-                            return < Marker key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
-                            } Icon={this.state.currentUser.favorites.map((element) => element.favorited_id).includes(truck.id) ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
+                            return < Marker className="marker" id={`${truck.id} marker`} key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
+
+                            } Icon={this.state.currentUser.favorites.map((element) => element.favorited_id).includes(truck.id) ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} />
                         }
                         )
                         :
                         this.props.trucks.map(truck =>
-                            <Marker key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
-                            } Icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />
+                            <Marker className="marker" id={`${truck.id} marker`} key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
+
+                            } Icon={"http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} />
                         )
                     }
 

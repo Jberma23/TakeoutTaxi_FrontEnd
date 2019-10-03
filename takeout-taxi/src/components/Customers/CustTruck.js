@@ -5,44 +5,57 @@ class CustTruck extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            favorites: props.currentUser.favorites,
+            favorites: [],
             commentClicked: false,
-            favoriteClicked: false
+            favoriteClicked: false,
+            selectedTruck: props.selectedTruck,
+            comments: this.props.currentUser.reviews
+
         }
 
     }
+    componentDidUpdate(props) {
 
-    // componentDidMount(){
-    //     this.props.currentUser.favorites
-    //     this.setState({favorites: [...this.state.ratings]})
-    // }
-    handleComment = () => {
+        if (props.selectedTruck) {
+            let num = props.selectedTruck.split(" ")[0]
+            let id = `truck-${num}`
+            let element = document.getElementById(id);
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        else {
+            return null
+        }
 
+    }
+    handleComment = (event, truck, currentUser) => {
+        this.props.handleCommentSubmit(event, truck, currentUser)
     }
 
     handleFavoriteClick = (event, truck) => {
         this.props.handleFavorite(event, this.props.truck);
-        this.setState({ favoriteClicked: !this.state.clicked })
+        this.setState({ favoriteClicked: !this.state.favoriteClicked })
     }
 
     render() {
 
         return (
 
-            <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }}  >
+            <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }} id={`truck-${this.props.truck.id}`} >
                 <div className="scrolling content">
                     <div className="left floated meta" id="price">{this.props.truck.price}</div>
 
-                    {this.props.currentUser.favorites.map((f) => { return f.favorited_id }).includes(this.props.truck.id) ?
+                    {this.state.favoriteClicked ?
 
                         <>
-                            <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event, truck) => this.props.handleFavoriteDelete(event, this.props.truck)}></i></div>
+                            <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
                         </>
                         :
                         <>
-                            <div className="right floated meta">Favorite  <i id="heart" className="heart outline icon" onClick={(event, truck) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
+                            <div className="right floated meta">Favorite  <i id="heart" className="heart outline icon" onClick={(event) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
                         </>
+
                     }
+
                     <>
                         {this.props.truck.name}
                     </>
@@ -86,7 +99,7 @@ class CustTruck extends Component {
                             <br></br>
                             <br></br>
                             <span className="center">
-                                <Form onSubmit={(event) => { this.props.handleCommentSubmit(event, this.props.truck) }}>
+                                <Form onSubmit={(event) => this.handleComment(event, this.props.truck, this.props.currentUser)}>
                                     <TextArea placeholder='Leave a Comment Here' style={{ width: "100%" }} />
                                     <Button type='submit' >Submit</Button>
                                 </Form>

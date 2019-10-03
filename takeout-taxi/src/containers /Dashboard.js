@@ -52,12 +52,23 @@ class DashBoard extends Component {
         this.setState({ searchTerm: event.target.value })
     }
     handleFavoriteDelete = (event, truck) => {
-        debugger
-
+        let t = this
         fetch(`http://localhost:3000/favorites/${truck.favorites[0].id}`, {
             method: "DELETE",
 
-        })
+        }).then(resp => resp.json())
+            .then(data => {
+                debugger
+
+                this.setState({
+                    currentUser: {
+                        ...t.state.currentUser,
+
+                        favorites: { ...t.state.currentUser.favorites.filter(fav => fav.id != data.id) }
+                    },
+                    favoriteTrucks: [...t.state.favoriteTrucks.filter(fav => fav.id != data.id)]
+                })
+            })
     }
 
     handleFavorite = (event, truck) => {
@@ -150,24 +161,23 @@ class DashBoard extends Component {
 
 
 
-    handleCommentSubmit = (event, truck) => {
-        let id = truck.id
-        let content = event.target.firstChild.value
+    handleCommentSubmit = (event, truck, currentUser) => {
 
-        this.state.currentUser.reviews.map((e) =>
-            e.reviewed_id
-        ).includes(id) ?
-            fetch(`http://localhost:3000/reviews/${truck.review.id}`, {
+
+        let content = event.target.firstChild.value
+        let truckId = truck.id
+        return truck.reviews.map((e) => e.reviewer_id).includes(currentUser) ?
+            fetch(`http://localhost:3000/reviews/${truck.reviews[0].id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: 'application/json'
                 },
                 body: JSON.stringify({
-                    reviewer_id: this.state.currentUser.id,
+                    reviewer_id: currentUser.id,
                     reviewed_id: truck.id,
                     content: content,
-                    username: this.state.currentUser.username
+                    username: currentUser.username
                 })
             }).then(response => response.json())
                 .then(response => {
@@ -175,8 +185,8 @@ class DashBoard extends Component {
                     this.setState({
 
                         currentUser: {
-                            ...this.state.currentUser,
-                            reviews: { ...this.state.currentUser.reviews.push(response) }
+                            ...currentUser,
+                            reviews: [...currentUser.reviews, response]
                         }
                     })
                 }).then(
@@ -188,7 +198,7 @@ class DashBoard extends Component {
                             Accept: 'application/json'
                         },
                         body: JSON.stringify({
-                            content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName}  just updated its review for ${truck.name}`
+                            content: `${currentUser.firstName} ${currentUser.lastName}  just updated its review for ${truck.name}`
                         })
                     }))
             :
@@ -199,10 +209,10 @@ class DashBoard extends Component {
                     Accept: 'application/json'
                 },
                 body: JSON.stringify({
-                    reviewer_id: this.state.currentUser.id,
+                    reviewer_id: currentUser.id,
                     reviewed_id: truck.id,
                     content: content,
-                    username: this.state.currentUser.username
+                    username: currentUser.username
                 })
 
             })
@@ -210,8 +220,8 @@ class DashBoard extends Component {
                 .then(response => {
                     this.setState({
                         currentUser: {
-                            ...this.state.currentUser,
-                            reviews: { ...this.state.currentUser.reviews.push(response) }
+                            ...currentUser,
+                            reviews: [...currentUser.reviews, response]
                         }
                     })
                 })
@@ -224,7 +234,7 @@ class DashBoard extends Component {
                             Accept: 'application/json'
                         },
                         body: JSON.stringify({
-                            content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName}  just reviewed ${truck.name}`
+                            content: `${currentUser.firstName} ${currentUser.lastName}  just reviewed ${truck.name}`
                         })
                     }))
 
@@ -247,7 +257,6 @@ class DashBoard extends Component {
                     <CustomerContainer handleSearch={this.handleSearch} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
                         handleFavoriteDelete={this.handleFavoriteDelete}
                         handleCommentSubmit={this.handleCommentSubmit}
-                        handleCommentChange={this.handleCommentChange}
                         handleRate={this.handleRate}
                         apiKey={this.props.apiKey}
                         handleUserLogOut={this.props.handleUserLogOut}

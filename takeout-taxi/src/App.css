@@ -106,6 +106,12 @@ input[type="radio"].toggle-left + label {
   margin-top: 10%;
   justify-content: center;
 }
+
+img[src="http://maps.google.com/mapfiles/ms/icons/green-dot.png"]:hover{
+  transform: scale(1.2);}
+img[src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"]:hover{
+  transform: scale(1.2);
+}
 #price:hover{
   color: #000000;
 }
