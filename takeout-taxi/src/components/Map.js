@@ -98,7 +98,7 @@ export class GoogleMap extends React.PureComponent {
 
         return (
             // Important! Always set the container height explicitly
-            <div style={{ height: '80vh', width: '72%', paddingTop: "0.3rem", }} className="10 wide column">
+            <div style={{ height: '70vh', width: '72%', paddingTop: "0.3rem", }} className="10 wide column">
                 <Map
                     style={{ height: '80vh', width: '72%', paddingTop: "0.0rem" }}
                     google={this.props.google}
@@ -114,7 +114,7 @@ export class GoogleMap extends React.PureComponent {
                         this.checkFavorite() :
  */}
 
-                    {this.props.currentUser.role == "owner" ?
+                    {this.props.currentUser.role == "customer" ?
                         this.props.trucks.map(truck => {
                             return < Marker key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
                             } Icon={this.state.currentUser.favorites.map((element) => element.favorited_id).includes(truck.id) ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} onMouseover={this.onMouseoverMarker} />

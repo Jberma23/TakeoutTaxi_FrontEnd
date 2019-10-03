@@ -25,7 +25,8 @@ class App extends Component {
     currentUser: null,
     squareApplicationID: "",
     squareAccessKey: "",
-    squareLocationId: ""
+    squareLocationId: "",
+    apiKey: ""
   }
 
   updateUser = (user) => {

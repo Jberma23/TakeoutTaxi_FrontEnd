@@ -13,7 +13,8 @@ class FeedItem extends Component {
                 <Feed.Event>
                     <Feed.Label icon='bell'></Feed.Label >
                     <Feed.Content>
-                        <Feed.Date content={`${this.props.update.created_at.slice(11, 16)} - ${this.props.update.created_at.slice(0, 10)}`}
+                        <Feed.Date content={parseInt(this.props.update.created_at.slice(11, 13)) > 12 ? `${Math.abs(parseInt(this.props.update.created_at.slice(11, 13)) - 16)}${(this.props.update.created_at.slice(13, 16))}PM - ${this.props.update.created_at.slice(0, 10)}` :
+                            `${Math.abs(parseInt(this.props.update.created_at.slice(11, 13)) - 16)}${(this.props.update.created_at.slice(13, 16))}AM - ${this.props.update.created_at.slice(0, 10)}`}
 
                         />
                         <Feed.Summary>

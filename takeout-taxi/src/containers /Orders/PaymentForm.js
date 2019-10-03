@@ -20,10 +20,11 @@ class PaymentPage extends React.Component {
         super(props)
         this.state = {
             errorMessages: [],
+            price: 1.00,
+            amount: 100,
         }
     }
-    APPLICATION_ID = this.props.squareApplicationID
-    LOCATION_ID = this.props.squareLocationId
+
     cardNonceResponseReceived = (errors, nonce, cardData, buyerVerificationToken) => {
         if (errors) {
             this.setState({ errorMessages: errors.map(error => error.message) })
@@ -31,24 +32,27 @@ class PaymentPage extends React.Component {
         }
 
         this.setState({ errorMessages: [] })
-
-        alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
-        let data = {
-            nonce: nonce,
-            buyerVerificationToken: buyerVerificationToken
-        }
-
+        // alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
+        let data = { nonce: nonce, token: buyerVerificationToken }
         fetch("http://localhost:3000/payments", {
-            method: "POST",
-            headers: {
+            method: 'POST', headers: {
                 "Content-Type": "application/json",
                 Accept: 'application/json'
             },
-            body: JSON.stringify(
-                data
-            )
-        })
+            body: JSON.stringify({
+                nonce: nonce,
+                token: buyerVerificationToken,
+                amount: this.state.amount
+            })
+        }
+        ).then(resp => resp.json())
+            .then(data => {
+                if (window.confirm(data.message)) {
+                    window.location = '/home'
 
+                }
+            })
+        // API.post('/payments', { data: data })
     }
 
     createPaymentRequest() {
@@ -73,8 +77,10 @@ class PaymentPage extends React.Component {
     }
 
     createVerificationDetails() {
+
+
         return {
-            amount: '100.00',
+            amount: `${this.amount}`,
             currencyCode: "USD",
             intent: "CHARGE",
             billingContact: {
@@ -89,6 +95,18 @@ class PaymentPage extends React.Component {
             }
         }
     }
+    handleIncrement = (event) => {
+        this.setState({ price: this.state.price += 1, amount: this.state.amount += 100 })
+    }
+    handleDecrement = (event) => {
+        if (this.state.price > 0) {
+            this.setState({ price: this.state.price -= 1, amount: this.state.amount -= 100 })
+        }
+        else {
+            return null
+        }
+
+    }
 
     render() {
         const loadingView = <div className="sq-wallet-loading"></div>
@@ -98,11 +116,10 @@ class PaymentPage extends React.Component {
 
         return (
             <SquarePaymentForm
-                squareApplicationID={this.props.squareApplicationID}
-                squareLocationId={this.props.squareLocationId}
+                amount={this.state.amount}
                 sandbox={true}
-                applicationId={APPLICATION_ID}
-                locationId={LOCATION_ID}
+                applicationId={this.props.squareApplicationID}
+                locationId={this.props.squareLocationId}
                 cardNonceResponseReceived={this.cardNonceResponseReceived}
                 createPaymentRequest={this.createPaymentRequest}
                 createVerificationDetails={this.createVerificationDetails}
@@ -132,9 +149,9 @@ class PaymentPage extends React.Component {
                     </div>
 
                 </fieldset>
-
+                <button onClick={this.handleDecrement}>-</button><button onClick={this.handleIncrement}>+</button>
                 <CreditCardSubmitButton>
-                    Pay $1.00
+                    Pay ${this.state.price}.00
           </CreditCardSubmitButton>
 
                 <div className="sq-error-message">

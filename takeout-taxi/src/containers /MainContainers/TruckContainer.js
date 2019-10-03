@@ -13,22 +13,22 @@ class TruckContainer extends Component {
 
 
     renderAllTrucks = () => {
-    debugger
-    return this.props.trucks.map(truck => <Truck key={truck.id} truck={truck} />)
+        debugger
+        return this.props.trucks.map(truck => <Truck key={truck.id} truck={truck} />)
     }
     renderOwnerTrucks = () => {
-    return this.props.trucks.map(truck => truck.user_id === this.state.currentUser ? <Truck key={truck.id} truck={truck} /> : null)
+        return this.props.trucks.map(truck => truck.user_id === this.state.currentUser ? <Truck key={truck.id} truck={truck} /> : null)
     }
 
 
 
     render() {
         return (
-            <div className="ui one column grid " style={{ paddingTop: "0.0rem", height: "80vh", width: "30%", overflow: "scroll" }} >
-                {this.state.currentUser ? 
-                this.renderOwnerTrucks()
-                :
-                this.renderAllTrucks()
+            <div className="ui one column grid " style={{ paddingTop: "0.0rem", height: "90vh", width: "30%", overflow: "scroll" }} >
+                {this.state.currentUser ?
+                    this.renderOwnerTrucks()
+                    :
+                    this.renderAllTrucks()
                 }
             </div>
 

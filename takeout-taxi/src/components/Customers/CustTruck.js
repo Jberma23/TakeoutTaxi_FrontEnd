@@ -33,10 +33,10 @@ class CustTruck extends Component {
                 <div className="scrolling content">
                     <div className="left floated meta" id="price">{this.props.truck.price}</div>
 
-                    {this.props.truck.favorites.length > 0 || this.state.favoriteClicked ?
+                    {this.props.currentUser.favorites.map((f) => { return f.favorited_id }).includes(this.props.truck.id) ?
 
                         <>
-                            <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event, truck) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
+                            <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event, truck) => this.props.handleFavoriteDelete(event, this.props.truck)}></i></div>
                         </>
                         :
                         <>
@@ -57,7 +57,7 @@ class CustTruck extends Component {
                         <span className="right floated">
                             Average Rating: <br />
 
-                            <Rating maxRating={5} defaultRating={this.props.truck.rating + this.props.truck.ratings.length / this.props.truck.review_count} icon='star' disabled />
+                            <Rating maxRating={5} defaultRating={this.props.truck.rating} icon='star' disabled />
                             <br />
                             Rate:   <br />
                             <Rating maxRating={5} icon='star' defaultRating={this.props.truck.ratings[0].score} clearable onRate={(e, { rating, maxRating }) => this.props.handleRate(e, { rating, maxRating }, this.props.truck)} />
@@ -78,7 +78,7 @@ class CustTruck extends Component {
                     {this.state.commentClicked ?
                         <>
                             <span className="left floated"> <i id="review" className="comment icon" onClick={(event) => this.setState({ commentClicked: !this.state.commentClicked })} ></i>
-                                Reviews: {this.props.truck.reviews.length}</span>
+                                Reviews: {this.props.truck.reviews.length + this.props.truck.review_count}</span>
                             <br></br>
                             <br></br>
                             <br></br>
@@ -117,7 +117,7 @@ class CustTruck extends Component {
                         <span className="left floated"> <i id="review" className="comment icon" onClick={(event) =>
                             this.setState({ commentClicked: !this.state.commentClicked })}
                         ></i>
-                            Reviews: {this.props.truck.reviews.length}</span>
+                            Reviews: {this.props.truck.reviews.length + this.props.truck.review_count}</span>
 
                     }
 

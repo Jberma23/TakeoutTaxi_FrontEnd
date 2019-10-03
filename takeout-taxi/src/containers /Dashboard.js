@@ -51,6 +51,15 @@ class DashBoard extends Component {
     handleSearch = (event) => {
         this.setState({ searchTerm: event.target.value })
     }
+    handleFavoriteDelete = (event, truck) => {
+        debugger
+
+        fetch(`http://localhost:3000/favorites/${truck.favorites[0].id}`, {
+            method: "DELETE",
+
+        })
+    }
+
     handleFavorite = (event, truck) => {
         fetch('http://localhost:3000/favorites', {
             method: "POST",
@@ -142,8 +151,12 @@ class DashBoard extends Component {
 
 
     handleCommentSubmit = (event, truck) => {
+        let id = truck.id
         let content = event.target.firstChild.value
-        this.state.currentUser.reviews.includes(truck.id) ?
+
+        this.state.currentUser.reviews.map((e) =>
+            e.reviewed_id
+        ).includes(id) ?
             fetch(`http://localhost:3000/reviews/${truck.review.id}`, {
                 method: "PATCH",
                 headers: {
@@ -156,23 +169,28 @@ class DashBoard extends Component {
                     content: content,
                     username: this.state.currentUser.username
                 })
-            }).then(response => this.setState({
-                currentUser: {
-                    ...this.state.currentUser,
-                    reviews: { ...this.state.currentUser.reviews, response }
-                }
-            })).then(
-                fetch(`http://localhost:3000/updates
-                `, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: 'application/json'
-                    },
-                    body: JSON.stringify({
-                        content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName}  just updated its review for ${truck.name}`
+            }).then(response => response.json())
+                .then(response => {
+
+                    this.setState({
+
+                        currentUser: {
+                            ...this.state.currentUser,
+                            reviews: { ...this.state.currentUser.reviews.push(response) }
+                        }
                     })
-                }))
+                }).then(
+                    fetch(`http://localhost:3000/updates
+                `, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: 'application/json'
+                        },
+                        body: JSON.stringify({
+                            content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName}  just updated its review for ${truck.name}`
+                        })
+                    }))
             :
             fetch('http://localhost:3000/reviews', {
                 method: "POST",
@@ -188,12 +206,15 @@ class DashBoard extends Component {
                 })
 
             })
-                .then(response => this.setState({
-                    currentUser: {
-                        ...this.state.currentUser,
-                        reviews: { ...this.state.currentUser.reviews, response }
-                    }
-                }))
+                .then(response => response.json())
+                .then(response => {
+                    this.setState({
+                        currentUser: {
+                            ...this.state.currentUser,
+                            reviews: { ...this.state.currentUser.reviews.push(response) }
+                        }
+                    })
+                })
                 .then(
                     fetch(`http://localhost:3000/updates
                     `, {
@@ -224,6 +245,7 @@ class DashBoard extends Component {
                 <div>
                     {this.getLocation()}
                     <CustomerContainer handleSearch={this.handleSearch} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
+                        handleFavoriteDelete={this.handleFavoriteDelete}
                         handleCommentSubmit={this.handleCommentSubmit}
                         handleCommentChange={this.handleCommentChange}
                         handleRate={this.handleRate}

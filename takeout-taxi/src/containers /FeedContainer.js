@@ -11,7 +11,7 @@ class FeedContainer extends Component {
     renderUpdates = () => {
         return this.props.updates ?
             this.props.updates.map((update) =>
-                <FeedItem update={update} current_user={this.props.user} />
+                <FeedItem key={update.id} update={update} current_user={this.props.user} />
             )
             :
             null
