@@ -252,7 +252,7 @@ class DashBoard extends Component {
                         apiKey={this.props.apiKey}
                         handleUserLogOut={this.props.handleUserLogOut}
                         handleFavorite={this.handleFavorite}
-                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} favoriteTrucks={this.state.favoriteTrucks} />
+                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.toUpperCase().includes(this.state.searchTerm.toUpperCase()) || truck.address.toUpperCase().includes(this.state.searchTerm.toUpperCase()))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} favoriteTrucks={this.state.favoriteTrucks} />
                 </div>
                 :
                 <div>
