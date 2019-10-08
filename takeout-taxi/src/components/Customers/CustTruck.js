@@ -99,7 +99,7 @@ class CustTruck extends Component {
                             <br></br>
                             <br></br>
                             <span className="center">
-                                <Form onSubmit={(event) => this.handleComment(event, this.props.truck, this.props.currentUser)}>
+                                <Form id="commentForm" onSubmit={(event) => this.handleComment(event, this.props.truck, this.props.currentUser)}>
                                     <TextArea placeholder='Leave a Comment Here' style={{ width: "100%" }} />
                                     <Button type='submit' >Submit</Button>
                                 </Form>

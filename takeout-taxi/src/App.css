@@ -4,7 +4,6 @@
 #border{
   border: 5px, 5px, 5px, 5px solid grey;
 }
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -98,20 +97,16 @@ input[type="radio"].toggle-left + label {
 }
 #checkout{
   background-color: white;
-  width: 31%;
+  width: 60vh;
   max-height: 20%;
   margin-left: 31%;
   padding-left: 6px;
   padding-top: 6px;
-  margin-top: 10%;
+  margin-top: 5%;
   justify-content: center;
 }
 
-img[src="http://maps.google.com/mapfiles/ms/icons/green-dot.png"]:hover{
-  transform: scale(1.2);}
-img[src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"]:hover{
-  transform: scale(1.2);
-}
+
 #price:hover{
   color: #000000;
 }

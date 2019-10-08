@@ -1,11 +1,11 @@
 import React from 'react'
-
+import Headr from "./PreLoginHeader"
 import { Link } from "react-router-dom"
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import DashBoard from '../containers /Dashboard'
 const LoginForm = (props) => (
   <React.Fragment>
-
+    <Headr />
     <Grid textAlign='center' style={{ height: '85vh' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as='h2' color='teal' textAlign='center'>
@@ -24,9 +24,13 @@ const LoginForm = (props) => (
               onChange={(event) => props.handleLoginChange(event)}
             />
 
+
             <Button type="submit" color='teal' fluid size='large' >
               Login
           </Button>
+
+
+            <Link to="#" onClick={(event) => alert("That Sucks")}>Forgot Your Password?</Link>
           </Segment>
         </Form>
         <Message>

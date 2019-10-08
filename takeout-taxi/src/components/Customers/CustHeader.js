@@ -9,7 +9,7 @@ class CustHeader extends Component {
     render() {
         return (
             <div className="jumbotron" style={{ paddingBottom: "1%" }}>
-                <Header as='h2' color='teal' textAlign='center'>Takeout Taxi</Header>
+                <Header as='h2' color='teal' textAlign='center'>Truck Stop</Header>
                 <Header as='h5' color='black' textAlign='center'>The Future of Takeout.</Header>
                 <hr className="my-4" />
                 <Navbar onChange={this.props.onChange} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />

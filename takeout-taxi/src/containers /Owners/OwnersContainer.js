@@ -71,12 +71,11 @@ class OwnersContainer extends Component {
 
     handleCheckIn = (props) => {
         let t = this
-        debugger
         let data = {
             latitude: `${t.props.currentUser.latitude}`,
             longitude: `${t.props.currentUser.longitude}`
         }
-        fetch(`http://localhost:3000/trucks/${props.truck.id}`, {
+        fetch(`https://takeouttaxi.herokuapp.com/trucks/${props.truck.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -87,11 +86,13 @@ class OwnersContainer extends Component {
 
             })
         })
-            .then(response => console.log(response))
+            .then(response => response.json())
+            .then(resp => console.log(resp))
+
 
 
         let content = `${props.truck.name} just updated it's location`
-        fetch(`http://localhost:3000/updates`, {
+        fetch(`https://takeouttaxi.herokuapp.com/updates`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -109,7 +110,7 @@ class OwnersContainer extends Component {
         Geocode.fromAddress(event.target.firstChild.lastChild.firstChild.value).then(
             response => {
                 const { lat, lng } = response.results[0].geometry.location;
-                fetch(`http://localhost:3000/trucks/${truck.id}`, {
+                fetch(`https://takeouttaxi.herokuapp.com/trucks/${truck.id}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
@@ -128,7 +129,7 @@ class OwnersContainer extends Component {
         )
 
         let content = `${truck.name} just updated it's location`
-        fetch(`http://localhost:3000/updates`, {
+        fetch(`https://takeouttaxi.herokuapp.com/updates`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -163,7 +164,7 @@ class OwnersContainer extends Component {
         );
 
         let content = `${this.state.currentUser.firstName} just added a new truck`
-        fetch(`http://localhost:3000/updates`, {
+        fetch(`https://takeouttaxi.herokuapp.com/updates`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -174,7 +175,7 @@ class OwnersContainer extends Component {
 
             })
         })
-        fetch("http://localhost:3000/trucks", {
+        fetch("https://takeouttaxi.herokuapp.com/trucks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

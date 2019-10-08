@@ -9,8 +9,8 @@ class Headr extends Component {
     render() {
         return (
             <div id="header" className="jumbotron" style={{ paddingBottom: "1%" }}>
-                <Header as='h2' color='teal' textAlign='center'>Takeout Taxi</Header>
-                <Header as='h5' color='black' textAlign='center'>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</Header>
+                <Header as='h2' color='teal' textAlign='center'>Truck Stop</Header>
+                <Header as='h5' color='black' textAlign='center'>The Future of Takeout</Header>
                 <hr className="my-4" />
                 {/* <hr className="my-4" /> */}
                 {/* <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>

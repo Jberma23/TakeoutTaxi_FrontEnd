@@ -41,7 +41,7 @@ class App extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("token")) {
-      fetch('http://localhost:3000/users', {
+      fetch('https://takeouttaxi.herokuapp.com/users', {
         headers: {
           "Authentication": `Bearer ${localStorage.getItem("token")}`
         }
@@ -52,10 +52,10 @@ class App extends Component {
     } else {
       this.setState({ loading: true })
     }
-    fetch("http://localhost:3000/locations")
+    fetch("https://takeouttaxi.herokuapp.com/locations")
       .then(res => res.json())
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-    fetch("http://localhost:3000/updates")
+    fetch("https://takeouttaxi.herokuapp.com/updates")
       .then(res => res.json())
       .then(data => this.setState({ updates: data })
       )
@@ -68,7 +68,7 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r == true) {
-      // fetch('http://localhost:3000/users/sign_out')
+      // fetch('https://takeouttaxi.herokuapp.com/users/sign_out')
       // .then(res => console.log(res))
       localStorage.clear()
       this.setState({ currentUser: null })
@@ -80,7 +80,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("http://localhost:3000/users", {
+    fetch("https://takeouttaxi.herokuapp.com/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: this.state.newUser })
@@ -132,7 +132,7 @@ class App extends Component {
   handleLoginSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://localhost:3000/users/sign_in', {
+    fetch('https://takeouttaxi.herokuapp.com/users/sign_in', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
