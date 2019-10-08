@@ -6,6 +6,7 @@
     "axios": "^0.19.0",
     "google-map-react": "^1.1.4",
     "google-maps-react": "^2.0.2",
+    "heroku": "^7.33.1",
     "jquery": "^3.4.1",
     "react": "^16.9.0",
     "react-activestorage-provider": "^0.8.0",
