@@ -93,7 +93,6 @@ class App extends Component {
 
 
   handleCreateAccountChange = (event) => {
-    console.log(event.target.id, event.target.value)
     this.setState({
       newUser: {
         ...this.state.newUser,
