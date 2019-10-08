@@ -8,6 +8,7 @@
     "google-maps-react": "^2.0.2",
     "heroku": "^7.33.1",
     "jquery": "^3.4.1",
+    "package.json": "^2.0.1",
     "react": "^16.9.0",
     "react-activestorage-provider": "^0.8.0",
     "react-dom": "^16.9.0",
