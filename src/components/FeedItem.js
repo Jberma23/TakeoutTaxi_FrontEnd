@@ -8,6 +8,7 @@ class FeedItem extends Component {
         this.state = {}
     }
     render() {
+        debugger
         return (
             <>
                 <Feed.Event >

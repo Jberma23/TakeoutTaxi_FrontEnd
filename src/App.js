@@ -181,7 +181,7 @@ class App extends Component {
             <Route path="/register" render={() => <CreateAccount owner={this.state.owner} handleCreateAccountSubmit={this.handleCreateAccountSubmit} handleCreateAccountOwnerChange={this.handleCreateAccountOwnerChange} handleCreateAccountChange={this.handleCreateAccountChange} />} />
             <Route path="/home" render={() => this.state.currentUser ? <DashBoard apiKey={this.state.apiKey} user={this.state.currentUser} handleUserLogOut={this.handleUserLogOut} /> : <Redirect to="/login" />} />
             <Route path="/feed" render={() => this.state.currentUser ?
-              this.state.currentUser.role == "owner" ? <OwnerFeedContainer updates={this.state.updates} trucks={this.state.currentUser.trucks.map(e => e.name)} /> : <CustomerFeedContainer updates={this.state.updates} user={this.state.currentUser} /> : <Redirect to="/login" />} />
+              this.state.currentUser.role == "owner" ? <OwnerFeedContainer updates={this.state.updates} trucks={this.state.currentUser.trucks.map(e => e.name)} user={this.state.currentUser} /> : <CustomerFeedContainer updates={this.state.updates} user={this.state.currentUser} /> : <Redirect to="/login" />} />
             <Route path="/orders" render={() => this.state.currentUser ? <CheckoutContainer squareApplicationID={this.state.squareApplicationID} squareAccessKey={this.state.squareAccessKey} squareLocationId={this.state.squareLocationId} /> : <Redirect to="/login" />} />
 
           </Switch>

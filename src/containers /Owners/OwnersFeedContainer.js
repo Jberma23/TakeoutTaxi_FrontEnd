@@ -10,15 +10,13 @@ class FeedContainer extends Component {
 
     renderUpdates = () => {
         return this.props.updates ?
-            this.props.trucks.map((t) =>
-                this.props.updates.map((e) => e.content).filter((u) => {
-                    return u.includes(t)
-                }
-                )).map((update) => {
-                    debugger
-                    return <FeedItem key={update.id} update={update} current_user={this.props.user} />
-                }
+            this.props.user.trucks.map((t) => {
+                let filtered = this.props.updates.filter((u) => u.content.includes(t.name))
+                return filtered.map((update) =>
+                    <FeedItem key={update.id} update={update} current_user={this.props.user} />
+
                 )
+            })
             :
             null
 
@@ -27,7 +25,7 @@ class FeedContainer extends Component {
 
     render() {
         return (<>
-            <Card style={{ "margin-left": "39%", "width": "30%" }}>
+            <Card style={{ "marginLeft": "39%", "width": "30%" }}>
                 <Card.Content>
                     <Card.Header>Recent Activity</Card.Header>
                 </Card.Content>
