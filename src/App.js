@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Login from "./components/Login"
 import './App.css';
-import FeedContainer from "./containers /FeedContainer"
+import OwnerFeedContainer from "./containers /Owners/OwnersFeedContainer"
+import CustomerFeedContainer from "./containers /Customers/CustomersFeedContainer"
 import CheckoutContainer from "./containers /Orders/CheckoutContainer"
 import DashBoard from './containers /Dashboard';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
@@ -41,7 +42,7 @@ class App extends Component {
 
   componentDidMount() {
     if (localStorage.getItem("token")) {
-      fetch('https://takeouttaxi.herokuapp.com/users', {
+      fetch('http://localhost:3000/users', {
         headers: {
           "Authentication": `Bearer ${localStorage.getItem("token")}`
         }
@@ -52,10 +53,10 @@ class App extends Component {
     } else {
       this.setState({ loading: true })
     }
-    fetch("https://takeouttaxi.herokuapp.com/locations")
+    fetch("http://localhost:3000/locations")
       .then(res => res.json())
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-    fetch("https://takeouttaxi.herokuapp.com/updates")
+    fetch("http://localhost:3000/updates")
       .then(res => res.json())
       .then(data => this.setState({ updates: data })
       )
@@ -68,7 +69,7 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r == true) {
-      // fetch('https://takeouttaxi.herokuapp.com/users/sign_out')
+      // fetch('http://localhost:3000/users/sign_out')
       // .then(res => console.log(res))
       localStorage.clear()
       this.setState({ currentUser: null })
@@ -80,7 +81,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("https://takeouttaxi.herokuapp.com/users", {
+    fetch("http://localhost:3000/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: this.state.newUser })
@@ -131,7 +132,7 @@ class App extends Component {
   handleLoginSubmit = (event) => {
     event.preventDefault()
 
-    fetch('https://takeouttaxi.herokuapp.com/users/sign_in', {
+    fetch('http://localhost:3000/users/sign_in', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -179,7 +180,8 @@ class App extends Component {
               <Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit} />} />
             <Route path="/register" render={() => <CreateAccount owner={this.state.owner} handleCreateAccountSubmit={this.handleCreateAccountSubmit} handleCreateAccountOwnerChange={this.handleCreateAccountOwnerChange} handleCreateAccountChange={this.handleCreateAccountChange} />} />
             <Route path="/home" render={() => this.state.currentUser ? <DashBoard apiKey={this.state.apiKey} user={this.state.currentUser} handleUserLogOut={this.handleUserLogOut} /> : <Redirect to="/login" />} />
-            <Route path="/feed" render={() => this.state.currentUser ? <FeedContainer updates={this.state.updates} user={this.state.currentUser} /> : <Redirect to="/login" />} />
+            <Route path="/feed" render={() => this.state.currentUser ?
+              this.state.currentUser.role == "owner" ? <OwnerFeedContainer updates={this.state.updates} trucks={this.state.currentUser.trucks.map(e => e.name)} /> : <CustomerFeedContainer updates={this.state.updates} user={this.state.currentUser} /> : <Redirect to="/login" />} />
             <Route path="/orders" render={() => this.state.currentUser ? <CheckoutContainer squareApplicationID={this.state.squareApplicationID} squareAccessKey={this.state.squareAccessKey} squareLocationId={this.state.squareLocationId} /> : <Redirect to="/login" />} />
 
           </Switch>

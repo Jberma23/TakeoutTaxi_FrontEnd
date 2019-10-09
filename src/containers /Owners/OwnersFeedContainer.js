@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FeedItem from "../components/FeedItem"
+import FeedItem from "../../components/FeedItem"
 import { Card } from 'semantic-ui-react'
 
 class FeedContainer extends Component {
@@ -10,10 +10,15 @@ class FeedContainer extends Component {
 
     renderUpdates = () => {
         return this.props.updates ?
-
-            this.props.updates.map((update) =>
-                <FeedItem key={update.id} update={update} current_user={this.props.user} />
-            )
+            this.props.trucks.map((t) =>
+                this.props.updates.map((e) => e.content).filter((u) => {
+                    return u.includes(t)
+                }
+                )).map((update) => {
+                    debugger
+                    return <FeedItem key={update.id} update={update} current_user={this.props.user} />
+                }
+                )
             :
             null
 
