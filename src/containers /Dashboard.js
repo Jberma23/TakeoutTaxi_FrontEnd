@@ -49,6 +49,7 @@ class DashBoard extends Component {
 
     }
     handleSearch = (event) => {
+        console.log(event.target.value)
         this.setState({ searchTerm: event.target.value })
     }
     handleFavoriteDelete = (event, truck) => {
@@ -275,7 +276,7 @@ class DashBoard extends Component {
                     {this.getLocation()}
                     <OwnersContainer state={this.state} handleSearch={this.handleSearch}
                         apiKey={this.props.apiKey} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
-                        trucks={this.state.trucks.filter((truck) => truck.name.includes(this.state.searchTerm))} handlePinClick={this.handlePinClick} />
+                        trucks={this.state.trucks.filter((truck) => truck.user_id == this.state.currentUser.id)} filteredTrucks={this.state.currentUser.trucks.filter((truck) => truck.name.toUpperCase().includes(this.state.searchTerm.toUpperCase()) || truck.address.toUpperCase().includes(this.state.searchTerm.toUpperCase()))} handlePinClick={this.handlePinClick} />
 
                 </div>
 

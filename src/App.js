@@ -146,10 +146,8 @@ class App extends Component {
       })
     })
       .then(response => {
-
         if (response.ok) {
           return response.json()
-
         } else {
           console.error("incorrect login info")
         }
