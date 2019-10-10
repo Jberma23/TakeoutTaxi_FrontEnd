@@ -9,7 +9,8 @@ class CustTruck extends Component {
             commentClicked: false,
             favoriteClicked: false,
             selectedTruck: props.selectedTruck,
-            comments: this.props.currentUser.reviews
+            comments: this.props.currentUser.reviews,
+            favoriteTruck: props.favoriteTrucks
 
         }
 
@@ -45,7 +46,7 @@ class CustTruck extends Component {
                     <div className="left floated meta" id="price">{this.props.truck.price}</div>
 
                     {
-                        this.state.favoriteClicked || this.props.favoriteTrucks.map(f => f.favorited_id).includes(this.props.truck.id) ?
+                        this.state.favoriteClicked ?
 
                             <>
                                 <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event) => this.handleFavoriteClick(event, this.props.truck)}></i></div>

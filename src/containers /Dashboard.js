@@ -81,13 +81,15 @@ class DashBoard extends Component {
             })
         })
             .then(response => response.json())
-            .then(res => this.setState({
-                currentUser: {
-                    ...this.state.currentUser,
-                    favorites: { ...this.state.currentUser.favorites, res }
-                },
-                favoriteTrucks: [...this.state.favoriteTrucks, res.favorited_id]
-            })).then(
+            .then(res => {
+                this.setState({
+                    currentUser: {
+                        ...this.state.currentUser,
+                        favorites: { ...this.state.currentUser.favorites, res }
+                    },
+                    favoriteTrucks: [...this.state.favoriteTrucks, res.favorited_id]
+                })
+            }).then(
                 fetch(`http://localhost:3000/updates
                 `, {
                     method: "POST",
