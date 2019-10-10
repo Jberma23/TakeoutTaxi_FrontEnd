@@ -35,13 +35,10 @@ class DashBoard extends Component {
 
 
     componentDidMount() {
-        fetch("https://takeouttaxi.herokuapp.com/trucks")
+        fetch("http://localhost:3000/trucks")
             .then(res => res.json())
             .then(data => { this.setState({ trucks: data }) })
             .catch(e => console.error(e))
-
-
-
     }
 
     handleOrder = (event, truck) => {
@@ -53,7 +50,7 @@ class DashBoard extends Component {
     }
     handleFavoriteDelete = (event, truck) => {
         let t = this
-        fetch(`https://takeouttaxi.herokuapp.com/favorites/${truck.favorites[0].id}`, {
+        fetch(`http://localhost:3000/favorites/${truck.favorites[0].id}`, {
             method: "DELETE",
 
         }).then(resp => resp.json())
@@ -72,7 +69,7 @@ class DashBoard extends Component {
     }
 
     handleFavorite = (event, truck) => {
-        fetch('https://takeouttaxi.herokuapp.com/favorites', {
+        fetch('http://localhost:3000/favorites', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -91,7 +88,7 @@ class DashBoard extends Component {
                 },
                 favoriteTrucks: [...this.state.favoriteTrucks, res.favorited_id]
             })).then(
-                fetch(`https://takeouttaxi.herokuapp.com/updates
+                fetch(`http://localhost:3000/updates
                 `, {
                     method: "POST",
                     headers: {
@@ -106,7 +103,7 @@ class DashBoard extends Component {
     }
     handleRate = (e, { rating, maxRating }, truck) => {
         this.state.currentUser.ratings.includes(truck.id) ?
-            fetch(`https://takeouttaxi.herokuapp.com/rating/${truck.rating.id}`, {
+            fetch(`http://localhost:3000/rating/${truck.rating.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -120,7 +117,7 @@ class DashBoard extends Component {
             })
 
                 .then(
-                    fetch(`https://takeouttaxi.herokuapp.com/updates
+                    fetch(`http://localhost:3000/updates
                     `, {
                         method: "POST",
                         headers: {
@@ -133,7 +130,7 @@ class DashBoard extends Component {
                     }))
 
             :
-            fetch('https://takeouttaxi.herokuapp.com/ratings', {
+            fetch('http://localhost:3000/ratings', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -146,7 +143,7 @@ class DashBoard extends Component {
                 })
             })
                 .then(
-                    fetch(`https://takeouttaxi.herokuapp.com/updates
+                    fetch(`http://localhost:3000/updates
                     `, {
                         method: "POST",
                         headers: {
@@ -167,7 +164,7 @@ class DashBoard extends Component {
         let content = event.target.firstChild.value
         let truckId = truck.id
         return truck.reviews.map((e) => e.reviewer_id).includes(currentUser) ?
-            fetch(`https://takeouttaxi.herokuapp.com/reviews/${truck.reviews[0].id}`, {
+            fetch(`http://localhost:3000/reviews/${truck.reviews[0].id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -190,7 +187,7 @@ class DashBoard extends Component {
                         }
                     })
                 }).then(
-                    fetch(`https://takeouttaxi.herokuapp.com/updates
+                    fetch(`http://localhost:3000/updates
                 `, {
                         method: "POST",
                         headers: {
@@ -204,7 +201,7 @@ class DashBoard extends Component {
                         document.getElementById("commentForm").reset()
                     )
             :
-            fetch('https://takeouttaxi.herokuapp.com/reviews', {
+            fetch('http://localhost:3000/reviews', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -228,7 +225,7 @@ class DashBoard extends Component {
                     })
                 })
                 .then(
-                    fetch(`https://takeouttaxi.herokuapp.com/updates
+                    fetch(`http://localhost:3000/updates
                     `, {
                         method: "POST",
                         headers: {
@@ -268,7 +265,7 @@ class DashBoard extends Component {
                         apiKey={this.props.apiKey}
                         handleUserLogOut={this.props.handleUserLogOut}
                         handleFavorite={this.handleFavorite}
-                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.toUpperCase().includes(this.state.searchTerm.toUpperCase()) || truck.address.toUpperCase().includes(this.state.searchTerm.toUpperCase()))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} favoriteTrucks={this.state.favoriteTrucks} />
+                        filteredTrucks={this.state.trucks.filter((truck) => truck.name.toUpperCase().includes(this.state.searchTerm.toUpperCase()) || truck.address.toUpperCase().includes(this.state.searchTerm.toUpperCase()))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} favoriteTrucks={this.props.favoriteTrucks} />
                 </div>
                 :
                 <div>

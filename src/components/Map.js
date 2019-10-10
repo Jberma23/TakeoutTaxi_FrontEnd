@@ -1,5 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import { thisTypeAnnotation } from '@babel/types';
 
 
 
@@ -18,10 +19,12 @@ export class GoogleMap extends React.PureComponent {
             myLocationMarker: {},
             myPlace: {},
             favoritedTrucks: props.favoritedTrucks,
-            currentUser: props.currentUser
+            currentUser: props.currentUser,
+            userFav: []
         }
 
     }
+
 
     onMapClicked = (props) => {
 
@@ -49,7 +52,17 @@ export class GoogleMap extends React.PureComponent {
     };
 
 
+    favFunction = (arr, truck) => {
+        let found = false
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].favorited_id == truck.id) {
+                found = true
+                break
+            }
+        }
+        return found
 
+    }
 
 
 
@@ -60,7 +73,6 @@ export class GoogleMap extends React.PureComponent {
 
 
     render() {
-
         return (
             // Important! Always set the container height explicitly
             <div style={{ height: '70vh', width: '72%', paddingTop: "0.3rem", }} className="10 wide column">
@@ -78,7 +90,7 @@ export class GoogleMap extends React.PureComponent {
                         this.props.trucks.map(truck => {
                             return < Marker className="marker" id={`${truck.id} marker`} key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
 
-                            } Icon={this.state.currentUser.favorites.map((element) => element.favorited_id).includes(truck.id) ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} />
+                            } Icon={this.favFunction(this.props.userFav, truck) || this.props.favoriteTrucks.includes(truck.id) ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"} onClick={this.onMarkerClick} name={truck.name} />
                         }
                         )
                         :

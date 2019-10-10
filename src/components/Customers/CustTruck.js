@@ -44,15 +44,16 @@ class CustTruck extends Component {
                 <div className="scrolling content">
                     <div className="left floated meta" id="price">{this.props.truck.price}</div>
 
-                    {this.state.favoriteClicked ?
+                    {
+                        this.state.favoriteClicked || this.props.favoriteTrucks.map(f => f.favorited_id).includes(this.props.truck.id) ?
 
-                        <>
-                            <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
-                        </>
-                        :
-                        <>
-                            <div className="right floated meta">Favorite  <i id="heart" className="heart outline icon" onClick={(event) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
-                        </>
+                            <>
+                                <div className="right floated meta">Favorite  <i id="fullheart" className="heart icon" onClick={(event) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
+                            </>
+                            :
+                            <>
+                                <div className="right floated meta">Favorite  <i id="heart" className="heart outline icon" onClick={(event) => this.handleFavoriteClick(event, this.props.truck)}></i></div>
+                            </>
 
                     }
 
