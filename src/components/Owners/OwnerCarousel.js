@@ -1,9 +1,11 @@
 
 import React, { Component } from 'react';
-class CustCarousel extends Component {
+class OwnerCarousel extends Component {
     state = {
         slide: 0
     }
+
+
     render() {
         if (this.props.truck.image_url.split('"').length === 7) {
             return (
@@ -193,14 +195,12 @@ class CustCarousel extends Component {
 
 
 
-
-
-
-
             );
 
         }
     }
 }
 
-export default CustCarousel;
+
+
+export default OwnerCarousel;

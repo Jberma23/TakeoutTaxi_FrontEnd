@@ -11,8 +11,13 @@ class OwnerTruckContainer extends Component {
 
 
     renderOwnerTrucks = () => {
-        return this.props.trucks.filter(truck => truck.user_id == this.state.currentUser.id).map((truck) =>
-            <OwnerTruck handleCheckIn={this.props.handleCheckIn} getLocation={this.props.getLocation} key={truck.id} truck={truck} handleCheckInForm={this.props.handleCheckInForm} />
+        return this.props.trucks.map((truck) => {
+            if (truck.owner_id == this.props.currentUser.id) {
+                return <OwnerTruck handleCheckIn={this.props.handleCheckIn} getLocation={this.props.getLocation} key={truck.id} truck={truck} handleCheckInForm={this.props.handleCheckInForm} />
+            } {
+                return null
+            }
+        }
         )
     }
 
@@ -21,7 +26,7 @@ class OwnerTruckContainer extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="ui one column grid " style={{ paddingTop: "0.0rem", height: "71vh", width: "30%", overflow: "scroll" }} >
+                <div className="ui one column grid " style={{ paddingTop: "0.0rem", height: "82vh", width: "30%", overflow: "scroll" }} >
 
                     {this.renderOwnerTrucks()}
 

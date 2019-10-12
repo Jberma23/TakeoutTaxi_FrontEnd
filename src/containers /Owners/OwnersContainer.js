@@ -13,10 +13,11 @@ class OwnersContainer extends Component {
             trucks: [],
             newTruck: {
                 name: "",
-                user_id: props.currentUser.id,
-                image: [
+                owner_id: props.currentUser.id,
+                image_url: [
 
                 ],
+                image_data: [],
                 review_count: 0,
                 rating: 0,
                 latitude: "",
@@ -52,16 +53,18 @@ class OwnersContainer extends Component {
         this.setState({
             newTruck: {
                 ...this.state.newTruck,
-                image_url: event.data.service_url
+                image_url: [...this.state.newTruck.image_url, event.data.service_url],
+                image_data: [...this.state.newTruck.image_data, event.data]
 
             }
         })
+
     }
     handleCreateTruckMenuChange = (event) => {
         this.setState({
             newTruck: {
                 ...this.state.newTruck,
-                image: [...this.state.newTruck.images, event.target.value]
+                image_url: [...this.state.newTruck.image_url, event.target.value]
 
 
             }
@@ -91,7 +94,7 @@ class OwnersContainer extends Component {
 
 
 
-        let content = `${props.truck.name} just updated it's location`
+
         fetch(`http://localhost:3000/updates`, {
             method: "POST",
             headers: {
@@ -99,7 +102,7 @@ class OwnersContainer extends Component {
                 Accept: 'application/json'
             },
             body: JSON.stringify({
-                content: content
+                content: `${props.truck.name} just updated it's location`
             })
         })
 
@@ -136,7 +139,7 @@ class OwnersContainer extends Component {
                 Accept: 'application/json'
             },
             body: JSON.stringify({
-                content: content
+                content: `${truck.name} just updated it's location`
 
             })
         })
@@ -162,8 +165,7 @@ class OwnersContainer extends Component {
                 console.error(error);
             }
         );
-
-        let content = `${this.state.currentUser.firstName} just added a new truck`
+        let content = `${this.props.currentUser.username} just added a new truck`
         fetch(`http://localhost:3000/updates`, {
             method: "POST",
             headers: {
@@ -171,7 +173,7 @@ class OwnersContainer extends Component {
                 Accept: 'application/json'
             },
             body: JSON.stringify({
-                feed_item: content
+                content: `${this.props.currentUser.username} just added a new truck`
 
             })
         })
@@ -184,7 +186,9 @@ class OwnersContainer extends Component {
             body: JSON.stringify({ truck: this.state.newTruck })
         })
             .then(res => res.json())
-            .then(res => this.setState({ trucks: [...this.state.trucks, res] }))
+            .then(res => {
+                this.setState({ trucks: [...this.state.trucks, res] })
+            })
             .catch(e => console.error(e))
     }
     render() {

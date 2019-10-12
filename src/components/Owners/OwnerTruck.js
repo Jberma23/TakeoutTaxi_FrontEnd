@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form } from "semantic-ui-react"
-
+import OwnerCarousel from "./OwnerCarousel"
 class OwnerTruck extends Component {
     constructor(props) {
         super(props);
@@ -9,6 +9,7 @@ class OwnerTruck extends Component {
         }
     }
     render() {
+
         return (
             <>
                 <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }}  >
@@ -17,9 +18,9 @@ class OwnerTruck extends Component {
                         <div className="right floated meta">Favorite<i className="heart outline icon"></i></div>
                         {this.props.truck.name}
                     </div>
-                    <div className="image">
-                        <img src={this.props.truck.image_url} alt={this.props.truck.name} />
-                    </div>
+                    <>
+                        <OwnerCarousel truck={this.props.truck} />
+                    </>
                     <div className="content">
                         <span className="right floated">
                             <i className="star icon"></i>
