@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import CustomerContainer from "./Customers/CustomersContainer"
 import OwnersContainer from "./Owners/OwnersContainer"
-
+import cookie from 'react-cookies'
 
 class DashBoard extends Component {
     constructor(props) {
@@ -35,9 +35,14 @@ class DashBoard extends Component {
 
 
     componentDidMount() {
-        fetch("http://localhost:3000/trucks")
+        fetch("http://localhost:3000/trucks", {
+            credentials: 'include',
+
+        })
             .then(res => res.json())
-            .then(data => { this.setState({ trucks: data }) })
+            .then(data => {
+                return this.setState({ trucks: data })
+            })
             .catch(e => console.error(e))
     }
 
@@ -51,6 +56,7 @@ class DashBoard extends Component {
     handleFavoriteDelete = (event, truck) => {
         let t = this
         fetch(`http://localhost:3000/favorites/${truck.favorites[0].id}`, {
+            credentials: 'include',
             method: "DELETE",
 
         }).then(resp => resp.json())
@@ -70,6 +76,7 @@ class DashBoard extends Component {
 
     handleFavorite = (event, truck) => {
         fetch('http://localhost:3000/favorites', {
+            credentials: 'include',
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -93,6 +100,7 @@ class DashBoard extends Component {
                 fetch(`http://localhost:3000/updates
                 `, {
                     method: "POST",
+                    credentials: 'include',
                     headers: {
                         "Content-Type": "application/json",
                         Accept: 'application/json'
@@ -107,6 +115,7 @@ class DashBoard extends Component {
         this.state.currentUser.ratings.includes(truck.id) ?
             fetch(`http://localhost:3000/rating/${truck.rating.id}`, {
                 method: "PATCH",
+                credentials: 'include',
                 headers: {
                     "Content-Type": "application/json",
                     Accept: 'application/json'
@@ -121,6 +130,7 @@ class DashBoard extends Component {
                 .then(
                     fetch(`http://localhost:3000/updates
                     `, {
+                        credentials: 'include',
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -133,6 +143,7 @@ class DashBoard extends Component {
 
             :
             fetch('http://localhost:3000/ratings', {
+                credentials: 'include',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -147,6 +158,7 @@ class DashBoard extends Component {
                 .then(
                     fetch(`http://localhost:3000/updates
                     `, {
+                        credentials: 'include',
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -167,6 +179,7 @@ class DashBoard extends Component {
         let truckId = truck.id
         return truck.reviews.map((e) => e.reviewer_id).includes(currentUser) ?
             fetch(`http://localhost:3000/reviews/${truck.reviews[0].id}`, {
+                credentials: 'include',
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -191,6 +204,7 @@ class DashBoard extends Component {
                 }).then(
                     fetch(`http://localhost:3000/updates
                 `, {
+                        credentials: 'include',
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -204,6 +218,7 @@ class DashBoard extends Component {
                     )
             :
             fetch('http://localhost:3000/reviews', {
+                credentials: 'include',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -229,6 +244,7 @@ class DashBoard extends Component {
                 .then(
                     fetch(`http://localhost:3000/updates
                     `, {
+                        credentials: 'include',
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

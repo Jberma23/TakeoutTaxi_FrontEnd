@@ -79,6 +79,7 @@ class OwnersContainer extends Component {
             longitude: `${t.props.currentUser.longitude}`
         }
         fetch(`http://localhost:3000/trucks/${props.truck.id}`, {
+            credentials: 'include',
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -96,6 +97,7 @@ class OwnersContainer extends Component {
 
 
         fetch(`http://localhost:3000/updates`, {
+            credentials: 'include',
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -114,6 +116,7 @@ class OwnersContainer extends Component {
             response => {
                 const { lat, lng } = response.results[0].geometry.location;
                 fetch(`http://localhost:3000/trucks/${truck.id}`, {
+                    credentials: 'include',
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
@@ -133,6 +136,7 @@ class OwnersContainer extends Component {
 
         let content = `${truck.name} just updated it's location`
         fetch(`http://localhost:3000/updates`, {
+            credentials: 'include',
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -167,6 +171,7 @@ class OwnersContainer extends Component {
         );
         let content = `${this.props.currentUser.username} just added a new truck`
         fetch(`http://localhost:3000/updates`, {
+            credentials: 'include',
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -178,6 +183,7 @@ class OwnersContainer extends Component {
             })
         })
         fetch("http://localhost:3000/trucks", {
+            credentials: 'include',
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

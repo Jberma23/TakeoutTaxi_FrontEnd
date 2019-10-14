@@ -6,7 +6,7 @@ import CheckoutContainer from "./containers /Orders/CheckoutContainer"
 import DashBoard from './containers /Dashboard';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import CreateAccount from "./components/CreateAccount"
-
+import cookie from 'react-cookies'
 class App extends Component {
   state = {
     newUser: {
@@ -41,11 +41,10 @@ class App extends Component {
 
 
   componentDidMount() {
-    if (localStorage.getItem("token")) {
-      fetch('http://localhost:3000/users', {
-        headers: {
-          "Authentication": `Bearer ${localStorage.getItem("token")}`
-        }
+    if (cookie.load("jwt")) {
+      fetch('http://localhost:3000/current_user', {
+        credentials: 'include',
+
       }).then(res => res.json())
         .then(user => {
           this.updateUser(user)
@@ -53,10 +52,14 @@ class App extends Component {
     } else {
       this.setState({ loading: true })
     }
-    fetch("http://localhost:3000/locations")
+    fetch("http://localhost:3000/locations", {
+      credentials: 'include'
+    })
       .then(res => res.json())
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-    fetch("http://localhost:3000/updates")
+    fetch("http://localhost:3000/updates", {
+      credentials: 'include'
+    })
       .then(res => res.json())
       .then(data => this.setState({ updates: data })
       )
@@ -69,9 +72,11 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r == true) {
-      // fetch('http://localhost:3000/users/sign_out')
-      // .then(res => console.log(res))
-      localStorage.clear()
+      fetch('http://localhost:3000/users/logout', {
+        method: 'DELETE',
+        credentials: 'include'
+      })
+
       this.setState({ currentUser: null })
 
     }
@@ -82,12 +87,14 @@ class App extends Component {
     event.preventDefault()
 
     fetch("http://localhost:3000/users", {
+      credentials: 'include',
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: this.state.newUser })
     })
       .then(res => res.json())
-      .then(res => this.setState({ currentUser: res }))
+      .then(res => { this.setState({ currentUser: res, existingUser: { ...this.state.existingUser, email: res.email, password: res.password } }) }, this.handleLoginSubmit())
+
       .catch(e => console.error(e))
 
   }
@@ -132,8 +139,9 @@ class App extends Component {
   handleLoginSubmit = (event) => {
     event.preventDefault()
 
-    fetch('http://localhost:3000/users/sign_in', {
+    fetch('http://localhost:3000/users/login', {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
         Accept: 'application/json'
@@ -146,19 +154,19 @@ class App extends Component {
       })
     })
       .then(response => {
-
         if (response.ok) {
           return response.json()
 
         } else {
-          console.error("incorrect login info")
+          alert("Incorrect Email or Password")
         }
       })
       .then(data => {
+
         if (data.authenticated) {
-          localStorage.setItem("token", data.token)
           this.setState({ currentUser: data.user, favoriteTrucks: data.user.favorites })
-        } else {
+        }
+        else {
           alert("Incorrect Email or Password")
         }
       }).catch((e) => console.error(e))
@@ -177,6 +185,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/login" />} />
             <Route exact path="/login" render={() => this.state.currentUser ? <Redirect to="/home" /> :
+
               <Login handleLoginChange={this.handleLoginChange} handleLoginSubmit={this.handleLoginSubmit} />} />
             <Route path="/register" render={() => <CreateAccount owner={this.state.owner} handleCreateAccountSubmit={this.handleCreateAccountSubmit} handleCreateAccountOwnerChange={this.handleCreateAccountOwnerChange} handleCreateAccountChange={this.handleCreateAccountChange} />} />
             <Route path="/home" render={() => this.state.currentUser ? <DashBoard apiKey={this.state.apiKey} user={this.state.currentUser} favoriteTrucks={this.state.favoriteTrucks} handleUserLogOut={this.handleUserLogOut} /> : <Redirect to="/login" />} />
