@@ -35,7 +35,7 @@ class DashBoard extends Component {
 
 
     componentDidMount() {
-        fetch("https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/trucks", {
+        fetch("https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/trucks", {
             credentials: 'include',
 
         })
@@ -55,7 +55,7 @@ class DashBoard extends Component {
     }
     handleFavoriteDelete = (event, truck) => {
         let t = this
-        fetch(`https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/favorites/${truck.favorites[0].id}`, {
+        fetch(`https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/favorites/${truck.favorites[0].id}`, {
             credentials: 'include',
             method: "DELETE",
 
@@ -75,7 +75,7 @@ class DashBoard extends Component {
     }
 
     handleFavorite = (event, truck) => {
-        fetch('https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/favorites', {
+        fetch('https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/favorites', {
             credentials: 'include',
             method: "POST",
             headers: {
@@ -97,7 +97,7 @@ class DashBoard extends Component {
                     favoriteTrucks: [...this.state.favoriteTrucks, res.favorited_id]
                 })
             }).then(
-                fetch(`https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
+                fetch(`https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
                 `, {
                     method: "POST",
                     credentials: 'include',
@@ -113,7 +113,7 @@ class DashBoard extends Component {
     }
     handleRate = (e, { rating, maxRating }, truck) => {
         this.state.currentUser.ratings.includes(truck.id) ?
-            fetch(`https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/rating/${truck.rating.id}`, {
+            fetch(`https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/rating/${truck.rating.id}`, {
                 method: "PATCH",
                 credentials: 'include',
                 headers: {
@@ -128,7 +128,7 @@ class DashBoard extends Component {
             })
 
                 .then(
-                    fetch(`https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
+                    fetch(`https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
                     `, {
                         credentials: 'include',
                         method: "POST",
@@ -142,7 +142,7 @@ class DashBoard extends Component {
                     }))
 
             :
-            fetch('https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/ratings', {
+            fetch('https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/ratings', {
                 credentials: 'include',
                 method: "POST",
                 headers: {
@@ -156,7 +156,7 @@ class DashBoard extends Component {
                 })
             })
                 .then(
-                    fetch(`https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
+                    fetch(`https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
                     `, {
                         credentials: 'include',
                         method: "POST",
@@ -178,7 +178,7 @@ class DashBoard extends Component {
         let content = event.target.firstChild.value
         let truckId = truck.id
         return truck.reviews.map((e) => e.reviewer_id).includes(currentUser) ?
-            fetch(`https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/reviews/${truck.reviews[0].id}`, {
+            fetch(`https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/reviews/${truck.reviews[0].id}`, {
                 credentials: 'include',
                 method: "PATCH",
                 headers: {
@@ -202,7 +202,7 @@ class DashBoard extends Component {
                         }
                     })
                 }).then(
-                    fetch(`https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
+                    fetch(`https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
                 `, {
                         credentials: 'include',
                         method: "POST",
@@ -217,7 +217,7 @@ class DashBoard extends Component {
                         document.getElementById("commentForm").reset()
                     )
             :
-            fetch('https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/reviews', {
+            fetch('https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/reviews', {
                 credentials: 'include',
                 method: "POST",
                 headers: {
@@ -242,7 +242,7 @@ class DashBoard extends Component {
                     })
                 })
                 .then(
-                    fetch(`https://cors-escape.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
+                    fetch(`https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates
                     `, {
                         credentials: 'include',
                         method: "POST",
