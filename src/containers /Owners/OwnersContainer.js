@@ -79,7 +79,7 @@ class OwnersContainer extends Component {
             longitude: `${t.props.currentUser.longitude}`
         }
         fetch(`https://takeouttaxi-backend.herokuapp.com/trucks/${props.truck.id}`, {
-            credentials: 'include',
+
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -97,7 +97,7 @@ class OwnersContainer extends Component {
 
 
         fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
-            credentials: 'include',
+
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -116,7 +116,7 @@ class OwnersContainer extends Component {
             response => {
                 const { lat, lng } = response.results[0].geometry.location;
                 fetch(`https://takeouttaxi-backend.herokuapp.com/trucks/${truck.id}`, {
-                    credentials: 'include',
+
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
@@ -136,7 +136,7 @@ class OwnersContainer extends Component {
 
         let content = `${truck.name} just updated it's location`
         fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
-            credentials: 'include',
+
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -171,7 +171,7 @@ class OwnersContainer extends Component {
         );
         let content = `${this.props.currentUser.username} just added a new truck`
         fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
-            credentials: 'include',
+
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -183,7 +183,7 @@ class OwnersContainer extends Component {
             })
         })
         fetch("https://takeouttaxi-backend.herokuapp.com/trucks", {
-            credentials: 'include',
+
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

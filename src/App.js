@@ -42,9 +42,9 @@ class App extends Component {
 
   componentDidMount() {
     if (cookie.load("jwt")) {
-      fetch('https://takeouttaxi-backend.herokuapp.com/current_user', {
+      fetch('https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/current_user', {
         method: 'GET',
-        credentials: 'include',
+
 
       }).then(res => res.json())
         .then(user => {
@@ -53,15 +53,15 @@ class App extends Component {
     } else {
       this.setState({ loading: true })
     }
-    fetch("https://takeouttaxi-backend.herokuapp.com/locations", {
+    fetch("https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/locations", {
       method: 'GET',
-      credentials: 'include'
+
     })
       .then(res => res.json())
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-    fetch("https://takeouttaxi-backend.herokuapp.com/updates", {
+    fetch("https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates", {
       method: 'GET',
-      credentials: 'include'
+
     })
       .then(res => res.json())
       .then(data => this.setState({ updates: data })
@@ -75,9 +75,9 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r == true) {
-      fetch('https://takeouttaxi-backend.herokuapp.com/users/logout', {
+      fetch('https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/users/logout', {
         method: 'DELETE',
-        credentials: 'include'
+
       })
 
       this.setState({ currentUser: null })
@@ -89,8 +89,8 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("https://takeouttaxi-backend.herokuapp.com/users", {
-      credentials: 'include',
+    fetch("https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/users", {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: this.state.newUser })
@@ -143,7 +143,7 @@ class App extends Component {
     event.preventDefault()
     fetch('https://takeouttaxi-backend.herokuapp.com/users/login', {
       method: "POST",
-      credentials: 'include',
+
       headers: {
         "Content-Type": "application/json",
         Accept: 'application/json'

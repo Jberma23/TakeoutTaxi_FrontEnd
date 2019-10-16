@@ -36,7 +36,7 @@ class DashBoard extends Component {
 
     componentDidMount() {
         fetch("https://takeouttaxi-backend.herokuapp.com/trucks", {
-            credentials: 'include',
+
 
         })
             .then(res => res.json())
@@ -56,7 +56,7 @@ class DashBoard extends Component {
     handleFavoriteDelete = (event, truck) => {
         let t = this
         fetch(`https://takeouttaxi-backend.herokuapp.com/favorites/${truck.favorites[0].id}`, {
-            credentials: 'include',
+
             method: "DELETE",
 
         }).then(resp => resp.json())
@@ -76,7 +76,7 @@ class DashBoard extends Component {
 
     handleFavorite = (event, truck) => {
         fetch('https://takeouttaxi-backend.herokuapp.com/favorites', {
-            credentials: 'include',
+
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -100,7 +100,7 @@ class DashBoard extends Component {
                 fetch(`https://takeouttaxi-backend.herokuapp.com/updates
                 `, {
                     method: "POST",
-                    credentials: 'include',
+
                     headers: {
                         "Content-Type": "application/json",
                         Accept: 'application/json'
@@ -115,7 +115,7 @@ class DashBoard extends Component {
         this.state.currentUser.ratings.includes(truck.id) ?
             fetch(`https://takeouttaxi-backend.herokuapp.com/rating/${truck.rating.id}`, {
                 method: "PATCH",
-                credentials: 'include',
+
                 headers: {
                     "Content-Type": "application/json",
                     Accept: 'application/json'
@@ -130,7 +130,7 @@ class DashBoard extends Component {
                 .then(
                     fetch(`https://takeouttaxi-backend.herokuapp.com/updates
                     `, {
-                        credentials: 'include',
+
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -143,7 +143,7 @@ class DashBoard extends Component {
 
             :
             fetch('https://takeouttaxi-backend.herokuapp.com/ratings', {
-                credentials: 'include',
+
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -158,7 +158,7 @@ class DashBoard extends Component {
                 .then(
                     fetch(`https://takeouttaxi-backend.herokuapp.com/updates
                     `, {
-                        credentials: 'include',
+
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -179,7 +179,7 @@ class DashBoard extends Component {
         let truckId = truck.id
         return truck.reviews.map((e) => e.reviewer_id).includes(currentUser) ?
             fetch(`https://takeouttaxi-backend.herokuapp.com/reviews/${truck.reviews[0].id}`, {
-                credentials: 'include',
+
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -204,7 +204,7 @@ class DashBoard extends Component {
                 }).then(
                     fetch(`https://takeouttaxi-backend.herokuapp.com/updates
                 `, {
-                        credentials: 'include',
+
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -218,7 +218,7 @@ class DashBoard extends Component {
                     )
             :
             fetch('https://takeouttaxi-backend.herokuapp.com/reviews', {
-                credentials: 'include',
+
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -244,7 +244,7 @@ class DashBoard extends Component {
                 .then(
                     fetch(`https://takeouttaxi-backend.herokuapp.com/updates
                     `, {
-                        credentials: 'include',
+
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
