@@ -42,7 +42,7 @@ class App extends Component {
 
   componentDidMount() {
     if (cookie.load("jwt")) {
-      fetch(' https://cors-anywhere.herokuapp.com/https://takeouttaxi.herokuapp.com/current_user', {
+      fetch('https://takeouttaxi-backed.herokuapp.com/current_user', {
         credentials: 'include',
 
       }).then(res => res.json())
@@ -52,12 +52,12 @@ class App extends Component {
     } else {
       this.setState({ loading: true })
     }
-    fetch(" https://cors-anywhere.herokuapp.com/https://takeouttaxi.herokuapp.com/locations", {
+    fetch("https://takeouttaxi-backed.herokuapp.com/locations", {
       credentials: 'include'
     })
       .then(res => res.json())
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-    fetch(" https://cors-anywhere.herokuapp.com/https://takeouttaxi.herokuapp.com/updates", {
+    fetch("https://takeouttaxi-backed.herokuapp.com/updates", {
       credentials: 'include'
     })
       .then(res => res.json())
@@ -72,7 +72,7 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r == true) {
-      fetch(' https://cors-anywhere.herokuapp.com/https://takeouttaxi.herokuapp.com/users/logout', {
+      fetch('https://takeouttaxi-backed.herokuapp.com/users/logout', {
         method: 'DELETE',
         credentials: 'include'
       })
@@ -86,7 +86,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch(" https://cors-anywhere.herokuapp.com/https://takeouttaxi.herokuapp.com/users", {
+    fetch("https://takeouttaxi-backed.herokuapp.com/users", {
       credentials: 'include',
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -138,7 +138,7 @@ class App extends Component {
   }
   handleLoginSubmit = (event) => {
     event.preventDefault()
-    fetch(' https://cors-anywhere.herokuapp.com/https://takeouttaxi.herokuapp.com/users/login', {
+    fetch('https://takeouttaxi-backed.herokuapp.com/users/login', {
       method: "POST",
       credentials: 'include',
       headers: {
