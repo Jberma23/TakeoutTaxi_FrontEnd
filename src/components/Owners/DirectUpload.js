@@ -15,7 +15,7 @@ export function imageUpload(
         let serviceUrlLink1
         let serviceUrlLink2
         const upload = new DirectUpload(
-            file, `https://takeouttaxi-backend.herokuapp.com/rails/active_storage/direct_uploads`);
+            file, `https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/rails/active_storage/direct_uploads`);
         upload.create((error, blob1) => {
             if (error) {
                 alert('something went wrong with upload!');
