@@ -41,26 +41,27 @@ class App extends Component {
 
 
   componentDidMount() {
-    if (cookie.load("jwt")) {
-      fetch('https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/current_user', {
-        method: 'GET',
+    // if (cookie.load("jwt")) {
+    //   fetch("http://localhost:3000/current_user", {
+    //     method: 'GET',
 
 
-      }).then(res => res.json())
-        .then(user => {
-          this.updateUser(user)
-        })
-    } else {
-      this.setState({ loading: true })
-    }
-    fetch("https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/locations", {
-      method: 'GET',
+
+    //   }).then(res => res.json())
+    //     .then(user => {
+    //       this.updateUser(user)
+    //     })
+    // } else {
+    //   this.setState({ loading: true })
+    // }
+    fetch("http://localhost:3000/locations", {
+
 
     })
       .then(res => res.json())
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-    fetch("https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/updates", {
-      method: 'GET',
+    fetch("http://localhost:3000/updates", {
+
 
     })
       .then(res => res.json())
@@ -75,8 +76,8 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r == true) {
-      fetch('https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/users/logout', {
-        method: 'DELETE',
+      fetch('http://localhost:3000/users/logout', {
+        method: 'DELETE'
 
       })
 
@@ -89,8 +90,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("https://cors-anywhere.herokuapp.com/https://takeouttaxi-backend.herokuapp.com/users", {
-
+    fetch("http://localhost:3000/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: this.state.newUser })
@@ -141,9 +141,8 @@ class App extends Component {
   }
   handleLoginSubmit = (event) => {
     event.preventDefault()
-    fetch('https://takeouttaxi-backend.herokuapp.com/users/login', {
+    fetch("http://localhost:3000/users/login", {
       method: "POST",
-
       headers: {
         "Content-Type": "application/json",
         Accept: 'application/json'
@@ -164,8 +163,9 @@ class App extends Component {
         }
       })
       .then(data => {
-
         if (data.authenticated) {
+          // cookie.save('jwt', data.value, { maxAge: 3600 })
+          // debugger
           this.setState({ currentUser: data.user, favoriteTrucks: data.user.favorites })
         }
         else {

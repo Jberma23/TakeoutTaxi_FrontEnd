@@ -34,7 +34,7 @@ class PaymentPage extends React.Component {
         this.setState({ errorMessages: [] })
         // alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
         let data = { nonce: nonce, token: buyerVerificationToken }
-        fetch("https://takeouttaxi-backend.herokuapp.com/payments", {
+        fetch("http://localhost:3000/payments", {
             method: 'POST', headers: {
                 "Content-Type": "application/json",
                 Accept: 'application/json'
