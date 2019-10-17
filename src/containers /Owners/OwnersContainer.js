@@ -78,7 +78,7 @@ class OwnersContainer extends Component {
             latitude: `${t.props.currentUser.latitude}`,
             longitude: `${t.props.currentUser.longitude}`
         }
-        fetch(`http://localhost:3000/trucks/${props.truck.id}`, {
+        fetch(`https://takeouttaxi-backend.herokuapp.com/trucks/${props.truck.id}`, {
             credentials: 'include',
             method: "PATCH",
             headers: {
@@ -96,7 +96,7 @@ class OwnersContainer extends Component {
 
 
 
-        fetch(`http://localhost:3000/updates`, {
+        fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
             credentials: 'include',
             method: "POST",
             headers: {
@@ -115,7 +115,7 @@ class OwnersContainer extends Component {
         Geocode.fromAddress(event.target.firstChild.lastChild.firstChild.value).then(
             response => {
                 const { lat, lng } = response.results[0].geometry.location;
-                fetch(`http://localhost:3000/trucks/${truck.id}`, {
+                fetch(`https://takeouttaxi-backend.herokuapp.com/trucks/${truck.id}`, {
                     credentials: 'include',
                     method: "PATCH",
                     headers: {
@@ -135,7 +135,7 @@ class OwnersContainer extends Component {
         )
 
         let content = `${truck.name} just updated it's location`
-        fetch(`http://localhost:3000/updates`, {
+        fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
             credentials: 'include',
             method: "POST",
             headers: {
@@ -170,7 +170,7 @@ class OwnersContainer extends Component {
             }
         );
         let content = `${this.props.currentUser.username} just added a new truck`
-        fetch(`http://localhost:3000/updates`, {
+        fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
             credentials: 'include',
             method: "POST",
             headers: {
@@ -182,7 +182,7 @@ class OwnersContainer extends Component {
 
             })
         })
-        fetch("http://localhost:3000/trucks", {
+        fetch("https://takeouttaxi-backend.herokuapp.com/trucks", {
             credentials: 'include',
             method: "POST",
             headers: {
