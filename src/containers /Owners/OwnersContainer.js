@@ -182,7 +182,7 @@ class OwnersContainer extends Component {
 
             })
         })
-        fetch("http://localhost:3000/trucks", {
+        fetch("https://takeouttaxi-backend.herokuapp.com/trucks", {
 
             method: "POST",
             headers: {
