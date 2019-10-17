@@ -42,7 +42,7 @@ class App extends Component {
 
   componentDidMount() {
     // if (cookie.load("jwt")) {
-    //   fetch("https://takeouttaxi-backend.herokuapp.com/current_user", {
+    //   fetch("http://localhost:8080/takeouttaxi-backend.herokuapp.com/current_user", {
     //     method: 'GET',
 
 
@@ -54,13 +54,13 @@ class App extends Component {
     // } else {
     //   this.setState({ loading: true })
     // }
-    fetch("https://takeouttaxi-backend.herokuapp.com/locations", {
+    fetch("http://localhost:8080/takeouttaxi-backend.herokuapp.com/locations", {
 
 
     })
       .then(res => res.json())
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-    fetch("https://takeouttaxi-backend.herokuapp.com/updates", {
+    fetch("http://localhost:8080/takeouttaxi-backend.herokuapp.com/updates", {
 
 
     })
@@ -76,7 +76,7 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r == true) {
-      fetch('https://takeouttaxi-backend.herokuapp.com/users/logout', {
+      fetch('http://localhost:8080/takeouttaxi-backend.herokuapp.com/users/logout', {
         method: 'DELETE'
 
       })
@@ -90,7 +90,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("https://takeouttaxi-backend.herokuapp.com/users", {
+    fetch("http://localhost:8080/takeouttaxi-backend.herokuapp.com/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user: this.state.newUser })
@@ -141,7 +141,7 @@ class App extends Component {
   }
   handleLoginSubmit = (event) => {
     event.preventDefault()
-    fetch("https://takeouttaxi-backend.herokuapp.com/users/login", {
+    fetch("http://localhost:8080/takeouttaxi-backend.herokuapp.com/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
