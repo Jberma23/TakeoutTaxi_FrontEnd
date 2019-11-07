@@ -53,7 +53,6 @@ export class GoogleMap extends React.PureComponent {
 
 
     favFunction = (arr, truck) => {
-        console.log(arr)
         let found = false
         for (let i = 0; i < arr.length; i++) {
             if (arr[i].favorited_id == truck.id) {
