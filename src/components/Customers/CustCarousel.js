@@ -9,13 +9,13 @@ class CustCarousel extends Component {
             return (
                 <div id="carouselImage" className="carousel slide" data-ride="carousel" style={{ "maxHeight": "500px" }}>
                     <ol className="carousel-indicators">
-                        {this.state.slide == 1 ?
+                        {this.state.slide === 1 ?
                             <>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" ></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="1" className="active"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                             </>
-                            : this.state.slide == 2 ?
+                            : this.state.slide === 2 ?
                                 <>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" ></li>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -31,7 +31,7 @@ class CustCarousel extends Component {
                     </ol>
                     <div className="carousel-inner" style={{ "position": "relative", "maxHeight": "inherit", "width": "100%", "height": "100%" }}>
 
-                        {this.state.slide == 1 ?
+                        {this.state.slide === 1 ?
                             <div className="carousel-item active" style={{ "position": "relative", "maxHeight": "inherit" }}>
                                 <img className="d-block w-100" style={{ "maxHeight": "inherit", "width": "100%" }} src={this.props.truck.image_url.split('"')[3]} alt="Second slide" />
                             </div>
@@ -67,7 +67,7 @@ class CustCarousel extends Component {
             return (
                 <div id="carouselImage" className="carousel slide" data-ride="carousel" style={{ "maxHeight": "500px" }}>
                     <ol className="carousel-indicators">
-                        {this.state.slide == 1 ?
+                        {this.state.slide === 1 ?
                             <>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" ></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="1" className="active"></li>
@@ -83,7 +83,7 @@ class CustCarousel extends Component {
                     </ol>
                     <div className="carousel-inner" style={{ "position": "relative", "maxHeight": "inherit", "width": "100%", "height": "100%" }}>
 
-                        {this.state.slide == 1 ?
+                        {this.state.slide === 1 ?
                             <div className="carousel-item active" style={{ "position": "relative", "maxHeight": "inherit" }}>
                                 <img className="d-block w-100" style={{ "maxHeight": "inherit", "width": "100%" }} src={this.props.truck.image_url.split('"')[3]} alt="Second slide" />
                             </div>
@@ -110,21 +110,21 @@ class CustCarousel extends Component {
             return (
                 <div id="carouselImage" className="carousel slide" data-ride="carousel" style={{ "maxHeight": "500px" }}>
                     <ol className="carousel-indicators">
-                        {this.state.slide == 1 ?
+                        {this.state.slide === 1 ?
                             <>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" ></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="1" className="active"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                             </>
-                            : this.state.slide == 2 ?
+                            : this.state.slide === 2 ?
                                 <>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" ></li>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="2" className="active"></li>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                                 </>
-                                : this.state.slide == 3 ?
+                                : this.state.slide === 3 ?
                                     <>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="0" ></li>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -142,15 +142,15 @@ class CustCarousel extends Component {
                     </ol>
                     <div className="carousel-inner" style={{ "position": "relative", "maxHeight": "inherit", "width": "100%", "height": "100%" }}>
 
-                        {this.state.slide == 1 ?
+                        {this.state.slide === 1 ?
                             <div className="carousel-item active" style={{ "position": "relative", "maxHeight": "inherit" }}>
                                 <img className="d-block w-100" style={{ "maxHeight": "inherit", "width": "100%" }} src={this.props.truck.image_url.split('"')[3]} alt="Second slide" />
                             </div>
-                            : this.state.slide == 2 ?
+                            : this.state.slide === 2 ?
                                 <div className="carousel-item active" style={{ "position": "relative", "maxHeight": "inherit" }}>
                                     <img className="d-block w-100" style={{ "maxHeight": "inherit", "width": "100%" }} src={this.props.truck.image_url.split('"')[5]} alt="Second slide" />
                                 </div>
-                                : this.state.slide == 3 ?
+                                : this.state.slide === 3 ?
                                     <div className="carousel-item active" style={{ "position": "relative", "maxHeight": "inherit" }}>
                                         <img className="d-block w-100" style={{ "maxHeight": "inherit", "width": "100%" }} src={this.props.truck.image_url.split('"')[7]} alt="Second slide" />
                                     </div>
