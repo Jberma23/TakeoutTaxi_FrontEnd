@@ -46,6 +46,16 @@ class DashBoard extends Component {
                 return this.setState({ trucks: data })
             })
             .catch(e => console.error(e))
+        fetch("http://localhost:3000/favorites", {
+            headers: {
+                token: cookie.load('jwt')
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                return this.setState({ favoriteTrucks: data })
+            })
+
     }
 
     handleOrder = (event, truck) => {
@@ -82,7 +92,8 @@ class DashBoard extends Component {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Accept: 'application/json'
+                Accept: 'application/json',
+                token: cookie.load('jwt')
             },
             body: JSON.stringify({
                 favoriter_id: this.state.currentUser.id,
@@ -105,7 +116,8 @@ class DashBoard extends Component {
 
                     headers: {
                         "Content-Type": "application/json",
-                        Accept: 'application/json'
+                        Accept: 'application/json',
+                        token: cookie.load('jwt')
                     },
                     body: JSON.stringify({
                         content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName} just favorited ${truck.name}`
@@ -120,7 +132,8 @@ class DashBoard extends Component {
 
                 headers: {
                     "Content-Type": "application/json",
-                    Accept: 'application/json'
+                    Accept: 'application/json',
+                    token: cookie.load('jwt')
                 },
                 body: JSON.stringify({
                     rater_id: this.state.currentUser.id,
@@ -135,7 +148,8 @@ class DashBoard extends Component {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Accept: 'application/json'
+                            Accept: 'application/json',
+                            token: cookie.load('jwt')
                         },
                         body: JSON.stringify({
                             content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName} just rated ${truck.name}`
@@ -162,7 +176,8 @@ class DashBoard extends Component {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Accept: 'application/json'
+                            Accept: 'application/json',
+                            token: cookie.load('jwt')
                         },
                         body: JSON.stringify({
                             content: `${this.state.currentUser.firstName} ${this.state.currentUser.lastName}  just rated ${truck.name}`
@@ -183,7 +198,9 @@ class DashBoard extends Component {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
-                    Accept: 'application/json'
+                    Accept: 'application/json',
+                    token: cookie.load('jwt')
+
                 },
                 body: JSON.stringify({
                     reviewer_id: currentUser.id,
@@ -207,7 +224,8 @@ class DashBoard extends Component {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Accept: 'application/json'
+                            Accept: 'application/json',
+                            token: cookie.load('jwt')
                         },
                         body: JSON.stringify({
                             content: `${currentUser.firstName} ${currentUser.lastName}  just updated its review for ${truck.name}`
@@ -221,7 +239,8 @@ class DashBoard extends Component {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Accept: 'application/json'
+                    Accept: 'application/json',
+                    token: cookie.load('jwt')
                 },
                 body: JSON.stringify({
                     reviewer_id: currentUser.id,
@@ -246,7 +265,8 @@ class DashBoard extends Component {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            Accept: 'application/json'
+                            Accept: 'application/json',
+                            token: cookie.load('jwt')
                         },
                         body: JSON.stringify({
                             content: `${currentUser.firstName} ${currentUser.lastName}  just reviewed ${truck.name}`

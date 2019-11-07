@@ -41,34 +41,25 @@ class App extends Component {
 
 
   // componentDidMount() {
-  // if (cookie.load("jwt")) {
-  //   fetch("http://localhost:3000/current_user", {
-  //     method: 'GET',
+  //   if (cookie.load("jwt")) {
+  //     fetch("http://localhost:3000/locations", {
+  //       headers: {
+  //         token: cookie.load('jwt')
+  //       }
 
-
-
-  //   }).then(res => res.json())
-  //     .then(user => {
-  //       this.updateUser(user)
   //     })
-  // } else {
-  //   this.setState({ loading: true })
+  //       .then(res => res.json())
+  //       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
+  //     fetch("http://localhost:3000/updates", {
+  //       headers: {
+  //         token: cookie.load('jwt')
+  //       }
+
+  //     })
+  //       .then(res => res.json())
+  //       .then(data => this.setState({ updates: data }))
+  //   }
   // }
-  //   fetch("http://localhost:3000/locations", {
-
-
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-  //   fetch("http://localhost:3000/updates", {
-
-
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => this.setState({ updates: data })
-  //     )
-  // }
-
 
 
 
@@ -168,17 +159,13 @@ class App extends Component {
       })
       .then(data => {
         if (data.authenticated) {
-          cookie.save('jwt', data.token)
+          cookie.save('jwt', data.token, { maxAge: 3600 })
           this.setState({ currentUser: data.user, favoriteTrucks: data.user.favorites })
         }
         else {
           alert("Incorrect Email or Password")
         }
       }).catch((e) => console.error(e))
-    // .then((jsonResponse) => {
-    //   localStorage.setItem('jwt', jsonResponse.jwt)
-    //   dispatch(setCurrentUser(jsonResponse.user))
-    // })
   }
 
 
