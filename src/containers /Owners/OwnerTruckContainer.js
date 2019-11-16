@@ -12,9 +12,9 @@ class OwnerTruckContainer extends Component {
 
     renderOwnerTrucks = () => {
         return this.props.trucks.map((truck) => {
-            if (truck.owner_id == this.props.currentUser.id) {
+            if (truck.owner_id === this.props.currentUser.id) {
                 return <OwnerTruck handleCheckIn={this.props.handleCheckIn} getLocation={this.props.getLocation} key={truck.id} truck={truck} handleCheckInForm={this.props.handleCheckInForm} />
-            } {
+            } else {
                 return null
             }
         }

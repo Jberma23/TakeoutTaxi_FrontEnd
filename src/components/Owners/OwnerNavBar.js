@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 class OwnerNavBar extends Component {
     state = {}
@@ -24,9 +24,9 @@ class OwnerNavBar extends Component {
                             <i className="search link icon"></i>
                         </div>
                     </div>
-                    <a className="ui item" onClick={(event) => this.props.handleUserLogOut(event)}>
+                    <button className="ui item" onClick={(event) => this.props.handleUserLogOut(event)}>
                         Logout
-              </a>
+              </button>
                 </div>
             </div >
 

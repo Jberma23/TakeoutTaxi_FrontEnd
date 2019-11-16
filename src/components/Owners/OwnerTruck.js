@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Form } from "semantic-ui-react"
 import OwnerCarousel from "./OwnerCarousel"
 class OwnerTruck extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             toggle: false
         }

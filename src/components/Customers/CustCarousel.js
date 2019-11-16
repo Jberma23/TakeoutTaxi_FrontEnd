@@ -36,7 +36,7 @@ class CustCarousel extends Component {
                                 <img className="d-block w-100" style={{ "maxHeight": "inherit", "width": "100%" }} src={this.props.truck.image_url.split('"')[3]} alt="Second slide" />
                             </div>
 
-                            : this.state.slide == 2 ?
+                            : this.state.slide === 2 ?
                                 <div className="carousel-item active" style={{ "position": "relative", "maxHeight": "inherit" }}>
                                     <img className="d-block w-100" style={{ "maxHeight": "inherit", "width": "100%" }} src={this.props.truck.image_url.split('"')[5]} alt="Third slide" />
                                 </div>

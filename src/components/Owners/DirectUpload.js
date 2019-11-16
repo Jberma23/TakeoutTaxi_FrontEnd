@@ -1,5 +1,5 @@
 import { DirectUpload } from 'activestorage';
-import { blockStatement } from '@babel/types';
+
 
 export function imageUpload(
     file,
@@ -8,12 +8,6 @@ export function imageUpload(
     previewField = false
 ) {
     return new Promise((resolve, reject) => {
-        // if (props) {
-        //     props.change(previewField, '/spinner.gif');
-        // }
-
-        let serviceUrlLink1
-        let serviceUrlLink2
         const upload = new DirectUpload(
             file, `"http://localhost:3000"rails/active_storage/direct_uploads`);
         upload.create((error, blob1) => {

@@ -28,9 +28,7 @@ class OwnersContainer extends Component {
         }
     }
 
-    componentDidMount() {
 
-    }
 
     handleCreateTruckPriceChange = (event) => {
         this.setState({
@@ -97,7 +95,6 @@ class OwnersContainer extends Component {
 
 
         fetch(`"http://localhost:3000"updates`, {
-
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -133,8 +130,6 @@ class OwnersContainer extends Component {
 
             }
         )
-
-        let content = `${truck.name} just updated it's location`
         fetch(`"http://localhost:3000"updates`, {
 
             method: "POST",
@@ -169,7 +164,6 @@ class OwnersContainer extends Component {
                 console.error(error);
             }
         );
-        let content = `${this.props.currentUser.username} just added a new truck`
         fetch(`"http://localhost:3000"updates`, {
 
             method: "POST",
@@ -182,7 +176,7 @@ class OwnersContainer extends Component {
 
             })
         })
-        fetch("http://localhost:3000/trucks", {
+        fetch("https://takeouttaxi-backend.herokuapp.com/trucks", {
 
             method: "POST",
             headers: {

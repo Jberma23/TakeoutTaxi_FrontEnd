@@ -19,7 +19,7 @@ class FeedItem extends Component {
                         />
                         <Feed.Summary>
                             <Feed>
-                                <a>{this.props.update.content.split("just")[0]}</a> just {this.props.update.content.split("just")[1]}
+                                <button>{this.props.update.content.split("just")[0]}</button> just {this.props.update.content.split("just")[1]}
                             </Feed >
                         </Feed.Summary>
                     </Feed.Content>

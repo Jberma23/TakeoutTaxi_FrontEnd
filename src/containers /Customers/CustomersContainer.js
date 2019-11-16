@@ -21,7 +21,7 @@ class CustomerContainer extends Component {
         element.scrollIntoView({ behavior: 'smooth' })
     }
     sortFavorites = () => {
-        let userFavorites = this.props.filteredTrucks.map(t => t.favorites).filter(f => f.favorited_id == this.props.currentUser.id)
+        let userFavorites = this.props.filteredTrucks.map(t => t.favorites).filter(f => f.favorited_id === this.props.currentUser.id)
         debugger
         this.setState({ favorites: userFavorites })
     }

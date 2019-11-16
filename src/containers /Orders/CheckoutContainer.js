@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './sqpaymentform.css';
 import PaymentForm from './PaymentForm'
-import OwnerHeader from "../../components/Owners/OwnerHeader"
 
 class CheckoutContainer extends Component {
     state = {}

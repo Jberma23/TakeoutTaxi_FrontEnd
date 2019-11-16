@@ -1,8 +1,8 @@
 import React from 'react'
 import Headr from "./PreLoginHeader"
 import { Link } from "react-router-dom"
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import DashBoard from '../containers /Dashboard'
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+
 const LoginForm = (props) => (
   <React.Fragment>
     <Headr />

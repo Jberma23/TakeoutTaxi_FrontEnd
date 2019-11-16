@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMap from "../../components/Map"
-import mapPic from "../../Map.png"
-import { thisTypeAnnotation } from '@babel/types';
+
 class CustomerMapContainer extends Component {
     constructor(props) {
         super(props)

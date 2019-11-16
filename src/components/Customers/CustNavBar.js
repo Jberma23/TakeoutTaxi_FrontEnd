@@ -23,9 +23,9 @@ class CustNavBar extends Component {
                             <i className="search link icon"></i>
                         </div>
                     </div>
-                    <a className="ui item" onClick={(event) => this.props.handleUserLogOut(event)}>
+                    <button className="ui item" href="" onClick={(event) => this.props.handleUserLogOut(event)}>
                         Logout
-                    </a>
+                    </button>
                 </div>
             </div>
 

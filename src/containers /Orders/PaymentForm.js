@@ -11,8 +11,7 @@ import SquarePaymentForm, {
 } from 'react-square-payment-form'
 import 'react-square-payment-form/lib/default.css'
 
-const APPLICATION_ID = 'REPLACE-ME'
-const LOCATION_ID = 'REPLACE-ME'
+
 
 class PaymentPage extends React.Component {
 
@@ -32,9 +31,7 @@ class PaymentPage extends React.Component {
         }
 
         this.setState({ errorMessages: [] })
-        // alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
-        let data = { nonce: nonce, token: buyerVerificationToken }
-        fetch("http://localhost:3000/payments", {
+        fetch("https://takeouttaxi-backend.herokuapp.com/payments", {
             method: 'POST', headers: {
                 "Content-Type": "application/json",
                 Accept: 'application/json'

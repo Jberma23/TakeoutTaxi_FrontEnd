@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Headr from "./PreLoginHeader"
 import {Link} from "react-router-dom"
-import {Redirect} from "react-router-dom"
-import { Button, Form, Grid, Header, Image, Message, Segment, Label, Radio } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Message, Segment, Radio } from 'semantic-ui-react'
 class AccountCreate extends Component {
   constructor(props){
     super(props);

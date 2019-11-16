@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import { thisTypeAnnotation } from '@babel/types';
+
 
 
 
@@ -39,11 +39,7 @@ export class GoogleMap extends React.PureComponent {
 
 
     onMarkerClick = (props, marker, e) => {
-
-        //     console.log()
-
         this.props.handleSelectedTruck(props, e)
-        //     debugger
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -55,7 +51,7 @@ export class GoogleMap extends React.PureComponent {
     favFunction = (arr, truck) => {
         let found = false
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i].favorited_id == truck.id) {
+            if (arr[i].favorited_id === truck.id) {
                 found = true
                 break
             }
@@ -86,7 +82,7 @@ export class GoogleMap extends React.PureComponent {
                 >
 
 
-                    {this.props.currentUser.role == "customer" ?
+                    {this.props.currentUser.role === "customer" ?
                         this.props.trucks.map(truck => {
                             return < Marker className="marker" id={`${truck.id} marker`} key={truck.id} position={{ lat: parseFloat(truck.latitude), lng: parseFloat(truck.longitude) }
 
