@@ -138,6 +138,7 @@ class App extends Component {
     fetch("https://takeouttaxi-backend.herokuapp.com/users/login", {
       method: "POST",
       crossDomain: 'true',
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
         Accept: 'application/json'
