@@ -137,7 +137,7 @@ class App extends Component {
     event.preventDefault()
     fetch("https://takeouttaxi-backend.herokuapp.com/users/login", {
       method: "POST",
-      'cross-domain': 'true',
+      crossDomain: 'true',
       headers: {
         "Content-Type": "application/json",
         Accept: 'application/json'
