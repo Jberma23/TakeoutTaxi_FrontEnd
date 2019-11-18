@@ -40,26 +40,60 @@ class App extends Component {
 
 
 
-  // componentDidMount() {
-  //   if (cookie.load("jwt")) {
-  //     fetch("https://takeouttaxi-backend.herokuapp.com/locations", {
-  //       headers: {
-  //         token: cookie.load('jwt')
-  //       }
+  componentDidMount() {
+    if (cookie.load("jwt")) {
+      fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        crossDomain: 'true',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            token: cookie.load('jwt')
+          }
+        })
+      }).then(response => {
+        if (response.ok) {
+          return response.json()
 
-  //     })
-  //       .then(res => res.json())
-  //       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-  //     fetch("https://takeouttaxi-backend.herokuapp.com/updates", {
-  //       headers: {
-  //         token: cookie.load('jwt')
-  //       }
+        } else {
+          alert("Incorrect Email or Password")
+        }
+      })
+        .then(data => {
+          if (data.authenticated) {
+            cookie.save('jwt', data.token, { maxAge: 3600 })
+            this.setState({ currentUser: data.user, favoriteTrucks: data.user.favorites })
+          }
+        }).catch((e) => console.error(e))
+    }
 
-  //     })
-  //       .then(res => res.json())
-  //       .then(data => this.setState({ updates: data }))
-  //   }
+
+
+    fetch("http://localhost:3000/locations", {
+      headers: {
+        token: cookie.load('jwt')
+      }
+
+    })
+      .then(res => res.json())
+      .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
+
+  }
+  //   fetch("http://localhost:3000/updates", {
+  //     headers: {
+  //       token: cookie.load('jwt')
+  //     }
+
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => this.setState({ updates: data }))
   // }
+
+
 
 
 
@@ -67,7 +101,7 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r === true) {
-      fetch('https://takeouttaxi-backend.herokuapp.com/users/logout', {
+      fetch('http://localhost:3000/users/logout', {
 
         method: 'DELETE'
 
@@ -83,7 +117,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("https://takeouttaxi-backend.herokuapp.com/users", {
+    fetch("http://localhost:3000/users", {
       method: "POST",
 
       headers: { "Content-Type": "application/json" },
@@ -135,7 +169,7 @@ class App extends Component {
   }
   handleLoginSubmit = (event) => {
     event.preventDefault()
-    fetch("https://takeouttaxi-backend.herokuapp.com/users/login", {
+    fetch("http://localhost:3000/users/login", {
       method: "POST",
       crossDomain: 'true',
       credentials: 'include',

@@ -31,7 +31,7 @@ class PaymentPage extends React.Component {
         }
 
         this.setState({ errorMessages: [] })
-        fetch("https://takeouttaxi-backend.herokuapp.com/payments", {
+        fetch("http://localhost:3000/payments", {
             method: 'POST', headers: {
                 "Content-Type": "application/json",
                 Accept: 'application/json'

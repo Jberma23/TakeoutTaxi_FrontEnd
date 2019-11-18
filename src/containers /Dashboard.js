@@ -35,9 +35,13 @@ class DashBoard extends Component {
 
 
     componentDidMount() {
-        fetch("https://takeouttaxi-backend.herokuapp.com/trucks", {
+        fetch("http://localhost:3000/trucks", {
             headers: {
-                token: cookie.load('jwt')
+                token: cookie.load('jwt'),
+                location: {
+                    latitude: this.state.currentUser.latitude,
+                    longitude: this.state.currentUser.longitude
+                }
             }
 
         })
@@ -46,7 +50,7 @@ class DashBoard extends Component {
                 return this.setState({ trucks: data })
             })
             .catch(e => console.error(e))
-        fetch("https://takeouttaxi-backend.herokuapp.com/favorites", {
+        fetch("http://localhost:3000/favorites", {
             headers: {
                 token: cookie.load('jwt')
             }
@@ -67,7 +71,7 @@ class DashBoard extends Component {
     }
     handleFavoriteDelete = (event, truck) => {
         let t = this
-        fetch(`https://takeouttaxi-backend.herokuapp.com/favorites/${truck.favorites[0].id}`, {
+        fetch(`http://localhost:3000/favorites/${truck.favorites[0].id}`, {
 
             method: "DELETE",
 
@@ -87,7 +91,7 @@ class DashBoard extends Component {
     }
 
     handleFavorite = (event, truck) => {
-        fetch('https://takeouttaxi-backend.herokuapp.com/favorites', {
+        fetch('http://localhost:3000/favorites', {
 
             method: "POST",
             headers: {
@@ -110,7 +114,7 @@ class DashBoard extends Component {
                     favoriteTrucks: [...this.state.favoriteTrucks, res.favorited_id]
                 })
             }).then(
-                fetch(`https://takeouttaxi-backend.herokuapp.com/updates
+                fetch(`http://localhost:3000/updates
                 `, {
                     method: "POST",
 
@@ -127,7 +131,7 @@ class DashBoard extends Component {
     }
     handleRate = (e, { rating, maxRating }, truck) => {
         this.state.currentUser.ratings.includes(truck.id) ?
-            fetch(`https://takeouttaxi-backend.herokuapp.com/rating/${truck.rating.id}`, {
+            fetch(`http://localhost:3000/rating/${truck.rating.id}`, {
                 method: "PATCH",
 
                 headers: {
@@ -143,7 +147,7 @@ class DashBoard extends Component {
             })
 
                 .then(
-                    fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
+                    fetch(`http://localhost:3000/updates`, {
 
                         method: "POST",
                         headers: {
@@ -157,7 +161,7 @@ class DashBoard extends Component {
                     }))
 
             :
-            fetch('https://takeouttaxi-backend.herokuapp.com/ratings', {
+            fetch('http://localhost:3000/ratings', {
 
                 method: "POST",
                 headers: {
@@ -171,7 +175,7 @@ class DashBoard extends Component {
                 })
             })
                 .then(
-                    fetch(`"https://takeouttaxi-backend.herokuapp.com/updates`, {
+                    fetch(`"http://localhost:3000/updates`, {
 
                         method: "POST",
                         headers: {
@@ -193,7 +197,7 @@ class DashBoard extends Component {
         let content = event.target.firstChild.value
         let truckId = truck.id
         return truck.reviews.map((e) => e.reviewer_id).includes(currentUser) ?
-            fetch(`https://takeouttaxi-backend.herokuapp.com/reviews/${truck.reviews[0].id}`, {
+            fetch(`http://localhost:3000/reviews/${truck.reviews[0].id}`, {
 
                 method: "PATCH",
                 headers: {
@@ -219,7 +223,7 @@ class DashBoard extends Component {
                         }
                     })
                 }).then(
-                    fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
+                    fetch(`http://localhost:3000/updates`, {
 
                         method: "POST",
                         headers: {
@@ -234,7 +238,7 @@ class DashBoard extends Component {
                         document.getElementById("commentForm").reset()
                     )
             :
-            fetch('https://takeouttaxi-backend.herokuapp.com/reviews', {
+            fetch('http://localhost:3000/reviews', {
 
                 method: "POST",
                 headers: {
@@ -260,7 +264,7 @@ class DashBoard extends Component {
                     })
                 })
                 .then(
-                    fetch(`https://takeouttaxi-backend.herokuapp.com/updates`, {
+                    fetch(`http://localhost:3000/updates`, {
 
                         method: "POST",
                         headers: {
