@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Truck from "../../components/Customers/CustTruck"
+import Truck from "../components/CustTruck"
 
 class CustomerTruckContainer extends Component {
     constructor(props) {

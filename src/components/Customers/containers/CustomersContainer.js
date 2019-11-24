@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CustomerTruckContainer from "./CustomersTruckContainer"
-import CustomerHeader from "../../components/Customers/CustHeader"
+import CustomerHeader from "../components/CustHeader"
 import CustomerMapContainer from "./CustomerMapContainer"
 
 

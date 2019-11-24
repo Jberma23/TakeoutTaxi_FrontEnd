@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import CustomerContainer from "./Customers/CustomersContainer"
-import OwnersContainer from "./Owners/OwnersContainer"
+import CustomerContainer from "./Customers/containers/CustomersContainer"
+import OwnersContainer from "./Owners/containers/OwnersContainer"
 import cookie from 'react-cookies'
 
 class DashBoard extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SimpleMap from "../../components/Map"
+import SimpleMap from "../../Map/components/Map"
 
 class OwnerMapContainer extends Component {
     state = {}

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import OwnerTruckContainer from "./OwnerTruckContainer"
-import OwnerHeader from "../../components/Owners/OwnerHeader"
+import OwnerHeader from "../components/OwnerHeader"
 import OwnerMapContainer from "./OwnerMapContainer"
-import OwnerTruckForm from "../../components/Owners/OwnerTruckForm"
+import OwnerTruckForm from "../components/OwnerTruckForm"
 import Geocode from "react-geocode";
 
 

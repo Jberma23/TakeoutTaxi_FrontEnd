@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Login from "./components/Login"
+import Login from "./components/Others/Login"
 import './App.css';
-import FeedContainer from "./containers /FeedContainer"
-import CheckoutContainer from "./containers /Orders/CheckoutContainer"
-import DashBoard from './containers /Dashboard';
+import FeedContainer from "./components/Others/FeedContainer"
+import CheckoutContainer from "./components/Orders/components/CheckoutContainer"
+import DashBoard from './components/Dashboard';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
-import CreateAccount from "./components/CreateAccount"
+import CreateAccount from "./components/Others/CreateAccount"
 import cookie from 'react-cookies'
 class App extends Component {
   state = {

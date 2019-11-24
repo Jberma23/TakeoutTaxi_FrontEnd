@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FeedItem from "../components/FeedItem"
+import FeedItem from "./FeedItem"
 import { Card } from 'semantic-ui-react'
 
 class FeedContainer extends Component {
