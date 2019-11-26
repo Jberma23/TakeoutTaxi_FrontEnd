@@ -42,7 +42,7 @@ class CustTruck extends Component {
 
         return (
             <>
-                <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%", marginTop: "0%" }} id={`truck-${this.props.truck.id}`} >
+                <div className="ui card" style={{ width: "100%" }} id={`truck-${this.props.truck.id}`} >
                     <div className="scrolling content">
                         <div className="left floated meta" id="price">{this.props.truck.price}</div>
 
@@ -148,9 +148,7 @@ class CustTruck extends Component {
 
                     </div>
                 </div>
-
             </>
-
 
         )
     }

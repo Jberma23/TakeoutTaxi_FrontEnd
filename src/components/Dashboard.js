@@ -114,8 +114,7 @@ class DashBoard extends Component {
                     favoriteTrucks: [...this.state.favoriteTrucks, res.favorited_id]
                 })
             }).then(
-                fetch(`http://localhost:3000/updates
-                `, {
+                fetch(`http://localhost:3000/updates`, {
                     method: "POST",
 
                     headers: {
@@ -166,7 +165,8 @@ class DashBoard extends Component {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Accept: 'application/json'
+                    Accept: 'application/json',
+                    token: cookie.load('jwt')
                 },
                 body: JSON.stringify({
                     rater_id: this.state.currentUser.id,
@@ -175,7 +175,7 @@ class DashBoard extends Component {
                 })
             })
                 .then(
-                    fetch(`"http://localhost:3000/updates`, {
+                    fetch(`http://localhost:3000/updates`, {
 
                         method: "POST",
                         headers: {
