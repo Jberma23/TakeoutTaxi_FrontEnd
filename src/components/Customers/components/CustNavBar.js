@@ -4,7 +4,7 @@ class CustNavBar extends Component {
     state = {}
     render() {
         return (
-            <div className="">
+            <div className="sixteen wide column">
                 <div className="ui secondary  menu">
                     <Link to={'/'} className="item">
                         Customer's Dashboard

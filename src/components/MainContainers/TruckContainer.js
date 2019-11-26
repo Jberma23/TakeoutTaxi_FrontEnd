@@ -24,7 +24,7 @@ class TruckContainer extends Component {
 
     render() {
         return (
-            <div className="ui one column grid " style={{ overflow: "scroll", paddingLeft: "0%" }} >
+            <div className="" style={{ overflow: "scroll", paddingLeft: "0%" }} >
                 {this.state.currentUser ?
                     this.renderOwnerTrucks()
                     :
