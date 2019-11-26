@@ -24,7 +24,7 @@ class CustomerTruckContainer extends Component {
 
     render() {
         return (
-            <div className="" style={{ overflow: "scroll" }} >
+            <div id="child" >
 
 
                 {this.renderAllTrucks()}

@@ -20,9 +20,12 @@
   pointer-events: none;
 }
 body{
-  
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   background-image: url("http://don16obqbay2c.cloudfront.net/wp-content/uploads/Foodtruck-1494466891.png");
-  height: 500px;
+  /* height: 500px; */
 
   /* Create the parallax scrolling effect */
   background-attachment: fixed;
@@ -51,9 +54,9 @@ color: red;
 #marker:hover{ 
   color: orange;
 }
-/* ui.grid>.column:not(.row) {
-  padding-top: 0.3rem;
-  padding-bottom: 1rem;
+/* .ui.grid>.column:not(.row), .ui.grid>.row>.column{
+  padding-top: 0;
+  padding-bottom: 0;
 } */
 @keyframes App-logo-spin {
   from {
@@ -136,7 +139,23 @@ input[type="radio"].toggle-right + label {
   width: 100%;
   overflow: hidden;
 }
+.scroller {
+  overflow: "scroll"; 
+  max-height: "100%";
+}
+#parent{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
+#child{
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box; /* So the width will be 100% + 17px */
+}
 .carousel-item {
   position: relative;
   display: none;

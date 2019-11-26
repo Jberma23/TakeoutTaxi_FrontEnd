@@ -8,8 +8,8 @@ class CustHeader extends Component {
     state = {}
     render() {
         return (
-            <div className="" style={{ marginTop: "3%" }}>
-                <div className="jumbotron" style={{ paddingBottom: "1%" }}>
+            <div className="">
+                <div className="jumbotron" style={{ paddingBottom: "3%" }}>
                     <Header as='h2' color='teal' textAlign='center'>Takeout TruckStop</Header>
                     <Header as='h5' color='black' textAlign='center'>The Future of Takeout.</Header>
                     <hr className="my-4" />
