@@ -12,7 +12,9 @@ class CustomerMapContainer extends Component {
 
     render() {
         return (
-            <GoogleMap handleSelectedTruck={this.props.handleSelectedTruck} trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} currentUser={this.props.currentUser} apiKey={this.props.apiKey} favoriteTrucks={this.props.favoriteTrucks} favorites={this.props.favorites.filter(e => e.length >= 1)} userFav={this.props.currentUser.favorites} />
+            <div >
+                <GoogleMap handleSelectedTruck={this.props.handleSelectedTruck} trucks={this.props.trucks} handlePinClick={this.props.handlePinClick} currentUser={this.props.currentUser} apiKey={this.props.apiKey} favoriteTrucks={this.props.favoriteTrucks} favorites={this.props.favorites.filter(e => e.length >= 1)} userFav={this.props.currentUser.favorites} />
+            </div>
         );
     }
 

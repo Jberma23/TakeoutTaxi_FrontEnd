@@ -29,14 +29,22 @@ class CustomerContainer extends Component {
 
     render() {
         return (
-            <div>
-                <CustomerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
-                <div id="border" className="ui two column grid">
-                    <CustomerTruckContainer selectedTruck={this.state.selectedTruck} handleFavorite={this.props.handleFavorite} handleCommentSubmit
-                        ={this.props.handleCommentSubmit} handleFavoriteDelete={this.props.handleFavoriteDelete} favoriteTrucks={this.props.favoriteTrucks} handleCommentChange={this.props.handleCommentChange} currentUser={this.props.currentUser} trucks={this.props.filteredTrucks} handleRate={this.props.handleRate} />
-                    <CustomerMapContainer handleSelectedTruck={this.handleSelectedTruck} currentUser={this.props.currentUser} trucks={this.props.filteredTrucks} apiKey={this.props.apiKey} favoriteTrucks={this.props.favoriteTrucks} favorites={this.props.trucks.map(t => t.favorites)} userFav={this.props.currentUser.favorites} />
+            <div className="ui grid" style={{ maxWidth: "100%" }}>
+                <div className="row">
+                    <div className="sixteen wide column">
+                        <CustomerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
+                    </div>
                 </div>
-            </div>
+                <div className="row">
+                    <div className="five wide column">
+                        <CustomerTruckContainer selectedTruck={this.state.selectedTruck} handleFavorite={this.props.handleFavorite} handleCommentSubmit
+                            ={this.props.handleCommentSubmit} handleFavoriteDelete={this.props.handleFavoriteDelete} favoriteTrucks={this.props.favoriteTrucks} handleCommentChange={this.props.handleCommentChange} currentUser={this.props.currentUser} trucks={this.props.filteredTrucks} handleRate={this.props.handleRate} />
+                    </div>
+                    <div className="eleven wide column">
+                        <CustomerMapContainer handleSelectedTruck={this.handleSelectedTruck} currentUser={this.props.currentUser} trucks={this.props.filteredTrucks} apiKey={this.props.apiKey} favoriteTrucks={this.props.favoriteTrucks} favorites={this.props.trucks.map(t => t.favorites)} userFav={this.props.currentUser.favorites} />
+                    </div>
+                </div>
+            </div >
 
         );
     }

@@ -296,7 +296,7 @@ class DashBoard extends Component {
     render() {
         return (
             this.state.currentUser.role === "customer" ?
-                <div>
+                <div className="">
                     {this.getLocation()}
                     <CustomerContainer handleSearch={this.handleSearch} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
                         handleFavoriteDelete={this.handleFavoriteDelete}
@@ -308,7 +308,7 @@ class DashBoard extends Component {
                         filteredTrucks={this.state.trucks.filter((truck) => truck.name.toUpperCase().includes(this.state.searchTerm.toUpperCase()) || truck.address.toUpperCase().includes(this.state.searchTerm.toUpperCase()))} handlePinClick={this.handlePinClick} trucks={this.state.trucks} favoriteTrucks={this.props.favoriteTrucks} />
                 </div>
                 :
-                <div>
+                <div className="ui grid">
                     {this.getLocation()}
                     <OwnersContainer state={this.state} handleSearch={this.handleSearch}
                         apiKey={this.props.apiKey} handleUserLogOut={this.props.handleUserLogOut} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
