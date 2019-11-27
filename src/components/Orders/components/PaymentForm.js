@@ -31,7 +31,7 @@ class PaymentPage extends React.Component {
         }
 
         this.setState({ errorMessages: [] })
-        fetch("http://www.takeouttruckstop.com/payments", {
+        fetch("https://www.takeouttruckstop.com/payments", {
             method: 'POST', headers: {
                 "Content-Type": "application/json",
                 Accept: 'application/json'

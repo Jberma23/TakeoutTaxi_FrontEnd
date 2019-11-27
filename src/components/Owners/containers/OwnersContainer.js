@@ -176,7 +176,7 @@ class OwnersContainer extends Component {
 
             })
         })
-        fetch("http://www.takeouttruckstop.com/trucks", {
+        fetch("https://www.takeouttruckstop.com/trucks", {
 
             method: "POST",
             headers: {
