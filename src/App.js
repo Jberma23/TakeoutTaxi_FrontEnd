@@ -42,7 +42,7 @@ class App extends Component {
 
   componentDidMount() {
     if (cookie.load("jwt")) {
-      fetch("https://www.takeouttruckstop.com/users/login", {
+      fetch("https://takeouttaxi-backend.herokuapp.com/users/login", {
         method: "POST",
         crossDomain: 'true',
         credentials: 'include',
@@ -73,7 +73,7 @@ class App extends Component {
 
 
 
-    fetch("https://www.takeouttruckstop.com/locations", {
+    fetch("https://takeouttaxi-backend.herokuapp.com/locations", {
       headers: {
         token: cookie.load('jwt')
       }
@@ -83,7 +83,7 @@ class App extends Component {
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
 
   }
-  //   fetch("https://www.takeouttruckstop.com/updates", {
+  //   fetch("https://takeouttaxi-backend.herokuapp.com/updates", {
   //     headers: {
   //       token: cookie.load('jwt')
   //     }
@@ -101,7 +101,7 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r === true) {
-      fetch('https://www.takeouttruckstop.com/users/logout', {
+      fetch('https://takeouttaxi-backend.herokuapp.com/users/logout', {
 
         method: 'DELETE'
 
@@ -117,7 +117,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("https://www.takeouttruckstop.com/users", {
+    fetch("https://takeouttaxi-backend.herokuapp.com/users", {
       method: "POST",
 
       headers: { "Content-Type": "application/json" },
@@ -169,7 +169,7 @@ class App extends Component {
   }
   handleLoginSubmit = (event) => {
     event.preventDefault()
-    fetch("https://www.takeouttruckstop.com/users/login", {
+    fetch("https://takeouttaxi-backend.herokuapp.com/users/login", {
       method: "POST",
       crossDomain: 'true',
       credentials: 'include',

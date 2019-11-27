@@ -176,7 +176,7 @@ class OwnersContainer extends Component {
 
             })
         })
-        fetch("https://www.takeouttruckstop.com/trucks", {
+        fetch("https://takeouttaxi-backend.herokuapp.com/trucks", {
 
             method: "POST",
             headers: {
