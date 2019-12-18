@@ -37,12 +37,24 @@ class App extends Component {
     })
   }
 
-
+  doFetch = (url, method, body, newState) => {
+    fetch(`http://localhost:3000/${url}`, {
+      method: `${method}`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: 'application/json',
+        token: cookie.load('jwt')
+      },
+      body: JSON.stringify({ body })
+    }
+    ).then(resp => resp.json())
+      .then(res => this.setState({ newState }))
+  }
 
 
   componentDidMount() {
     if (cookie.load("jwt")) {
-      fetch("https://takeouttaxi-backend.herokuapp.com/users/login", {
+      fetch("http://localhost:3000/users/login", {
         method: "POST",
         crossDomain: 'true',
         credentials: 'include',
@@ -73,7 +85,7 @@ class App extends Component {
 
 
 
-    fetch("https://takeouttaxi-backend.herokuapp.com/locations", {
+    fetch("http://localhost:3000/locations", {
       headers: {
         token: cookie.load('jwt')
       }
@@ -83,7 +95,7 @@ class App extends Component {
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
 
   }
-  //   fetch("https://takeouttaxi-backend.herokuapp.com/updates", {
+  //   fetch("http://localhost:3000/updates", {
   //     headers: {
   //       token: cookie.load('jwt')
   //     }
@@ -101,7 +113,7 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r === true) {
-      fetch('https://takeouttaxi-backend.herokuapp.com/users/logout', {
+      fetch('http://localhost:3000/users/logout', {
 
         method: 'DELETE'
 
@@ -117,7 +129,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("https://takeouttaxi-backend.herokuapp.com/users", {
+    fetch("http://localhost:3000/users", {
       method: "POST",
 
       headers: { "Content-Type": "application/json" },
@@ -169,7 +181,7 @@ class App extends Component {
   }
   handleLoginSubmit = (event) => {
     event.preventDefault()
-    fetch("https://takeouttaxi-backend.herokuapp.com/users/login", {
+    fetch("http://localhost:3000/users/login", {
       method: "POST",
       crossDomain: 'true',
       credentials: 'include',

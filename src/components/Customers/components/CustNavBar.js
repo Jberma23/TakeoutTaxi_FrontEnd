@@ -4,10 +4,10 @@ class CustNavBar extends Component {
     state = {}
     render() {
         return (
-            <div className="sixteen wide column">
-                <div className="ui secondary  menu">
+            <div className="sixteen wide column" style={{ maxWidth: "100vw" }}>
+                <div className="ui secondary menu">
                     <Link to={'/'} className="item">
-                        Customer's Dashboard
+                        Dashboard
                     </Link>
 
                     <Link to={'/orders'} className="item">

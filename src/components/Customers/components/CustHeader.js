@@ -15,7 +15,7 @@ class CustHeader extends Component {
                     <Header as='h5' color='black' textAlign='center' >The Future of Takeout.</Header>
                 </div>
                 <div className="row">
-                    <div className="jumbotron" className="sixteen wide column" >
+                    <div >
                         <hr className="my-4" />
                         <Navbar onChange={this.props.onChange} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                     </div>
