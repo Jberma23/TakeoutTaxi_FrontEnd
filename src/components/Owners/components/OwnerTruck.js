@@ -12,9 +12,9 @@ class OwnerTruck extends Component {
 
         return (
             <>
-                <div className="ui card" style={{ marginLeft: "4%", marginRight: "0%", width: "100%" }}  >
+                <div className="ui card" style={{ width: "100%" }} id={`truck-${this.props.truck.id}`}   >
                     <div className="scrolling content">
-                        <div className="left floated meta">{this.props.truck.price}</div>
+                        <div className="left floated meta" id="price">{this.props.truck.price}</div>
                         <div className="right floated meta">Favorite<i className="heart outline icon"></i></div>
                         {this.props.truck.name}
                     </div>

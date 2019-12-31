@@ -29,23 +29,22 @@ class CustomerContainer extends Component {
 
     render() {
         return (
-            <div className="ui grid" style={{ maxWidth: "100%", margin: "0.1%" }}>
-                <div className="row">
-                    <div className="sixteen wide column" style={{ height: "10vh", marginBottom: "3%" }}>
-                        <CustomerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
-                    </div>
+            <>
+                <div className="sixteen wide column" >
+                    <CustomerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                 </div>
-                <div className="row" >
-                    <div className="five wide column" id="parent" style={{ maxHeight: "81.5vh", height: "100%", margin: "0;", padding: "0" }}>
+
+                <div className="row" style={{ maxHeight: "83vh", maxWidth: "100%" }}>
+                    <div className="five wide column" style={{ paddingLeft: "1%", paddingRight: "0%", maxHeight: "100%", paddingBottom: "0px" }}>
                         <CustomerTruckContainer selectedTruck={this.state.selectedTruck} handleFavorite={this.props.handleFavorite} handleCommentSubmit
                             ={this.props.handleCommentSubmit} handleFavoriteDelete={this.props.handleFavoriteDelete} favoriteTrucks={this.props.favoriteTrucks} handleCommentChange={this.props.handleCommentChange} currentUser={this.props.currentUser} trucks={this.props.filteredTrucks} handleRate={this.props.handleRate} />
                     </div>
-                    <div className="eleven wide column" style={{ maxHeight: "81.5vh", margin: "0;", padding: "0" }}>
+                    <div className="eleven wide column" style={{ paddingRight: "1%", paddingLeft: "0%", maxHeight: "100%" }} >
                         <CustomerMapContainer handleSelectedTruck={this.handleSelectedTruck} currentUser={this.props.currentUser} trucks={this.props.filteredTrucks} apiKey={this.props.apiKey} favoriteTrucks={this.props.favoriteTrucks} favorites={this.props.trucks.map(t => t.favorites)} userFav={this.props.currentUser.favorites} />
                     </div>
                 </div>
-            </div >
 
+            </>
         );
     }
 }

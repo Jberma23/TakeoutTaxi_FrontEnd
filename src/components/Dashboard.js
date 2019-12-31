@@ -83,9 +83,9 @@ class DashBoard extends Component {
                     currentUser: {
                         ...t.state.currentUser,
 
-                        favorites: { ...t.state.currentUser.favorites.filter(fav => fav.id != data.id) }
+                        favorites: { ...t.state.currentUser.favorites.filter(fav => fav.id !== data.id) }
                     },
-                    favoriteTrucks: [...t.state.favoriteTrucks.filter(fav => fav.id != data.id)]
+                    favoriteTrucks: [...t.state.favoriteTrucks.filter(fav => fav.id !== data.id)]
                 })
             })
     }
@@ -297,7 +297,7 @@ class DashBoard extends Component {
     render() {
         return (
             this.state.currentUser.role === "customer" ?
-                <div className="">
+                <div className="ui grid">
                     {this.getLocation()}
                     <CustomerContainer handleSearch={this.handleSearch} currentUser={this.state.currentUser} searchTerm={this.state.searchTerm}
                         handleFavoriteDelete={this.handleFavoriteDelete}

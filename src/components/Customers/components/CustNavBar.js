@@ -18,7 +18,7 @@ class CustNavBar extends Component {
                         Feed
                  </Link>
                     <div className="right menu">
-                        <div className="item">
+                        <div className="item" style={{ maxWidth: "100%" }}>
                             <div className="ui icon input">
                                 <input type="text" placeholder="Search..." value={this.props.searchTerm} onChange={(event) => this.props.onChange(event)} />
                                 <i className="search link icon"></i>

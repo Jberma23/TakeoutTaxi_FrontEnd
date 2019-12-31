@@ -93,11 +93,11 @@ class PaymentPage extends React.Component {
         }
     }
     handleIncrement = (event) => {
-        this.setState({ price: this.state.price += 1, amount: this.state.amount += 100 })
+        this.setState({ price: this.state.price + 1, amount: this.state.amount + 100 })
     }
     handleDecrement = (event) => {
         if (this.state.price > 0) {
-            this.setState({ price: this.state.price -= 1, amount: this.state.amount -= 100 })
+            this.setState({ price: this.state.price - 1, amount: this.state.amount - 100 })
         }
         else {
             return null

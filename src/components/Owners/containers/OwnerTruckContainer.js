@@ -25,14 +25,14 @@ class OwnerTruckContainer extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                <div className="ui one column grid " style={{ paddingTop: "0.0rem", height: "82vh", width: "30%", overflow: "scroll" }} >
 
-                    {this.renderOwnerTrucks()}
+            <div id="child" >
 
-                </div>
+                {this.renderOwnerTrucks()}
 
-            </React.Fragment>
+            </div>
+
+
 
         );
     }

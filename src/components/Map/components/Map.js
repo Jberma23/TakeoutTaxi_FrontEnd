@@ -73,7 +73,7 @@ export class GoogleMap extends React.PureComponent {
             // Important! Always set the container height explicitly
             <div>
                 <Map
-                    style={{ width: '100%', paddingRight: "0%" }}
+                    style={{ width: '100%', paddingLeft: "0%", marginRight: "10px" }}
                     google={this.props.google}
                     zoom={11}
                     onClick={this.onMapClicked}

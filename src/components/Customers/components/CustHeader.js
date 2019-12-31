@@ -9,18 +9,22 @@ class CustHeader extends Component {
     render() {
         return (
 
-            <div className="jumbotron" className="sixteen wide column" >
+
+            <>
                 <div className="row">
-                    <Header as='h2' color='teal' textAlign='center' >Takeout TruckStop</Header>
-                    <Header as='h5' color='black' textAlign='center' >The Future of Takeout.</Header>
+                    <div className="jumbotron">
+                        <Header as='h2' className="column" color='teal' textAlign='center' >Takeout TruckStop</Header>
+                        <Header as='h5' className="column" color='black' textAlign='center' >The Future of Takeout.</Header>
+                    </div>
                 </div>
+                {/* </div> */}
                 <div className="row">
-                    <div >
+                    <div className="column">
                         <hr className="my-4" />
                         <Navbar onChange={this.props.onChange} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                     </div>
                 </div>
-            </div>
+            </>
 
         );
     }

@@ -26,84 +26,88 @@ class App extends Component {
     squareApplicationID: "",
     squareAccessKey: "",
     squareLocationId: "",
-    apiKey: ""
+    apiKey: "",
+    url: "http://localhost:3000/"
   }
 
   updateUser = (user) => {
-    this.setState({
-      currentUser: user,
-      loading: false,
-      favoriteTrucks: user.favorites
-    })
+    this.setState(
+      {
+        currentUser: user,
+        loading: false,
+        favoriteTrucks: user.favorites
+      })
   }
 
-  doFetch = (url, method, body, newState) => {
-    fetch(`http://localhost:3000/${url}`, {
-      method: `${method}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: 'application/json',
-        token: cookie.load('jwt')
-      },
-      body: JSON.stringify({ body })
+
+
+
+
+
+  doFetch = (url, method, body, response) => {
+    let options = {}
+    if (body !== "") {
+      options = {
+        method: `${method}`,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: 'application/json', token: cookie.load('jwt')
+        },
+        body: JSON.stringify({ body })
+      }
     }
-    ).then(resp => resp.json())
-      .then(res => this.setState({ newState }))
+    else if (method == "GET") {
+      options = {
+        headers: { token: cookie.load('jwt') }
+      }
+    }
+    else {
+      options = {
+        method: `${method}`,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: 'application/json',
+          token: cookie.load('jwt')
+        }
+      }
+    }
+    if (response) {
+      return fetch(`${this.state.url + url}`, { options }).then(res => res.json())
+    } else {
+      return fetch(`${this.state.url + url}`, { options })
+    }
   }
+
+  handleResponse = (response, newState) => {
+    this.setState({ newState })
+  }
+
 
 
   componentDidMount() {
     if (cookie.load("jwt")) {
-      fetch("http://localhost:3000/users/login", {
-        method: "POST",
-        crossDomain: 'true',
-        credentials: 'include',
-        headers: {
-          "Content-Type": "application/json",
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          user: {
-            token: cookie.load('jwt')
+      this.doFetch("users/login", "POST", { user: { token: cookie.load('jwt') } }, false)
+        .then(response => {
+          if (response.ok) {
+            return response.json()
+          } else {
+            alert("Incorrect Email or Password")
           }
         })
-      }).then(response => {
-        if (response.ok) {
-          return response.json()
-
-        } else {
-          alert("Incorrect Email or Password")
-        }
-      })
         .then(data => {
           if (data.authenticated) {
             cookie.save('jwt', data.token, { maxAge: 3600 })
             this.setState({ currentUser: data.user, favoriteTrucks: data.user.favorites })
           }
-        }).catch((e) => console.error(e))
+        })
+        .catch((e) => console.error(e))
     }
 
-
-
-    fetch("http://localhost:3000/locations", {
-      headers: {
-        token: cookie.load('jwt')
-      }
-
-    })
-      .then(res => res.json())
-      .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
-
+    this.doFetch("locations", "GET", "", true)
+      .then(response => {
+        this.handleResponse(response, { apiKey: response[0], squareAccessKey: response[1], squareApplicationID: response[2], squareLocationId: response[3] })
+      })
   }
-  //   fetch("http://localhost:3000/updates", {
-  //     headers: {
-  //       token: cookie.load('jwt')
-  //     }
-
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => this.setState({ updates: data }))
-  // }
 
 
 
@@ -113,35 +117,21 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r === true) {
-      fetch('http://localhost:3000/users/logout', {
-
-        method: 'DELETE'
-
-      })
+      this.doFetch("users/logout", "DELETE", "", false)
       cookie.remove('jwt')
-
       this.setState({ currentUser: null })
-
     }
   }
 
 
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
-
-    fetch("http://localhost:3000/users", {
-      method: "POST",
-
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: this.state.newUser })
-    })
-      .then(res => res.json())
-      .then(res => { this.setState({ currentUser: res, existingUser: { ...this.state.existingUser, email: res.email, password: res.password } }) }, this.handleLoginSubmit())
-
-      .catch(e => console.error(e))
-
+    this.doFetch("users", "POST", { user: this.state.newUser }, true)
+      .then(response => {
+        this.handleResponse(response, { currentUser: response, existingUser: { ...this.state.existingUser, email: response.email, password: response.password } },
+          this.handleLoginSubmit())
+      })
   }
-
 
   handleCreateAccountChange = (event) => {
     this.setState({
@@ -150,25 +140,21 @@ class App extends Component {
         [event.target.id]: event.target.value
       }
     })
-
   }
   handleCreateAccountOwnerChange = (event) => {
-
     event.currentTarget.classList.length < 4 ?
-      this.setState(
-        {
-          newUser: {
-            ...this.state.newUser,
-            role: 1
-          }
-        }) :
-      this.setState(
-        {
-          newUser: {
-            ...this.state.newUser,
-            role: 0
-          }
-        })
+      this.setState({
+        newUser: {
+          ...this.state.newUser,
+          role: 1
+        }
+      }) :
+      this.setState({
+        newUser: {
+          ...this.state.newUser,
+          role: 0
+        }
+      })
   }
 
   handleLoginChange = (event) => {
@@ -219,7 +205,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" >
         <Router>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/login" />} />

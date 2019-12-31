@@ -193,16 +193,35 @@ class OwnersContainer extends Component {
     }
     render() {
         return (
-            <div>
-                <OwnerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
-                <div id="border" className="ui two column grid">
-                    <OwnerTruckContainer currentUser={this.props.currentUser} trucks={this.props.trucks} getLocation={this.props.getLocation} handleCheckIn={this.handleCheckIn} handleCheckInForm={this.handleCheckInForm} />
-                    <OwnerMapContainer
-                        apiKey={this.props.apiKey}
-                        currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.trucks} />
+            <>
+                <div className="sixteen wide column">
+                    <OwnerHeader onChange={this.props.handleSearch} currentUser={this.props.currentUser} searchTerm={this.props.searchTerm} handleUserLogOut={this.props.handleUserLogOut} />
                 </div>
-                <OwnerTruckForm handleCreateTruckPriceChange={this.handleCreateTruckPriceChange} handleCreateTruckChange={this.handleCreateTruckChange} handleCreateTruckSubmit={this.handleCreateTruckSubmit} handleCreateTruckFeaturedImageChange={this.handleCreateTruckFeaturedImageChange} handleCreateTruckMenuChange={this.handleCreateTruckMenuChange} currentUser={this.props.currentUser} />
-            </div >
+
+
+                <div className="row" style={{ maxHeight: "83vh", maxWidth: "100%" }}>
+
+                    <div className="five wide column" style={{ paddingLeft: "1%", paddingRight: "0%", maxHeight: "100%", paddingBottom: "0px" }}>
+                        <OwnerTruckContainer currentUser={this.props.currentUser} trucks={this.props.trucks} getLocation={this.props.getLocation} handleCheckIn={this.handleCheckIn} handleCheckInForm={this.handleCheckInForm} />
+                    </div>
+
+                    <div className="eleven wide column" style={{ paddingRight: "1%", paddingLeft: "0%", maxHeight: "100%" }} >
+                        <OwnerMapContainer
+                            apiKey={this.props.apiKey}
+                            currentUser={this.props.currentUser} handlePinClick={this.handlePinClick} trucks={this.props.trucks} />
+                    </div>
+                    {this.state.CreateNewTruck ?
+                        <>
+                            <div className="row">
+                                <OwnerTruckForm handleCreateTruckPriceChange={this.handleCreateTruckPriceChange} handleCreateTruckChange={this.handleCreateTruckChange} handleCreateTruckSubmit={this.handleCreateTruckSubmit} handleCreateTruckFeaturedImageChange={this.handleCreateTruckFeaturedImageChange} handleCreateTruckMenuChange={this.handleCreateTruckMenuChange} currentUser={this.props.currentUser} />
+                            </div>
+                        </>
+                        :
+                        null
+                    }
+                </div>
+
+            </>
         );
     }
 }
