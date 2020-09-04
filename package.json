@@ -10,7 +10,7 @@
     "google-maps-react": "^2.0.2",
     "heroku": "^7.33.1",
     "jquery": "^3.4.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "package.json": "^2.0.1",
     "react": "^16.9.0",
     "react-activestorage-provider": "^0.8.0",
