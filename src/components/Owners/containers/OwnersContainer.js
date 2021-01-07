@@ -4,6 +4,7 @@ import OwnerHeader from "../components/OwnerHeader"
 import OwnerMapContainer from "./OwnerMapContainer"
 import OwnerTruckForm from "../components/OwnerTruckForm"
 import Geocode from "react-geocode";
+import { config } from "../../../Constants"
 
 
 class OwnersContainer extends Component {
@@ -76,7 +77,7 @@ class OwnersContainer extends Component {
             latitude: `${t.props.currentUser.latitude}`,
             longitude: `${t.props.currentUser.longitude}`
         }
-        fetch(`"http://localhost:3000"trucks/${props.truck.id}`, {
+        fetch(`${config.url.BASE_URL}/trucks/${props.truck.id}`, {
 
             method: "PATCH",
             headers: {
@@ -94,7 +95,7 @@ class OwnersContainer extends Component {
 
 
 
-        fetch(`"http://localhost:3000"updates`, {
+        fetch(`${config.url.BASE_URL}/updates`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -112,7 +113,7 @@ class OwnersContainer extends Component {
         Geocode.fromAddress(event.target.firstChild.lastChild.firstChild.value).then(
             response => {
                 const { lat, lng } = response.results[0].geometry.location;
-                fetch(`"http://localhost:3000"trucks/${truck.id}`, {
+                fetch(`${config.url.BASE_URL}/trucks/${truck.id}`, {
 
                     method: "PATCH",
                     headers: {
@@ -130,7 +131,7 @@ class OwnersContainer extends Component {
 
             }
         )
-        fetch(`"http://localhost:3000"updates`, {
+        fetch(`${config.url.BASE_URL}/updates`, {
 
             method: "POST",
             headers: {
@@ -164,7 +165,7 @@ class OwnersContainer extends Component {
                 console.error(error);
             }
         );
-        fetch(`"http://localhost:3000"updates`, {
+        fetch(`${config.url.BASE_URL}/updates`, {
 
             method: "POST",
             headers: {
@@ -176,7 +177,7 @@ class OwnersContainer extends Component {
 
             })
         })
-        fetch("http://localhost:3000/trucks", {
+        fetch(`${config.url.BASE_URL}/trucks`, {
 
             method: "POST",
             headers: {

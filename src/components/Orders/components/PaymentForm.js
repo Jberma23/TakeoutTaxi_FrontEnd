@@ -10,6 +10,7 @@ import SquarePaymentForm, {
     MasterpassButton,
 } from 'react-square-payment-form'
 import 'react-square-payment-form/lib/default.css'
+import { config } from '../../../Constants'
 
 
 
@@ -31,7 +32,7 @@ class PaymentPage extends React.Component {
         }
 
         this.setState({ errorMessages: [] })
-        fetch("http://localhost:3000/payments", {
+        fetch(`${config.url.BASE_URL}/payments`, {
             method: 'POST', headers: {
                 "Content-Type": "application/json",
                 Accept: 'application/json'

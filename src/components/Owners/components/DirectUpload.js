@@ -1,5 +1,5 @@
 import { DirectUpload } from 'activestorage';
-
+import { config } from '../../../Constants'
 
 export function imageUpload(
     file,
@@ -9,7 +9,7 @@ export function imageUpload(
 ) {
     return new Promise((resolve, reject) => {
         const upload = new DirectUpload(
-            file, `"http://localhost:3000"rails/active_storage/direct_uploads`);
+            file, `${config.url.BASE_URL}/rails/active_storage/direct_uploads`);
         upload.create((error, blob1) => {
             if (error) {
                 alert('something went wrong with upload!');

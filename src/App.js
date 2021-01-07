@@ -7,6 +7,7 @@ import DashBoard from './components/Dashboard';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import CreateAccount from "./components/Others/CreateAccount"
 import cookie from 'react-cookies'
+import { config } from './Constants'
 class App extends Component {
   state = {
     newUser: {
@@ -38,7 +39,7 @@ class App extends Component {
   }
 
   doFetch = (url, method, body, newState) => {
-    fetch(`http://localhost:3000/${url}`, {
+    fetch(`${config.url.BASE_URL}/${url}`, {
       method: `${method}`,
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +55,7 @@ class App extends Component {
 
   componentDidMount() {
     if (cookie.load("jwt")) {
-      fetch("http://localhost:3000/users/login", {
+      fetch(`${config.url.BASE_URL}/users/login`, {
         method: "POST",
         crossDomain: 'true',
         credentials: 'include',
@@ -85,7 +86,7 @@ class App extends Component {
 
 
 
-    fetch("http://localhost:3000/locations", {
+    fetch(`${config.url.BASE_URL}/locations`, {
       headers: {
         token: cookie.load('jwt')
       }
@@ -95,7 +96,7 @@ class App extends Component {
       .then(data => this.setState({ apiKey: data[0], squareAccessKey: data[1], squareApplicationID: data[2], squareLocationId: data[3] }))
 
   }
-  //   fetch("http://localhost:3000/updates", {
+  //   fetch(`${config.url.BASE_URL}/updates`, {
   //     headers: {
   //       token: cookie.load('jwt')
   //     }
@@ -113,7 +114,7 @@ class App extends Component {
     event.preventDefault()
     const r = window.confirm("Do you really want to Sign Out?")
     if (r === true) {
-      fetch('http://localhost:3000/users/logout', {
+      fetch(`${config.url.BASE_URL}/users/logout`, {
 
         method: 'DELETE'
 
@@ -129,7 +130,7 @@ class App extends Component {
   handleCreateAccountSubmit = (event) => {
     event.preventDefault()
 
-    fetch("http://localhost:3000/users", {
+    fetch(`${config.url.BASE_URL}/users`, {
       method: "POST",
 
       headers: { "Content-Type": "application/json" },
@@ -181,7 +182,7 @@ class App extends Component {
   }
   handleLoginSubmit = (event) => {
     event.preventDefault()
-    fetch("http://localhost:3000/users/login", {
+    fetch(`${config.url.BASE_URL}/users/login`, {
       method: "POST",
       crossDomain: 'true',
       credentials: 'include',
