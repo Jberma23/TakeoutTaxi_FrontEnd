@@ -20,7 +20,7 @@
     "react-geocode": "^0.2.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^5.0.1",
     "react-square-payment-form": "^0.4.1",
     "semantic-ui-react": "^0.88.2",
     "square-connect": "^2.20200122.0"
